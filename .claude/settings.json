@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Get-ChildItem -Force 'd:/Aplikasi/BELAJAR_UPKP'\")",
+      "Bash(npm --version)",
+      "Bash(git --version)",
+      "Bash(supabase --version)",
+      "Bash(npx --yes supabase --version)",
+      "Bash(npx --yes create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --yes)",
+      "Bash(npx --yes create-next-app@latest belajar-upkp-tmp --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --yes)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(command -v pandoc)",
+      "Bash(command -v python3)",
+      "Bash(command -v python)",
+      "Bash(command -v powershell)",
+      "Bash(command -v unzip)",
+      "Bash(unzip -v)",
+      "Bash(node -e ' *)",
+      "Bash(SCRATCH=\"/c/Users/817932383/AppData/Local/Temp/claude/d--Aplikasi-BELAJAR-UPKP/a72d037d-1d76-4ee4-8c60-b553016ac593/scratchpad\" *)",
+      "Read(//c/Users/817932383/AppData/Local/Temp/claude/d--Aplikasi-BELAJAR-UPKP/a72d037d-1d76-4ee4-8c60-b553016ac593/scratchpad/docx_extract/1. Etika PNS/word/**)",
+      "Bash(SCRATCH=\"/c/Users/817932383/AppData/Local/Temp/claude/d--Aplikasi-BELAJAR-UPKP/a72d037d-1d76-4ee4-8c60-b553016ac593/scratchpad/docx_extract/1. Etika PNS\" *)",
+      "Read(//c/Users/817932383/AppData/Local/Temp/claude/d--Aplikasi-BELAJAR-UPKP/a72d037d-1d76-4ee4-8c60-b553016ac593/scratchpad/docx_extract/1. Etika PNS/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(mkdir -p /c/Users/817932383/AppData/Local/Temp/claude/d--Aplikasi-BELAJAR-UPKP/a72d037d-1d76-4ee4-8c60-b553016ac593/scratchpad/pdfparse)",
+      "Read(//c/Users/817932383/AppData/Local/Temp/claude/d--Aplikasi-BELAJAR-UPKP/a72d037d-1d76-4ee4-8c60-b553016ac593/scratchpad/**)",
+      "Bash(npm init *)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\817932383\\AppData\\Local\\Temp\\claude\\d--Aplikasi-BELAJAR-UPKP\\a72d037d-1d76-4ee4-8c60-b553016ac593\\scratchpad",
+      "C:\\Users\\817932383\\AppData\\Local\\Temp\\claude\\d--Aplikasi-BELAJAR-UPKP\\a72d037d-1d76-4ee4-8c60-b553016ac593\\scratchpad\\pdfparse"
+    ]
+  }
+}

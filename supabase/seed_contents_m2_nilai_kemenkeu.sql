@@ -1,0 +1,536 @@
+-- Materi lengkap Modul Nilai-Nilai Kementerian Keuangan (M2), diparse dari materi/2. Nilai-Nilai Kemenkeu.pdf
+-- Menggantikan placeholder yang dibuat di seed.sql
+
+delete from contents where chapter_id in (
+  'b0000000-0000-4000-8000-020100000000',
+  'b0000000-0000-4000-8000-020200000000',
+  'b0000000-0000-4000-8000-020300000000',
+  'b0000000-0000-4000-8000-020400000000',
+  'b0000000-0000-4000-8000-020500000000'
+);
+
+-- =========================================================================
+-- BAB I: PENDAHULUAN
+-- =========================================================================
+
+insert into contents (chapter_id, heading, body, order_index) values
+('b0000000-0000-4000-8000-020100000000', null, 'Nilai adalah suatu keyakinan mengenai apa yang dianggap baik dan apa yang dianggap buruk. Nilai memengaruhi seseorang dalam bertindak dan menjadi pedoman dalam kehidupan bermasyarakat. Pada konteks organisasi, nilai-nilai organisasi merupakan keyakinan dan kepercayaan yang dimiliki oleh individu, kelompok, dan seluruh pemangku kepentingan dalam organisasi tersebut, serta digunakan dalam berpikir, bertindak, dan berperilaku untuk mencapai tujuan organisasi. Nilai-nilai organisasi perlu ada dalam komunikasi antar individu, kelompok, dan para pemangku kepentingan organisasi. Nilai-nilai organisasi juga harus dijadikan pedoman bersama dalam setiap pengambilan keputusan di organisasi.
+
+Kementerian Keuangan sebagai sebuah organisasi modern, maju, dan terus berkembang, telah dan sedang mengadopsi dan mengadaptasi praktik-praktik manajemen yang sehat (best practices) dalam menjalankan roda organisasinya. Kementerian Keuangan telah menetapkan nilai-nilai organisasi dalam setiap pengambilan keputusan dan terus diimplementasikan oleh seluruh unit kerjanya sebagai sebuah budaya organisasi. Alat-alat manajemen ini dibentuk dan dikembangkan melalui budaya organisasi dengan tujuan akhir untuk mencapai kinerja sesuai visi dan misi Kementerian Keuangan.
+
+Modul ini merupakan bahan ajar yang berisi penjelasan mengenai Nilai-nilai Dasar (Core Values) ASN serta Nilai-Nilai Kementerian Keuangan yang akan digunakan sebagai bahan belajar mandiri dalam rangka Ujian Penyesuaian Kenaikan Pangkat Tingkat V di Kementerian Keuangan Republik Indonesia.', 1),
+('b0000000-0000-4000-8000-020100000000', null, 'Modul ini memaparkan pengertian dasar nilai dan nilai-nilai organisasi. Selain itu, modul ini menggambarkan pengembangan nilai-nilai dalam sebuah organisasi, mulai dari proses pembentukan, fungsi, hingga cara menerapkan (menginternalisasi) nilai dalam seluruh kegiatan organisasi melalui budaya organisasi. Modul ini juga memuat hal-hal yang terkait dengan nilai-nilai ASN dan nilai-nilai Kementerian Keuangan, karena modul ini diperuntukkan bagi pegawai Kementerian Keuangan. Hal tersebut dimaksudkan agar modul ini dapat digunakan sebagai pedoman bagi seluruh pegawai Kementerian Keuangan dalam bertindak dan berperilaku, dengan menerapkan Nilai-Nilai Kementerian Keuangan.', 2);
+
+-- =========================================================================
+-- BAB II: NILAI DAN BUDAYA ORGANISASI
+-- =========================================================================
+
+insert into contents (chapter_id, heading, body, order_index) values
+('b0000000-0000-4000-8000-020200000000', 'Pengertian Nilai', 'Penulis artikel (Zakky, 2020) mencatat beberapa pengertian tentang "Nilai" dari berbagai ahli, di antaranya adalah:
+
+1. Menurut Gordon Allport, nilai adalah suatu keyakinan yang dapat membuat seseorang melakukan tindakan berdasarkan pilihannya;
+2. Menurut Antony Giddens (1995), nilai adalah suatu gagasan yang dimiliki seseorang maupun kelompok mengenai apa yang layak, apa yang dikehendaki, serta apa yang baik dan buruk;
+3. Menurut Kluckhohn, nilai adalah suatu konsepsi dari apa yang diinginkan dan mempengaruhi seseorang dalam menentukan tindakan terhadap cara dan juga tujuan yang ingin dicapai;
+4. Menurut Danandjaja, Nilai adalah suatu pengertian yang dimiliki seseorang akan sesuatu yang lebih penting maupun kurang penting, apa yang lebih baik dan kurang baik, dan juga apa yang benar dan apa yang salah;
+5. Menurut Richard T. Schaefer dan Robert P. Lamm (1998), sesuatu yang dianggap baik atau tidak baik, sesuatu yang dianggap layak atau tidak layak dan sesuatu yang diinginkan atau tidak diinginkan, sekaligus mengenai apa akan menjadi karya budaya berdasar gagasan-gagasan tersebut. Nilai mengacu kepada suatu hal yang dianggap berharga dan penting pada kehidupan manusia, baik itu sebagai individu ataupun sebagai anggota masyarakat;
+6. Menurut Koentjaraningrat, nilai adalah suatu bentuk budaya yang memiliki fungsi sebagai sebuah pedoman bagi setiap manusia dalam masyarakat. Bentuk budaya yang dikehendaki ini bisa juga dibenci tergantung daripada anggapan baik dan buruk dalam gagasan yang berkembang di masyarakat.
+
+Pembicaraan mengenai nilai merupakan hal yang menarik, karena berkaitan dengan keyakinan dan cara kita sebagai manusia untuk mencapai tujuan hidup. Dalam organisasi, nilai akan menjadi keyakinan bagi setiap anggota organisasi dan para pemangku kepentingan organisasi tersebut. Nilai organisasi akan menjadi pedoman (guidance) seluruh elemen organisasi dalam berperilaku, bekerja, dan melaksanakan aktivitas sehingga tujuan organisasi tercapai dan dapat dinikmati manfaatnya oleh seluruh pihak.
+
+Berdasarkan pendapat-pendapat para ahli manajemen tentang nilai di atas, apabila dirangkum, pengertian **Nilai** adalah keyakinan seseorang tentang apa yang dianggap layak atau tidak layak, apa yang dianggap baik atau buruk, apa yang dianggap penting atau tidak penting, yang memengaruhi seseorang dalam tindakan yang dilakukan, dan tujuan yang ingin dicapai, dalam hal kebudayaan (hasil karya), baik individu maupun sebagai anggota masyarakat, yang menjadi pedoman bagi manusia dalam masyarakat.
+
+Pengertian nilai seperti diuraikan di atas masih merupakan nilai pribadi masing-masing individu sebagai manusia. Dalam konteks organisasi, para stakeholders dalam organisasi yang berkumpul dalam kelompok kecil atau besar akan merasa perlu untuk menyepakati nilai-nilai yang menjadi pedoman bersama agar kelompoknya, yang akhirnya membentuk sebuah organisasi, tetap eksis, tetap kokoh dan terus berkembang terarah sesuai dengan nilai-nilai organisasi yang disepakati. Dengan demikian, sebuah organisasi bisa memproklamasikan nilai-nilai organisasinya menjadi sebuah pedoman (guidance) bersama untuk semua anggota organisasi atau seluruh pemangku kepentingan.
+
+Dari segi karakteristiknya, nilai mempunyai sifat-sifat sebagai berikut:
+
+1. Nilai merupakan suatu realitas abstrak dan ada dalam kehidupan manusia;
+2. Nilai memiliki sifat normatif, artinya nilai mengandung harapan, cita-cita, dan suatu keharusan sehingga nilai memiliki sifat ideal (das sollen);
+3. Nilai berfungsi sebagai daya dorong/motivator dan manusia adalah pendukung nilai;
+4. Nilai akan selalu berkembang sedemikian rupa, seperti halnya kehidupan manusia.', 1),
+('b0000000-0000-4000-8000-020200000000', 'Pengertian Nilai Organisasi', 'Setelah kita memahami pengertian dasar nilai, kita akan membahas nilai dalam konteks organisasi atau nilai-nilai organisasi (organizational values). Organizational values adalah sebuah keyakinan dan kepercayaan yang dimiliki oleh pemangku kepentingan dalam sebuah organisasi dan digunakan untuk berpikir, bertindak, dan bertingkah laku. Organizational values dapat mengarahkan pilihan mengenai apa yang baik atau apa yang buruk, apa yang penting atau apa yang tidak penting, serta apa yang membentuk karakter sebuah organisasi.
+
+Nilai-nilai organisasi harus muncul di dalam diri para pemangku kepentingan suatu organisasi, mulai dari pimpinan, manajer, supervisor, hingga para pegawai. Nilai akan membentuk tingkah laku, yang akan menyangga organisasi layaknya fondasi rumah. Jika fondasi lemah, maka runtuhlah rumah itu.
+
+Organizational values memiliki komponen kognitif, afektif, dan tingkah laku yang berinteraksi secara kontinyu, serta muncul pada setiap aksi dan tingkah laku seluruh anggota organisasi. Organizational values-lah yang mengomunikasikan apa yang dipercayai atau diyakini dalam organisasi. Organizational values menjadi sebuah pedoman, petunjuk dan/atau peraturan dalam mengambil tindakan serta membuat keputusan dalam organisasi. Nilai-nilai yang diyakini dan telah menjadi petunjuk ini akan meningkatkan kepercayaan diri bagi kelompok dan organisasi, yang pada akhirnya akan meningkatkan kohesi dan rasa kesatuan kelompok dan organisasi.
+
+Roope Heinila (2024) dalam artikel *Company Values: Definitions, Importance and Examples* memaparkan pengertian nilai-nilai organisasi. Apabila diterjemahkan secara bebas, Roope Heinila memaparkan bahwa nilai-nilai perusahaan Anda adalah DNA perusahaan (organisasi) Anda, dimana nilai-nilai tersebut membantu membedakan perusahaan Anda dari perusahaan lain dalam kompetisi. Itulah sebabnya, Anda tidak bisa membuat setiap keputusan penting tanpa mempunyai basis nilai-nilai yang Anda yakini dalam pikiran Anda.
+
+Anda perlu berpegang teguh pada nilai-nilai perusahaan (organisasi) dalam setiap tindakan Anda dan memberi contoh yang baik kepada para pegawai Anda. Inilah satu-satunya cara Anda yang bisa membangun kepercayaan dalam dunia kerja. Roope Heinila juga mengungkapkan bahwa pada intinya, nilai-nilai organisasi Anda adalah kepercayaan (beliefs), filosofi (philosophies), dan prinsip-prinsip (principles) yang menjadi pendorong (driver) organisasi Anda.
+
+Kemudian dalam artikel "Organizational values guide everything you at work", penulis artikel memaparkan bahwa nilai-nilai organisasi menggambarkan etika inti atau prinsip-prinsip dimana sebuah organisasi tinggal bersama, dalam situasi apa pun. Nilai-nilai ini menginspirasi pencapaian terbaik dari pegawai-pegawainya dan juga batasan-batasan mereka dalam bertindak, serta apa yang boleh dan apa yang tidak boleh. Nilai-nilai kuat yang diartikulasi secara jelas harus menjadi cerminan organisasi untuk menghasilkan perilaku yang tepat di tempat kerja. Nilai-nilai ini memainkan peran yang sangat penting dalam membangun budaya kerja yang positif dalam organisasi Anda.', 2),
+('b0000000-0000-4000-8000-020200000000', 'Proses Pembentukan Nilai Organisasi', 'Dalam artikel "How to make Values Intrinsic to Your Organization Success", Susan M. Heathfield (2021) memaparkan bahwa tahapan-tahapan dalam proses mengidentifikasi nilai-nilai organisasi meliputi langkah-langkah sebagai berikut:
+
+1. Gali, pelajari, dan diskusikan nilai-nilai yang berkembang dalam kehidupan sehari-hari di organisasi;
+2. Cari kesepakatan-kesepakatan atau konsensus dimana para leader atau manager mempunyai komitmen untuk menjadi sebuah rumusan yang dibuat;
+3. Tentukan peran para eksekutif tersebut dalam memimpin proses perumusan ini, karena mereka yang nanti menjadi pihak yang paling bertanggung jawab dalam penerapan nilai-nilai yang akan disepakati kemudian;
+4. Rumuskan secara tertulis apa yang telah disepakati oleh para eksekutif yang memperoleh dukungan penuh dari para staf;
+5. Dalam sebuah organisasi berskala sedang atau besar, keterlibatan pegawai lintas sektoral pada semua jenjang diperlukan untuk bekerja sama dengan para eksekutif dalam menginisiasi dan memimpin proses perumusan nilai-nilai;
+6. Pada beberapa kasus, pengembangan nilai-nilai organisasi dilakukan bersamaan dengan pelatihan para middle atau top manager dengan melakukan brainstorming secara intensif.
+
+Sebelum melakukan proses pengembangan nilai-nilai organisasi, para leader/manager/eksekutif sebuah organisasi diharapkan melakukan langkah-langkah berikut:
+
+1. Membagikan materi tertulis yang berisi hasil diskusi awal para eksekutif dan jajarannya dari setiap sektor yang terlibat dalam kegiatan organisasi dan menunjukkan semangat bahwa para stakeholder sudah melakukan kegiatan pendahuluan, meski tidak harus formal, tetapi menunjukkan komitmen bahwa mereka ingin terus mengembangkan nilai-nilai organisasi;
+2. Mempromosikan rasionalitas tentang perlunya nilai-nilai organisasi (termasuk proses perumusannya) dan dampaknya pada pembentukan nilai ini bagi kemajuan organisasi;
+3. Menunjukkan kepada semua yang terlibat tentang pentingnya partisipasi semua unit yang terlibat dalam pengembangan nilai-nilai organisasi;
+4. Meyakinkan bahwa semua pihak yang terlibat dalam pengembangan nilai-nilai selalu hadir dan terlibat dalam semua proses diskusi dan perumusannya;
+5. Menyiapkan semua jawaban atas pertanyaan dan umpan balik yang muncul selama proses pengembangan sampai perumusan nilai-nilai organisasi.', 3),
+('b0000000-0000-4000-8000-020200000000', 'Fungsi Nilai-Nilai Organisasi', 'Fungsi utama nilai-nilai organisasi, sesuai dengan artikel "How to make Values Intrinsic to Your Organization Success" yang telah disebutkan sebelumnya, adalah membimbing apa pun kegiatan yang dilakukan oleh pegawai, manajer, dan pimpinan di tempat kerja. Nilai-nilai organisasi juga mempunyai fungsi-fungsi berikut:
+
+1. Nilai-nilai organisasi merupakan suatu tuntunan atau pedoman yang mendasari bagaimana seseorang atau sebuah organisasi berpikir, mengambil keputusan, bersikap, dan bertindak;
+2. Nilai-nilai organisasi menjadi pedoman bagi organisasi dan setiap pemangku kepentingan untuk berperilaku dan bertindak;
+3. Nilai-nilai organisasi menjadi batasan-batasan boleh atau tidak, serta benar atau salah, bagi seluruh Sumber Daya Manusia (SDM) yang terlibat dalam melakukan kegiatan dan tindakan organisasi;
+4. Nilai-nilai organisasi menjadi bangunan rumah yang ditinggali bersama oleh seluruh pegawai, manajer, pimpinan, dan para pemangku kepentingan (di luar organisasi) yang terlibat atau menjadi akibat dari perilaku organisasi;
+5. Nilai-nilai organisasi menjadi fondasi pembangunan budaya organisasi;
+6. Nilai-nilai organisasi harus bisa menjadi keyakinan abadi (enduring belief) yang dipilih oleh seseorang atau sekelompok orang sebagai dasar untuk melakukan suatu kegiatan tertentu (mode of conduct) atau sebagai tujuan akhir tindakannya (end state of existence); serta
+7. Nilai-nilai organisasi berfungsi sebagai kriteria atau standar untuk melakukan penilaian, menentukan pilihan, bersikap, berargumentasi, maupun menilai kinerja (performance) orang-orang yang terlibat dan organisasi.', 4),
+('b0000000-0000-4000-8000-020200000000', 'Implementasi Nilai-Nilai dalam Organisasi (Internalisasi)', 'Setelah kita memahami pengertian nilai-nilai organisasi dan fungsi-fungsinya, kita perlu menyadari bahwa nilai-nilai yang sudah digali dari lingkungan organisasi dan telah dirumuskan oleh para pemangku kepentingan serta telah menjadi pedoman berperilaku dalam bertindak bagi seluruh anggota organisasi tadi, tentunya tidak akan bermakna sama sekali jika tidak diimplementasikan atau diterapkan dalam kehidupan sehari-hari oleh pemangku kepentingan di organisasi. Sebagai contoh, kerapian administrasi sebagai budaya organisasi, merupakan sesuatu yang harus dihidupkan dalam organisasi. Proses administrasi mulai dari surat-menyurat, keuangan, proses memperoleh pegawai, hingga proses keluar masuknya barang, akan membantu pencapaian kinerja organisasi.
+
+Dalam ilmu manajemen, disebutkan bahwa suatu organisasi mensyaratkan adanya pembagian wewenang yang jelas antar pemangku kepentingan yang akan menjadi kunci keberhasilan kinerja organisasi. Dengan adanya pembagian wewenang kinerja, para anggota atau pelaku organisasi atau pegawai akan mempunyai kejelasan dalam bertindak dan berperilaku, serta memperoleh kejelasan mana yang boleh dan tidak boleh dilakukan. Disiplin dalam ketepatan waktu dan menaati aturan yang telah ditetapkan merupakan budaya organisasi yang semestinya telah melekat dimana pun berada, karena disiplin merupakan karakter prasyarat untuk menjadi sukses. Salah satu hal yang perlu menjadi kebiasaan baik bagi organisasi adalah adanya inovasi dalam mengelola budaya organisasi. Hal tersebut semestinya akan mendorong anggota tim untuk melahirkan ide-ide kreatif dan inovasi baru demi kemajuan organisasi. Pada intinya, semua prinsip-prinsip manajemen perlu dilakukan, mulai dari perencanaan, pengorganisasian, pelaksanaan kegiatan, hingga pengendalian.
+
+Aplikasi atau internalisasi nilai-nilai dalam organisasi merupakan sebuah keharusan jika nilai-nilai yang telah menjadi pedoman berperilaku dan berkegiatan bagi seluruh anggota organisasi tidak hanya dianggap sebagai pajangan. Sudah selayaknya internalisasi nilai-nilai dilakukan secara masif, terstruktur, dan kontinu selama organisasi masih hidup dan berkembang. Pada akhirnya, penerapan nilai-nilai organisasi yang telah menjadi komitmen bersama akan membentuk sebuah budaya organisasi.
+
+Dalam riset-riset yang dilakukan oleh para peneliti, budaya organisasi akan berpengaruh positif, selain pada peningkatan kinerja organisasi, juga pada kepuasan kerja pegawai. Inilah pentingnya kita mempelajari nilai-nilai organisasi sebagai pedoman berperilaku bagi seluruh sumber daya manusia, yang kemudian menjadi budaya organisasi jika diimplementasikan secara masif dan terus menerus. Pada akhirnya, nilai-nilai organisasi akan mempunyai pengaruh yang sangat signifikan pada kinerja organisasi dan kepuasan kerja pegawai.', 5),
+('b0000000-0000-4000-8000-020200000000', 'Budaya Organisasi (Organizational Culture) dan Perannya bagi Organisasi', 'Budaya organisasi (organizational culture) merupakan identitas sebuah organisasi. Mengapa? Budaya dapat membentuk atmosfer yang ada di organisasi dan bahkan menjadi petunjuk bagaimana pegawai harus berperilaku ketika bekerja. Secara sederhana, budaya organisasi bisa dilihat sebagai gabungan nilai, kode etik, visi dan misi, hingga tujuan (goals) yang ingin dicapai sebuah organisasi.
+
+Moeljono Djokosantoso mendefinisikan budaya organisasi sebagai nilai-nilai dominan yang disebarluaskan di dalam organisasi dan dipakai sebagai acuan atau sebagai filosofi kerja pegawai. Budaya organisasi yang merupakan pedoman bagi sumber daya manusia dalam organisasi untuk menghadapi permasalahan internal atau eksternal merupakan sebuah usaha penyesuaian integrasi ke dalam organisasi, sehingga masing-masing anggota organisasi perlu memahami dan menghayati nilai-nilai yang menjadi kesepakatan bersama untuk membimbing mereka dalam bertindak atau berperilaku.
+
+Stephen P. Robbins, pada bukunya yang berjudul *Organizational Behavior*, menyampaikan bahwa budaya organisasi sebagai suatu sistem makna bersama yang dianut oleh anggota-anggota yang membedakan organisasi tersebut dengan organisasi yang lain. Robbins berpendapat bahwa budaya organisasi juga merupakan sebuah sistem tentang arti dan makna kesepakatan bersama yang dibentuk oleh anggota organisasi dan telah menjadi pembeda organisasi kita dengan organisasi lainnya. Sistem pemaknaan inilah yang merupakan seperangkat karakter kunci yang disepakati oleh seluruh pemangku kepentingan dalam organisasi.
+
+Karakteristik budaya organisasi yang dikemukakan oleh Robbins meliputi hal-hal sebagai berikut:
+
+1. **Tingkat inovasi dan keberanian mengambil risiko (innovation and risk taking)**, yaitu sejauh mana sebuah organisasi dapat mendorong para pegawai bersikap inovatif dan berani untuk mengambil risiko. Bagaimana sebuah organisasi menilai/menghargai tindakan pengambilan risiko oleh pegawai dan membangkitkan ide pegawai merupakan concern bagi organisasi;
+2. **Tingkat perhatian terhadap aspek detail (attention to detail)**, yaitu sejauh mana sebuah organisasi memberikan perhatian pada ketelitian dan mengharapkan setiap pegawai untuk memperlihatkan kecermatan, analisis, dan perhatian kepada hal-hal yang rinci;
+3. **Berorientasi kepada hasil (outcome orientation)**, yaitu sejauh mana pihak manajemen organisasi memusatkan perhatian pada hasil dibandingkan menaruh perhatian pada teknik dan proses yang digunakan oleh para pelaku tindakan dalam mencapai hasil tersebut;
+4. **Tingkat orientasi kepada manusia (people orientation)**, yaitu sejauh mana setiap keputusan manajemen organisasi telah memperhitungkan efek hasil-hasil pada orang-orang yang terlibat di dalam pengambilan keputusan organisasi;
+5. **Tingkat orientasi tim (team orientation)**, yaitu sejauh mana setiap pekerjaan dikelola sedemikian rupa dan berorientasi pada setiap tim kerja, bukan sekadar hanya pada individu-individu untuk mendukung kerja sama;
+6. **Tingkat stabilitas (stability)**, yaitu sejauh mana setiap kegiatan organisasi mementingkan stabilitas atau memilih untuk bertumbuh dengan mengambil risiko.
+
+Budaya organisasi memiliki peran yang besar bagi sebuah organisasi. Dengan hadirnya budaya organisasi, para pegawai dan para pelaku organisasi akan terbantu untuk bisa mengetahui atau membaca situasi yang sedang terjadi di sebuah organisasi. Kita pun bisa mengetahui karakteristik pegawai yang ada di sana, bagaimana cara mereka menyelesaikan permasalahan yang ada, apa yang mereka sukai, dan apa mereka tidak disukai. Dengan pemahaman seperti ini, kita tentu akan lebih terbantu dalam membuat strategi di organisasi.
+
+Seperti yang Anda ketahui, dalam membuat strategi kita perlu melibatkan banyak pihak. Tujuannya adalah agar mereka bisa melakukan kolaborasi dan berinovasi dengan baik sehingga tujuan yang ingin dicapai organisasi bisa terealisasi, karena rasa memiliki (sense of belonging) yang tinggi dari mereka yang merasa dilibatkan dalam pengambilan keputusan. Pada saat kita mengetahui bagaimana cara pegawai dalam organisasi bersikap, kita bisa menentukan strategi apa yang paling tepat diterapkan untuk mencapai tujuan organisasi.
+
+Kerja sama (teamwork) dalam sebuah tim juga sangat ditentukan oleh peran budaya organisasi. Individu-individu yang terlibat dalam sebuah proyek atau kegiatan akan semakin mudah bekerja sama ketika mereka berada dalam budaya organisasi yang baik, yang mereka merasa memilikinya.
+
+Pada akhirnya, poin tentang pentingnya peran budaya organisasi adalah kehadirannya untuk menarik talent berbobot atau bibit unggul. Jika organisasi anda mempunyai budaya yang baik, tentu akan semakin banyak individu berkualitas yang ingin bergabung dan bekerja di organisasi tersebut. Dengan memiliki individu berkualitas sebagai SDM organisasi, organisasi tentu akan lebih mudah mencapai kesuksesan berkelanjutan seperti yang dicita-citakan karena dukungan para talenta yang ada.', 6);
+
+-- =========================================================================
+-- BAB III: NILAI-NILAI DASAR APARATUR SIPIL NEGARA (BerAKHLAK)
+-- =========================================================================
+
+insert into contents (chapter_id, heading, body, order_index) values
+('b0000000-0000-4000-8000-020300000000', null, 'Kementerian PANRB, berdasarkan SE Nomor 20 Tahun 2021 tentang Implementasi Core Values dan Employer Branding Aparatur Sipil Negara, meluncurkan Nilai-nilai Dasar dan Employer Branding baru bagi Aparatur Sipil Negara (ASN). Diresmikan langsung oleh Presiden Joko Widodo pada tanggal 27 Juli 2021, **BerAKHLAK** dikenalkan sebagai Core Values ASN seluruh Indonesia dan **#banggamelayanibangsa** sebagai Employer Branding ASN. BerAKHLAK merupakan akronim dari **Berorientasi Pelayanan, Akuntabel, Kompeten, Harmonis, Loyal, Adaptif, dan Kolaboratif**.
+
+Core Values ASN ini adalah inti dari nilai-nilai dasar ASN sesuai dengan Undang-Undang No. 20 Tahun 2023 tentang Aparatur Sipil Negara. Sementara, #banggamelayanibangsa adalah pemutakhiran dari employer branding ASN sebelumnya, yaitu melayani dengan sepenuh hati. Core values ini menjadi titik tonggak penguatan budaya kerja, yang tidak hanya dilakukan pada ASN tingkat pusat namun juga pada tingkat daerah, sebagaimana pesan Presiden Joko Widodo, "ASN yang bertugas sebagai pegawai pusat maupun pegawai daerah harus mempunyai core values yang sama." BerAKHLAK merupakan panduan perilaku bagi ASN, sebagai nilai dasar yang harus dijalankan dengan penuh tanggung jawab, dan menjadi fondasi budaya kerja ASN yang profesional.', 1),
+('b0000000-0000-4000-8000-020300000000', 'Panduan Perilaku (Kode Etik) Nilai-Nilai Dasar ASN (UU 20 Tahun 2023 tentang ASN)', 'Panduan perilaku (kode etik) untuk masing-masing nilai dasar ASN BerAKHLAK adalah sebagai berikut:
+
+a. **Berorientasi Pelayanan**, dengan panduan perilaku:
+   - memahami dan memenuhi kebutuhan masyarakat,
+   - ramah, cekatan, solutif, dan dapat diandalkan, serta
+   - melakukan perbaikan tiada henti.
+
+b. **Akuntabel**, dengan panduan perilaku:
+   - melaksanakan tugas dengan jujur, bertanggung jawab, cermat, disiplin dan berintegritas tinggi,
+   - menggunakan kekayaan dan barang milik negara secara bertanggung jawab, efektif, dan efisien, serta
+   - tidak menyalahgunakan kewenangan jabatan.
+
+c. **Kompeten**, dengan panduan perilaku:
+   - meningkatkan kompetensi diri untuk menjawab tantangan yang selalu berubah,
+   - membantu orang lain belajar, serta
+   - melaksanakan tugas dengan kualitas terbaik.
+
+d. **Harmonis**, dengan panduan perilaku:
+   - menghargai setiap orang tanpa membedakan latar belakang,
+   - suka menolong, serta
+   - membangun lingkungan kerja yang kondusif.
+
+e. **Loyal**, dengan panduan perilaku:
+   - memegang teguh ideologi Pancasila dan Undang-Undang Dasar Negara Republik Indonesia Tahun 1945, setia kepada NKRI serta pemerintahan yang sah,
+   - menjaga nama baik ASN, instansi dan negara, serta
+   - menjaga rahasia jabatan dan negara.
+
+f. **Adaptif**, dengan panduan perilaku:
+   - cepat menyesuaikan diri menghadapi perubahan,
+   - terus berinovasi dan mengembangkan kreativitas, serta
+   - bertindak proaktif.
+
+g. **Kolaboratif**, dengan panduan perilaku:
+   - memberi kesempatan kepada berbagai pihak untuk berkontribusi,
+   - terbuka dalam bekerja sama untuk menghasilkan nilai tambah, serta
+   - menggerakkan pemanfaatan berbagai sumber daya untuk tujuan bersama.
+
+Bersamaan dengan peluncuran core values ASN BerAKHLAK, Presiden Republik Indonesia, Bapak Joko Widodo, juga mencetuskan employer branding #BanggaMelayaniBangsa di dalam sanubari para ASN di Indonesia. Branding ini menunjukkan bahwa ASN adalah profesi yang bangga dalam melayani bangsa. Profesi ASN patut dibanggakan karena ASN diberi pengakuan dan penghargaan yang adil, diberi kesempatan meningkatkan kompetensi seluas-luasnya, dan diberi kesempatan terbuka untuk berkarier. Dengan kebanggaan tersebut, diharapkan ASN mampu menyeimbangkan harapan dan ekspektasi organisasi terhadap dirinya, dengan terus meningkatkan kinerja secara terus menerus, selalu belajar untuk meningkatkan kapasitas, dan menyesuaikan perilaku dengan core values.', 2),
+('b0000000-0000-4000-8000-020300000000', 'Keterkaitan Nilai Dasar ASN dan Nilai-Nilai Kementerian Keuangan', 'Mungkin akan timbul pertanyaan, apakah dengan adanya Nilai-nilai Dasar ASN menyebabkan nilai-nilai Kementerian Keuangan yang sudah ada menjadi tidak dapat diimplementasikan? Pada dasarnya antara Nilai Dasar ASN dan Nilai-nilai Kementerian Keuangan merupakan dua nilai yang dapat saling mendukung karena memiliki konsep dasar yang sama, yaitu agar ASN atau pegawai dapat mengelola pribadi yang selaras dengan tujuan dari pelaksanaan tugasnya. Kementerian PAN RB sendiri mengharapkan agar kementerian/lembaga dalam peluncuran Nilai-nilai Dasar ASN BerAKHLAK tidak dihadapkan dengan nilai-nilai yang telah ada di instansinya sebagai sesuatu yang bertentangan. Nilai-nilai Dasar ASN BerAKHLAK tetap menjadi acuan, namun nilai-nilai yang sudah ada di kementerian/lembaga substansinya tetap hidup dan memperkuat nilai BerAKHLAK tersebut.
+
+Budaya BerAKHLAK pada prinsipnya sejalan dengan Nilai-nilai Kementerian Keuangan sehingga dapat masuk di dalamnya, karena Nilai-nilai Dasar ASN sejalan dengan nilai-nilai yang ada di Kementerian Keuangan. Dengan demikian, yang perlu menjadi perhatian adalah bagaimana keselarasan implementasi Nilai Dasar ASN dengan Nilai-nilai Kementerian Keuangan. Sebagaimana yang dijelaskan tentang Ekosistem Budaya Kementerian Keuangan, terdapat hubungan yang selaras antara komponen-komponen Nilai Dasar ASN dan Nilai-nilai Kementerian Keuangan, seperti yang ditunjukkan pada tabel berikut:
+
+**Tabel 1: Keterkaitan Core Values ASN dan Nilai-nilai Kemenkeu**
+
+| Core Values ASN (BerAKHLAK) | Nilai-nilai Kemenkeu |
+| --- | --- |
+| Akuntabel dan Loyal | Integritas |
+| Kompeten | Profesionalisme |
+| Harmonis dan Kolaboratif | Sinergi |
+| Berorientasi Pelayanan | Pelayanan |
+| Adaptif | Kesempurnaan |', 3);
+
+-- =========================================================================
+-- BAB IV: NILAI-NILAI KEMENTERIAN KEUANGAN
+-- =========================================================================
+
+insert into contents (chapter_id, heading, body, order_index) values
+('b0000000-0000-4000-8000-020400000000', null, 'Sebagai sebuah organisasi modern, maju dan terus berkembang, Kementerian Keuangan telah mengadopsi dan mengadaptasi praktik-praktik manajemen yang sehat (best practices) dalam menjalankan roda organisasinya. Demikian juga, dalam hal nilai-nilai organisasi, Kementerian Keuangan telah menetapkan nilai-nilai organisasinya dalam sebuah keputusan dan terus diimplementasikan oleh seluruh unit yang dibawah, sehingga telah menjadi sebuah budaya organisasi.', 1),
+('b0000000-0000-4000-8000-020400000000', 'Rincian Nilai-Nilai Kementerian Keuangan', 'Sesuai dengan Keputusan Menteri Keuangan Nomor 312/KMK.01/2011, Nilai-Nilai Kementerian Keuangan mencakup 5 nilai yakni: **Integritas, Profesionalisme, Sinergi, Pelayanan dan Kesempurnaan**, dengan rincian sebagai berikut:
+
+**Tabel 2: Nilai-Nilai Kementerian Keuangan**
+
+| Nilai | Makna | Perilaku Utama |
+| --- | --- | --- |
+| Integritas (Integrity) | Berpikir, berkata, berperilaku, dan bertindak dengan baik dan benar serta memegang teguh kode etik dan prinsip-prinsip moral | 1. bersikap jujur, tulus, dan dapat dipercaya; 2. menjaga martabat dan tidak melakukan hal tercela |
+| Profesionalisme (Professionalism) | Bekerja tuntas dan akurat atas dasar kompetensi terbaik dengan penuh tanggung jawab dan komitmen yang tinggi | 1. mempunyai keahlian dan pengetahuan yang luas; 2. bekerja dengan hati |
+| Sinergi (Synergy) | Membangun dan memastikan hubungan kerja sama internal yang produktif serta kemitraan yang harmonis dengan para pemangku kepentingan, untuk menghasilkan karya yang bermanfaat dan berkualitas | 1. memiliki sangka baik, saling percaya, dan saling menghormati; 2. menemukan dan melaksanakan solusi terbaik |
+| Pelayanan (Service) | Memberikan layanan yang memenuhi kepuasan pemangku kepentingan yang dilaksanakan dengan sepenuh hati, transparan, cepat, akurat dan aman | 1. melayani dengan berorientasi pada kepuasan pemangku kepentingan; 2. bersikap proaktif dan cepat tanggap |
+| Kesempurnaan (Excellence) | Senantiasa melakukan upaya perbaikan di segala bidang untuk menjadi dan memberikan yang terbaik | 1. melakukan perbaikan terus menerus; 2. mengembangkan inovasi dan kreativitas |', 2),
+('b0000000-0000-4000-8000-020400000000', 'Penjelasan Masing-Masing Nilai dan Perilaku Utamanya', 'Nilai-nilai Kementerian Keuangan pada tabel di atas bisa diperjelas dengan uraian-uraian di bawah ini.', 3),
+('b0000000-0000-4000-8000-020400000000', '1. Integritas', 'Integritas dapat diartikan sebagai dorongan hati nurani untuk melaksanakan tugas dan tanggung jawab dengan tekad yang mulia. Menurut Kamus Besar Bahasa Indonesia (KBBI), integritas berarti mutu, sifat, atau keadaan yang menunjukkan kesatuan yang utuh sehingga memiliki potensi dan kemampuan yang memancarkan kewibawaan dan kejujuran. Dalam etika, integritas diartikan sebagai kejujuran dan kebenaran dari tindakan seseorang.
+
+Seseorang dikatakan "mempunyai integritas" apabila tindakannya sesuai dengan nilai, keyakinan, dan prinsip yang dipegangnya (Wikipedia). Salah satu ciri seseorang yang berintegritas adalah bersatunya kata dan perbuatan. Seorang yang mempunyai integritas bukan tipe manusia dengan banyak wajah dan penampilan yang disesuaikan dengan motif dan kepentingan pribadinya.
+
+Dalam konteks Nilai-Nilai Kementerian Keuangan, integritas diartikan sebagai berpikir, berkata, berperilaku dan bertindak dengan baik dan benar serta memegang teguh kode etik dan prinsip-prinsip moral. Sesuai dengan Keputusan Menteri Keuangan Nomor 312/KMK.01/2011, integritas dinyatakan dalam dua perilaku utama yaitu: pertama, bersikap jujur, tulus, dan dapat dipercaya; dan yang kedua menjaga martabat dan tidak melakukan hal-hal tercela. Perilaku utama integritas dalam nilai Kementerian Keuangan bisa dijelaskan sebagai berikut:
+
+**a. Bersikap jujur, tulus, dan dapat dipercaya**
+
+Sikap jujur, tulus, dan dapat dipercaya merupakan sikap yang harus terus dikembangkan. Salah satu sikap jujur ditunjukkan dengan memberikan informasi berdasarkan fakta. Seorang pegawai Kementerian Keuangan dituntut untuk selalu memberikan informasi yang benar sesuai dengan fakta yang terjadi, baik informasi untuk atasan, bawahan, maupun masyarakat luas. Berbicara jujur adalah berbicara sesuai kenyataan, tidak ada yang disembunyikan atau dimanipulasi. Jujur diikuti oleh sikap ketulusan, tidak ada maksud lain di balik informasi yang diberikan kecuali sesuai dengan isi informasi tersebut. Sebagai contoh, bukanlah sikap berintegritas, jika seseorang memberikan informasi penting kepada atasannya, dengan harapan atasannya akan memberikan imbalan promosi atau semacamnya. Sikap ini tidak mencerminkan sikap tulus sebagaimana perilaku utama pertama dari nilai integritas. Dari sikap jujur dan tulus itu, akan terbentuk pribadi yang dapat dipercaya.
+
+**b. Menjaga martabat dan tidak melakukan hal-hal yang tercela**
+
+Menjaga martabat dan tidak melakukan hal-hal yang tercela merupakan perbuatan yang mulia. Pegawai Kementerian Keuangan diharapkan agar selalu menjaga kehormatan dirinya dengan tidak melakukan sesuatu yang melanggar norma, baik norma hukum, norma agama maupun norma sosial. Dengan menjaga kehormatan diri, berarti dia telah menjaga kehormatan organisasi.
+
+Dalam aplikasi sehari-hari, perilaku ini dapat ditunjukkan dalam bentuk melaksanakan dan mematuhi sumpah jabatan yang telah diucapkan ketika dilantik menjadi pegawai dan melaksanakannya dengan penuh kesadaran. Semua pegawai Kementerian Keuangan sudah disumpah, yang salah satu isi sumpahnya adalah tidak menerima pemberian atau tidak menjanjikan apapun dari pihak lain yang terkait dengan jabatannya (gratifikasi). Menaati aturan agama juga termasuk bentuk menjaga kehormatan diri. Melaksanakan perintah agama dan menjauhi larangan merupakan bagian penting dalam bekerja. Orang-orang yang taat pada agama akan membantu mengatasi kesulitan orang lain. Aplikasi lain dari perilaku utama kedua nilai integritas adalah menaati kode etik dan perilaku yang sudah ditetapkan oleh Kementerian Keuangan sebagai panduan dalam bekerja.', 4),
+('b0000000-0000-4000-8000-020400000000', '2. Profesionalisme', 'Profesionalisme adalah sifat-sifat yang sewajarnya dimiliki atau dilakukan oleh seorang profesional, berupa kemampuan dan kemahiran dalam pelaksanaan kegiatan tertentu. Menurut KBBI, makna profesionalisme berhubungan dengan profesi dan memerlukan kepandaian khusus untuk menjalankannya. Dengan demikian, profesionalisme adalah tingkah laku, kepakaran atau kualitas dari seseorang yang profesional.
+
+Seseorang yang memiliki jiwa profesionalisme senantiasa mendorong dirinya untuk mewujudkan kerja-kerja yang profesional. Kualitas profesionalisme memiliki ciri-ciri sebagai berikut:
+
+1. Seorang profesional ingin selalu menampilkan perilaku yang mendekati keahlian ideal. Seseorang yang memiliki profesionalisme tinggi akan selalu berusaha mewujudkan dirinya sesuai dengan keahlian yang dimilikinya. Ia akan mengidentifikasi dirinya pada seseorang yang dipandang memiliki keahlian tersebut. Yang dimaksud dengan "keahlian ideal" ialah suatu perangkat perilaku yang dipandang paling sempurna dan dijadikan sebagai rujukan.
+2. Profesionalisme yang tinggi ditunjukkan oleh besarnya keinginan untuk selalu meningkatkan dan memelihara image profesi melalui perwujudan perilaku profesional. Perwujudannya dilakukan melalui berbagai cara misalnya penampilan, cara percakapan, penggunaan bahasa, sikap hidup harian, cara berhubungan dengan individu lainnya.
+3. Seorang profesional ingin senantiasa mengejar kesempatan pengembangan profesional yang dapat meningkatkan dan memperbaiki kualitas pengetahuan dan keterampilannya.
+4. Seorang profesional ingin mengejar kualitas dan cita-cita dalam profesi. Profesionalisme ditandai dengan kualitas rasa bangga akan profesi yang dipegangnya. Diharapkan, seorang professional bisa memiliki rasa bangga dan percaya diri akan profesinya.
+
+Profesionalisme dalam nilai Kementerian Keuangan dinyatakan dengan bekerja tuntas dan akurat atas dasar kompetensi terbaik dengan penuh tanggung jawab dan komitmen yang tinggi. Nilai profesionalisme dalam Nilai-Nilai Kementerian Keuangan dijabarkan ke dalam perilaku utama sebagai berikut:
+
+**a. Mempunyai keahlian dan pengetahuan yang luas**
+
+Tugas pokok dan fungsi organisasi Kementerian Keuangan sangat luas dan kompleks. Oleh karenanya seluruh pegawai Kementerian Keuangan dituntut mempunyai keahlian dan pengetahuan yang luas. Dalam aplikasi sehari-hari, perilaku utama pertama nilai profesional ini adalah bekerja dengan efisien dan berkualitas. Seorang pegawai tidak akan dapat bekerja secara efisien jika tidak mempunyai pengetahuan yang luas, begitu juga tidak dapat memberikan hasil yang berkualitas jika tidak memiliki keahlian. Keahlian lainnya yang masih harus dikembangkan oleh pegawai Kementerian Keuangan adalah penguasaan teknologi informasi, dengan harapan proses bisnis tertentu yang saat ini masih dikerjakan dengan cara manual dapat digantikan dengan teknologi informasi agar memudahkan orang lain untuk bisa melakukan dengan mudah dan cepat. Sebagai contoh, dengan jaringan internet atau intranet, dapat dilakukan e-registration, penyerahan dokumen kerja dalam bentuk softfile, serta administrasi data.
+
+**b. Bekerja dengan hati**
+
+Salah satu ciri seseorang yang profesional adalah bekerja dengan hati. Dalam bekerja terdapat dua hal penting yang harus diperhatikan yaitu SOP dan hati nurani atau perasaan. Salah satu ciri seorang profesional adalah mampu mempertemukan dua simpul yang berlawanan tersebut. Kata lain bekerja dengan hati adalah mencintai pekerjaan kita. Tidak ada tugas yang ditinggalkan atau dikerjakan asal-asalan, sekenanya, yang penting selesai, atau ungkapan-ungkapan lain yang bermakna bekerja dengan keterpaksaan. Bekerja bukan hanya karena dibayar tinggi, tetapi karena panggilan jiwa. Sebuah ungkapan mengatakan, ''bekerjalah Anda melebihi apa yang Anda terima, maka Anda akan menerima melebihi apa yang Anda kerjakan. Hal ini tidak akan pernah terjadi kalau kita tidak bekerja dengan hati.''', 5),
+('b0000000-0000-4000-8000-020400000000', '3. Sinergi', 'Menurut KBBI, sinergi diartikan sebagai kegiatan atau operasi gabungan. Yang dimaksud dengan gabungan adalah gabungan dari berbagai unsur yang berbeda menjadi satu kekuatan. Sinergi diwujudkan dengan koordinasi dan kerja sama yang baik dengan pihak yang berkepentingan untuk memperoleh hasil yang lebih besar, berkualitas, dan cepat. Sebutan lain dari sinergi adalah jaringan atau networking. Membangun sinergi berarti membangun jaringan.
+
+Masyarakat Indonesia sangat erat akrab dengan sifat gotong royong yang telah mengakar, sehingga nilai sinergi bagi pegawai Kementerian Keuangan bukan kebiasaan yang baru. Adalah kebiasaan yang sangat mulia yang dilakukan oleh bangsa Indonesia secara turun-temurun, yaitu setiap kali ada tetangganya membutuhkan bantuan, maka masyarakat sekitarnya akan berbondong-bondong datang membantu. Seluruh pegawai Kementerian Keuangan perlu bekerja keras membangun sifat mulia berupa gotong royong yang produktif serta kemitraan yang harmonis dengan para pemangku kepentingan.
+
+Hubungan harmonis yang harus dibangun meliputi hubungan dengan atasan, bawahan, dan teman sejawat, baik di lingkungan satu unit maupun lintas unit di Kementerian Keuangan. Di samping itu, sinergi harus dibangun antara Kementerian Keuangan dengan kementerian atau lembaga lain sebagai pemangku kepentingan (stakeholders) dari luar sebagai mitra kerja Kementerian Keuangan.
+
+Keharmonisan yang berhasil dibangun antara atasan dan bawahan, teman-teman sejawat maupun mitra kerja akan menumbuhkan iklim kerja yang nyaman. Kenyamanan iklim kerja di kantor akan menyebabkan seluruh potensi para pegawai dapat dimaksimalkan, sehingga kinerja pegawai baik secara individu maupun kelembagaan akan maksimal. Perilaku utama dari nilai sinergi dalam Nilai-Nilai Kementerian Keuangan adalah:
+
+**a. Memiliki sangka baik, saling percaya, dan menghormati**
+
+Persangkaan baik kepada teman, atasan maupun bawahan adalah modal awal dalam membangun hubungan yang baik. Berprasangka baik kepada rekan maupun mitra kerja akan menjadikan kita merasa aman jika bekerja sama dengan mereka. Rasa aman akan menimbulkan rasa saling percaya dan saling menghormati. Hal inilah yang akan mendorong terjadinya sinergi atau kerja sama.
+
+Sangkaan yang baik, saling percaya dan menghormati dapat dilatih dengan menjaga agar kita selalu berpikir positif terhadap siapa saja dalam kondisi apa saja. Hasil atau tanda bahwa pegawai senantiasa berpikir positif terlihat di dalam cara mereka mengungkapkan sesuatu, baik secara verbal maupun nonverbal.
+
+Saling menyapa dan bersalaman setiap kali bertemu perlu dilakukan. Selain itu, penting untuk mendoakan agar teman-temannya sukses dan bahagia, baik diungkapkan secara langsung kepada temannya maupun sembunyi-sembunyi. Orang cenderung tidak mau bersalaman jika tidak ada prasangka yang baik terhadap orang yang mengajak atau diajak salaman. Begitu juga sebaliknya, prasangka baik akan hilang jika para pegawai di lingkungan Kementerian Keuangan tidak saling salam di antara mereka.
+
+**b. Menemukan dan melaksanakan solusi terbaik**
+
+Solusi yang baik hanya dapat diperoleh jika didukung oleh data dan informasi terkini, lengkap, dan akurat. Menemukan dan melaksanakan solusi terbaik membutuhkan kreativitas. Seorang pegawai Kementerian Keuangan harus mampu berkontribusi menemukan ide penyelesaian setiap kali menemui persoalan di dalam menjalankan tugas-tugasnya. Ia tidak boleh hanya menunggu instruksi dari pimpinan untuk menemukan solusi.
+
+Kreativitas dapat dibangun salah satunya dengan berani berpikir out of box, berpikir di luar kebiasaan orang berpikir. Selama idenya tidak bertentangan dengan norma dan aturan yang berlaku, pegawai Kementerian Keuangan harus berani mengutarakan dan melaksanakannya. Kreativitas tidak dibatasi oleh ruang dan waktu, bisa muncul dimana pun dan kapan pun. Kreativitas juga tidak tergantung pada biaya dan tenaga. Yang dibutuhkan hanyalah kemauan menggali ide dan keberanian untuk berpikir di luar kebiasaan orang-orang berpikir. Memperbanyak diskusi bersama teman-teman sekantor, membaca banyak literatur, berimajinasi dan sebagainya dapat memperkaya kreativitas.', 6),
+('b0000000-0000-4000-8000-020400000000', '4. Pelayanan', 'Menurut KBBI, pelayanan memiliki tiga arti, yaitu pertama perihal atau cara melayani, kedua usaha melayani kebutuhan orang lain dengan memperoleh imbalan (uang) atau (jasa), dan ketiga, kemudahan yang diberikan sehubungan dengan jual beli barang atau jasa.
+
+Sedangkan menurut Nilai-Nilai Kementerian Keuangan, pelayanan diartikan sebagai pemberian layanan yang memenuhi kepuasan pemangku kepentingan yang dilakukan dengan sepenuh hati, transparan, cepat, akurat, dan aman.
+
+Pelayanan sepenuh hati adalah pemberian pelayanan tanpa memandang siapa yang dilayani. Ukuran dari pelayanan sepenuh hati adalah kepuasan pemangku kepentingan. Akan tetapi, kepuasan pelayanan tidak hanya dirasakan oleh penerima layanan, tetapi juga oleh pemberi layanan. Dalam mengaplikasikan nilai pelayanan di dalam kehidupan sehari-hari, dijabarkan dalam dua perilaku utama yang harus dimiliki oleh para pegawai Kementerian Keuangan, yaitu:
+
+**a. Melayani dengan berorientasi pada kepuasan pemangku kepentingan**
+
+Berorientasi kepada pemangku kepentingan, artinya pegawai Kementerian Keuangan harus memiliki perilaku memperhatikan apa yang menjadi kebutuhan stakeholders-nya. Ada banyak cara yang bisa dilakukan dalam rangka memahami kebutuhan pemangku kepentingan tersebut. Survei kebutuhan stakeholders adalah salah satu contoh usaha memahami kebutuhan pemangku kepentingan (pengguna layanan). Perilaku utama berorientasi pada kepuasan pemangku kepentingan juga dapat dilihat dari sikap asertif para pegawai Kementerian Keuangan terhadap para pemangku kepentingan. Perilaku asertif adalah perilaku ramah, sopan, menghargai dan peduli kepada orang lain.
+
+**b. Bersikap proaktif dan cepat tanggap**
+
+Proaktif dan cepat tanggap merupakan salah satu ciri pelayanan yang baik. Sebagai contoh, jika ada seseorang nampak kebingungan saat masuk salah satu kantor pelayanan Kementerian Keuangan, tanpa disuruh atau diminta, seorang pegawai Kementerian Keuangan perlu menghampiri dan menanyakan sesuatu yang mungkin kita bisa membantunya. Kita yang perlu menawarkan bantuan, tanpa mereka minta. Untuk dapat menumbuhkan perilaku kedua nilai pelayanan ini, para pegawai Kementerian Keuangan perlu mempelajari dan memahami bahasa tubuh. Dengan demikian, tanpa menunggu seseorang meminta bantuan, kita langsung dapat menangkap pesan bahwa seseorang memerlukan bantuan. Berikutnya, perlu ditumbuhkan kesadaran bahwa saat kita melayani sepenuh hati kepada pengguna layanan, kita tidak perlu mengingat seberapa besar kita dibayar untuk pelayanan yang kita berikan.
+
+Ungkapan bijak yang mengatakan bahwa "bekerjalah Anda melebihi apa yang Anda dapatkan, maka Anda akan mendapatkan melebihi apa yang Anda kerjakan" perlu dicamkan oleh pegawai Kementerian Keuangan.', 7),
+('b0000000-0000-4000-8000-020400000000', '5. Kesempurnaan', 'Kesempurnaan memang hanyalah milik Allah, Tuhan Yang Maha Kuasa. Selain Sang Maha Kuasa, terdapat ketidaksempurnaan, termasuk dalam diri kita. Namun demikian, dengan ketidaksempurnaan itu, kita perlu melakukan usaha pengembangan diri yang tak terbatas, karena kita tidak akan pernah sempurna. Dengan demikian, yang dimaksud dengan kesempurnaan di dalam Nilai-Nilai Kementerian Keuangan adalah senantiasa melakukan upaya perbaikan di segala bidang secara terus-menerus tiada henti untuk menjadi dan memberikan yang terbaik.
+
+Nilai kesempurnaan dalam Nilai-Nilai Kementerian Keuangan dijabarkan ke dalam dua perilaku utama, yaitu:
+
+**a. Melakukan perbaikan terus menerus**
+
+Berawal dari keyakinan bahwa tidak ada yang sempurna selain Allah, Tuhan Yang Maha Kuasa, maka akan tumbuh semangat melakukan perbaikan secara terus menerus. Pegawai Kementerian Keuangan perlu memiliki perilaku tidak cepat puas dengan prestasi yang sudah didapatkan saat ini. Cara melakukan perbaikan secara terus menerus adalah dengan selalu mengevaluasi setiap hasil pekerjaan. Melalui evaluasi hasil pekerjaan akan didapatkan kekurangan-kekurangan atau ketidaksempurnaan yang ada. Penemuan kekurangan atau ketidaksempurnaan ini membuka ruang perbaikan.
+
+**b. Mengembangkan inovasi baru dan kreativitas**
+
+Inovasi diartikan sebagai proses pengembangan. Inovasi dapat juga diartikan sebagai hasil pengembangan, pemanfaatan atau mobilisasi pengetahuan, keterampilan (termasuk keterampilan teknologi) dan pengalaman untuk menciptakan atau memperbaiki produk (barang dan/atau jasa) atau sistem yang baru, yang memberikan nilai tambah secara signifikan (terutama nilai ekonomi dan sosial). Inovasi memiliki arti sebagai suatu produk atau praktik yang baru yang bisa disediakan atau dibuat pada umumnya banyak berkembang di sektor komersial. Beragam tingkat kebaruan dapat dibedakan, bergantung pada konteksnya: inovasi bersifat baru bagi perusahaan (atau agen/aktor), baru bagi pasar (market), baru bagi suatu daerah atau negara, atau bahkan dunia.
+
+Untuk memiliki perilaku "mengembangkan inovasi baru dan kreativitas", pegawai Kementerian Keuangan perlu menjadi manusia pemelajar. Orang-orang pemelajar akan mendorong dan memfasilitasi dirinya untuk berbuat, serta menciptakan cara kerja (proses) atau produk-produk (hasil) baru.
+
+Kreativitas atau daya cipta adalah proses mental yang melibatkan pemunculan gagasan (concept) baru, atau hubungan baru antara gagasan-gagasan yang sudah ada. Dari sudut pandang keilmuan, hasil dari pemikiran berdaya cipta (creative thinking) dianggap memiliki keaslian dan kepantasan. Sebagai alternatif, konsepsi sehari-hari dari daya cipta adalah tindakan membuat sesuatu yang baru. Daya cipta di masa kini sangat dipengaruhi oleh berbagai faktor, baik faktor diri dari keturunan dan lingkungan. Kompleksitas tugas dan fungsi Kementerian Keuangan menuntut para pegawainya untuk memiliki perilaku seperti itu.', 8),
+('b0000000-0000-4000-8000-020400000000', 'Proses Pembentukan Nilai-Nilai Kementerian Keuangan', 'Dari uraian-uraian tentang pengertian nilai-nilai organisasi, organizational values adalah sebuah pedoman, petunjuk, atau peraturan bagi kelompok dan organisasi dalam mengambil tindakan dan membuat keputusan dalam organisasi, serta akan meningkatkan kohesi dan rasa kesatuan dalam organisasi. Menyadari sepenuhnya tentang hal itu, Kementerian Keuangan sebagai sebuah organisasi modern yang dinamis yang pergerakannya selalu menuju sebuah pengelolaan manajemen yang maju (best practices), sesuai dengan misinya dalam penguatan kelembagaan berupa:
+
+1. Membangun dan mengembangkan organisasi berlandaskan administrasi publik sesuai dengan tuntutan masyarakat;
+2. Membangun dan mengembangkan sumber daya manusia yang amanah, profesional, berintegritas tinggi, dan bertanggung jawab;
+3. Membangun dan mengembangkan teknologi informasi keuangan yang modern dan terintegrasi serta sarana dan prasarana strategis lainnya,
+
+Kementerian merasa perlu merumuskan nilai-nilai organisasi Kementerian Keuangan.
+
+Agus Dermawan Mintarto Martowardojo (lebih populer dengan sebutan Agus Martowardojo), Menteri Keuangan periode 2010-2013 yang punya segudang pengalaman mengelola berbagai institusi korporasi khususnya perbankan, mencetuskan ide untuk merumuskan nilai-nilai organisasi Kementerian Keuangan setelah mengamati terjadinya variasi nilai dari Eselon-Eselon I yang ada di Kementerian Keuangan. Salah satu kekhawatiran sang Menteri adalah ia tidak ingin setiap unit Eselon I Kementerian Keuangan, dengan tugas pokok dan fungsi yang variatif, berjalan sendiri-sendiri. Hal tersebut akan menimbulkan image seolah-olah setiap unit bekerja sendiri-sendiri, tidak menyatu sebagai satu kesatuan organisasi Kementerian Keuangan.
+
+Pada tahun 2011, Agus Martowardojo mengumpulkan Wakil Menteri Keuangan, seluruh pejabat Eselon I, serta perwakilan pejabat Eselon II dari masing-masing unit, yang berjumlah 76 pejabat, untuk melakukan brainstorming penggalian nilai-nilai di unitnya masing-masing. Selanjutnya, setiap pejabat diminta untuk merumuskan nilai-nilai untuk level Kementerian Keuangan. Mengingat nilai-nilai yang sedang dirumuskan adalah sesuatu yang sangat penting dan akan menjadi guidance seluruh pegawai Kementerian Keuangan di masa yang akan datang, ke-76 pejabat tersebut penuh antusias bekerja mulai jam 08.00 pagi sampai disepakatinya Nilai-Nilai Kementerian Keuangan tersebut sekitar jam 01.00 dini hari (hari berikutnya). Meskipun mereka bekerja selama sekitar 17 jam tanpa henti, mereka tetap menunjukkan antusiasme yang tinggi sesuai dengan etos kerja yang selama ini telah mereka tekuni. Akhirnya, mereka menyepakati 5 Nilai Kementerian Keuangan yang kita kenal saat ini. Kesepakatan itulah yang akhirnya dituangkan dalam Keputusan Menteri Keuangan Nomor 312/KMK.01/2011 tentang Nilai-Nilai Kementerian Keuangan.', 9),
+('b0000000-0000-4000-8000-020400000000', 'Internalisasi Nilai-Nilai Kementerian Keuangan', 'Seperti diuraikan di awal modul Nilai-Nilai Kementerian Keuangan ini, bahwa nilai-nilai yang sudah digali dari lingkungan organisasi yang telah dirumuskan oleh para pemangku kepentingan dan telah menjadi pedoman berperilaku dan bertindak bagi seluruh anggota organisasi tadi, tentunya tidak akan bermakna sama sekali jika tidak diimplementasikan atau tidak diterapkan dalam kehidupan sehari-hari oleh pemangku kepentingan di organisasi. Demikian juga dengan Nilai-Nilai Kementerian Keuangan yang menjadi tema pokok modul ini.
+
+Sejak ditetapkan dalam Keputusan Menteri Keuangan Nomor 312/KMK.01/2011 tentang Nilai-Nilai Kementerian Keuangan, telah disadari bahwa pelaksanaan Nilai-Nilai Kementerian Keuangan diwujudkan dalam kaidah-kaidah perilaku utama dari setiap nilai yang ditetapkan (keputusan kedua). Selanjutnya, dalam keputusan ketiga disebutkan bahwa setiap pimpinan dan seluruh Pegawai Negeri Sipil di lingkungan Kementerian Keuangan wajib melaksanakan tugas pokok dan fungsinya dengan mendasarkan pada nilai-nilai dan kaidah perilaku utama dari nilai-nilai yang telah ditetapkan. Pelaksanaan Nilai-Nilai Kementerian Keuangan ini dikoordinasi oleh Sekretariat Jenderal Kementerian Keuangan dan dibantu oleh seluruh pimpinan unit Eselon I di Kementerian Keuangan. Sejak saat itu, seluruh Eselon I Kementerian Keuangan selalu memiliki kegiatan sosialisasi/internalisasi atau bentuk lainnya sebagai perwujudan pelaksanaan Nilai-Nilai Kementerian Keuangan dan kaidah-kaidah perilaku utama.', 10),
+('b0000000-0000-4000-8000-020400000000', 'Penguatan Internalisasi Nilai-Nilai Kementerian Keuangan Melalui Budaya Organisasi', 'Bagian ini berisi uraian dari beberapa peraturan terkait dengan program budaya, nilai-nilai, kode etik, dan kode perilaku PNS di Kementerian Keuangan. Peraturan-peraturan dimaksud adalah:
+
+- Keputusan Menteri Keuangan Nomor 127/KMK.01/2013 tentang Program Budaya di lingkungan Kementerian Keuangan tahun 2013;
+- Instruksi Menteri Keuangan Nomor 346/IMK.01/2017 tentang Gerakan Efisiensi sebagai bagian implementasi penguatan budaya Kementerian Keuangan;
+- Surat Edaran Nomor SE-12/MK.1/2018 dari Sekretaris Jenderal Kementerian Keuangan tentang Penerapan Nilai-Nilai Kementerian Keuangan dan Kode Etik sebagai Early Warning System di lingkungan Kementerian Keuangan;
+- Peraturan Menteri Keuangan Republik Indonesia Nomor 190/PMK.01/2018 tentang Kode Etik dan Kode Perilaku Pegawai Negeri Sipil di lingkungan Kementerian Keuangan;
+- Keputusan Menteri Keuangan Nomor 429/KMK.01/2022 tentang Penguatan Budaya di lingkungan Kementerian Keuangan;
+- Surat Edaran Nomor SE-15/MK.1/2022 tentang Panduan Pelaksanaan Penguatan Budaya di lingkungan Kementerian Keuangan.
+
+Internalisasi Nilai-Nilai di Kementerian Keuangan tidak cukup dilakukan hanya dengan instruksi-instruksi di atas kertas, tapi juga perlu dibudayakan dengan berbagai variasinya. Dalam rangka internalisasi dan implementasi Nilai-Nilai Kementerian Keuangan, telah diterbitkan Keputusan Menteri Keuangan No 127/KMK.01/2013 tentang Program Budaya di lingkungan Kementerian Keuangan tahun 2013. KMK tersebut berisi tentang Program Budaya yang perlu dilaksanakan oleh seluruh Pegawai Negeri Sipil dan Calon Pegawai Negeri Sipil di lingkungan Kementerian Keuangan.
+
+Program budaya menjadi sebuah aktivitas pegawai di unit untuk membentuk pembiasaan hal-hal positif, khususnya kaidah-kaidah perilaku utama agar mendukung terlaksananya penerapan Nilai-Nilai Kementerian Keuangan. Pemikiran yang dijadikan pertimbangan adalah bahwa dengan melakukan kebaikan-kebaikan yang berulang, maka kegiatan yang dilakukan para pegawai akan menjadi kebiasaan. Program budaya yang diatur dalam KMK tentang Program Budaya di atas meliputi:
+
+a. Penerapan disiplin dalam waktu;
+b. Penerapan disiplin dalam berpakaian, memakai seragam yang sudah ditentukan;
+c. Penerapan "5 Must":
+   1. One day one information (satu hari satu informasi),
+   2. Two minutes before schedule (hadir dua menit sebelum jadwal),
+   3. 3S (Senyum, Salam, Sapa) dan tiga kali salam dalam sehari,
+   4. PDCA (plan, do, check, action), dan
+   5. 5R (ringkas, rapi, resik, rawat, rajin).
+
+Internalisasi nilai-nilai tersebut telah membudaya. Jika Anda berkunjung ke salah satu kantor Kementerian Keuangan (unit Eselon I mana pun), Anda akan menjumpai simbol-simbol Nilai-Nilai Kementerian yang dipasang di tempat-tempat yang sering dilewati pegawai seperti di pintu gerbang kantor, koridor kantor, dinding ruang kerja, meja kerja, dan sebagainya. Simbol-simbol tersebut dibuat dengan berbagai bentuk. Ada simbol yang berbentuk running text, baliho, tulisan-tulisan yang disangga dengan tripod, hingga signal-signal yang muncul di halaman utama web instansi.
+
+Tidak cukup dengan itu, internalisasi juga sering dilakukan oleh unit Eselon I di Kementerian Keuangan dengan mengadakan IHT (In House Training) dengan mengumpulkan para pegawai di aula dan menghadirkan narasumber dari internal Eselon I atau dari eksternal unit Eselon I (paling sering berasal dari Badan Pendidikan dan Pelatihan Keuangan, karena memang tugas pokok dan fungsinya memberikan pelatihan-pelatihan semacam itu). Anda akan melihat kreativitas para pegawai Kementerian Keuangan yang luar biasa dalam acara-acara semacam itu, jika sempat hadir dalam agenda tersebut.
+
+Kombinasi agenda internalisasi seperti di atas diharapkan mampu menghasilkan pegawai yang mempunyai karakter yang sesuai dengan Nilai-Nilai Kementerian Keuangan. Dengan demikian, nilai-nilai dapat terinternalisasi pada setiap pegawai dan menjadi sebuah budaya organisasi. Budaya tersebut diharapkan akan meningkatkan kinerja individu pegawai dan juga kinerja organisasi.
+
+Di tahun 2017, dilaksanakan penguatan Nilai-Nilai Kementerian Keuangan dengan terbitnya Instruksi Menteri Keuangan Nomor 346/IMK.01/2017 tentang Gerakan Efisiensi sebagai bagian implementasi penguatan budaya Kementerian Keuangan. Dalam instruksi tersebut, Menteri Keuangan menginstruksikan kepada wakil Menteri Keuangan, Pimpinan Satuan Kerja Eselon II/III/IV, Pejabat Pembuat Komitmen, dan Pejabat Fungsional/pegawai untuk:
+
+1. Pertama: mengimplementasikan dan menginternalisasikan Nilai-Nilai Kementerian Keuangan dan mendorong perubahan mindset, pola kerja, dan spirit dalam pelaksanaan tugas;
+2. Kedua: melaksanakan upaya-upaya efisiensi pelaksanaan tugas;
+3. Ketiga: melaksanakan upaya-upaya efisien anggaran birokrasi; dan
+4. Keempat: menyusun dan melaksanakan Gerakan Efisiensi pada unit organisasi masing-masing dengan mengoptimalkan peran change agent.
+
+Jika dilihat substansi instruksi ini, penguatan nilai-nilai tidak sekadar sebuah jargon atau yel-yel yang hanya diucapkan dalam forum-forum pertemuan, tetapi langsung mengerucut pada karakterisik tugas pokok dan fungsi yang ada di Kementerian Keuangan, yakni sebagai pengelola keuangan negara dalam berbagai aspeknya. Pelaksanaan instruksi untuk melakukan upaya-upaya efisiensi pelaksanaan tugas ini juga akan selalu diawasi oleh Inspektorat Jenderal Kementerian Keuangan dan Kepala/Petugas Unit kepatuhan Internal (instruksi ketujuh). Tak lupa, instruksi ini juga menekankan pada instruksi untuk para Pejabat Pembuat Komitmen agar mengelola anggaran pada satuan kerja masing-masing dengan efektif, efisien, dan beretika.
+
+Penguatan internalisasi Nilai-Nilai Kementerian Keuangan lainnya adalah dengan terbitnya Surat Edaran Nomor SE-12/MK.1/2018 dari Sekretaris Jenderal Kementerian Keuangan tentang Penerapan Nilai-Nilai Kementerian Keuangan dan Kode Etik sebagai Early Warning System di lingkungan Kementerian Keuangan. Dalam Surat Edaran tersebut diatur hal-hal berikut ini, antara lain:
+
+1. Himbauan kepada setiap pegawai Kementerian Keuangan untuk:
+   - Memegang teguh Nilai-Nilai Kementerian Keuangan;
+   - Berpedoman pada etika dalam bernegara, dalam penyelenggaraan pemerintahan, dalam berorganisasi, dan dalam bermasyarakat;
+   - Menaati dan menerapkan ketentuan-ketentuan mengenai kode etik, kode perilaku, dan disiplin yang telah ditetapkan;
+   - Menghindari perilaku-perilaku yang mengarah pada ujaran kebencian dan radikalisme.
+2. Himbauan kepada para atasan langsung pegawai untuk:
+   - Membina, memantau, dan melakukan pengawasan kepada bawahannya di lingkungan kerjanya dalam rangka mencegah terjadinya pelanggaran kode etik, pelanggaran disiplin, dan pelanggaran hukum;
+   - Melakukan pemeriksaan atas dugaan pelanggaran yang dilakukan bawahannya jika terdapat aduan, temuan dan laporan pihak terkait;
+   - Menindaklanjuti hasil pemeriksaan yang dilakukan oleh Inspektur Jenderal atau Unit Kepatuhan Internal.
+3. Himbauan kepada setiap pimpinan unit untuk:
+   - Bertanggung jawab terhadap tata kelola, manajemen risiko, dan pengendalian intern dalam menjalankan tugas pokok dan fungsinya;
+   - Memberdayakan Unit Kepatuhan Internal untuk meningkatkan efektivitas tata kelola, manajemen risiko, dan pengendalian intern;
+   - Membangun hubungan kemitraan yang konstruktif dengan Inspektorat Jenderal dalam pelaksanaan pengawasan intern;
+   - Menginternalisasi Nilai-Nilai Kementerian Keuangan dan ketentuan-ketentuan yang berhubungan dengan penegakan kode etik dan disiplin kepada seluruh pegawai di lingkungan kerjanya.
+
+Surat Edaran berupa himbauan tersebut menjadi sangat relevan karena untuk meningkatkan disiplin dan mencegah terjadinya potensi-potensi perbuatan yang dapat mengarah pada pelanggaran disiplin dan pelanggaran hukum, Kementerian Keuangan perlu lebih menggiatkan penerapan Nilai-Nilai Kementerian Keuangan dan kode etik, sehingga dapat menjamin terpeliharanya tata tertib dalam kelancaran pelaksanaan tugas dan fungsi seluruh pegawai Kementerian Keuangan tanpa terkecuali.
+
+Selanjutnya, penekanan penerapan Nilai-Nilai Kementerian pada perilaku sehari-hari dikuatkan lagi dengan terbitnya Peraturan Menteri Keuangan Republik Indonesia Nomor 190/PMK.01/2018 tentang Kode Etik dan Kode Perilaku Pegawai Negeri Sipil di lingkungan Kementerian Keuangan. Terbitnya Peraturan Menteri Keuangan tersebut dilatarbelakangi oleh adanya perubahan teknologi, nilai etika, budaya, dan perilaku yang terjadi di masyarakat, sehingga peraturan ini ditujukan untuk mencegah pelanggaran disiplin pegawai Kementerian Keuangan, serta menjaga martabat dan kehormatan Pegawai Negeri Sipil di lingkungan Kementerian Keuangan sesuai Nilai-Nilai Kementerian Keuangan dan ketentuan perundangan lainnya.
+
+Dalam peraturan Menteri Keuangan tersebut ditegaskan kembali bahwa:
+
+1. **Integritas**, berarti seluruh pegawai harus berpikir, berkata, berperilaku, dan bertindak dengan baik dan benar serta selalu memegang teguh Kode Etik dan prinsip-prinsip moral;
+2. **Profesionalisme**, berarti seluruh pegawai harus bekerja dengan tuntas dan akurat berdasarkan kompetensi terbaik dan penuh tanggung jawab serta komitmen yang tinggi;
+3. **Sinergi**, berarti seluruh pegawai harus berkomitmen untuk membangun dan memastikan hubungan kerja sama internal yang produktif serta kemitraan yang harmonis dengan para pemangku kepentingan, untuk menghasilkan karya yang bermanfaat dan berkualitas;
+4. **Pelayanan**, berarti seluruh pegawai harus memberikan pelayanan untuk memenuhi kepuasan para pemangku kepentingan dan dilaksanakan dengan sepenuh hati, transparan, cepat, akurat, dan aman;
+5. **Kesempurnaan**, berarti seluruh pegawai harus senantiasa melakukan upaya perbaikan di segala bidang untuk menjadi dan memberikan yang terbaik.
+
+Dalam aturan yang sama, masing-masing nilai diatas diuraikan ke dalam rumusan kode etik dan kode perilaku. Rincian kode etik dan kode perilaku dari masing-masing nilai itu adalah sebagai berikut:
+
+**1. Kode Etik dan Kode Perilaku Nilai Integritas meliputi:**
+- Menjaga citra, harkat, dan martabat Kementerian Keuangan di berbagai forum, baik formal maupun informal di dalam maupun di luar negeri;
+- Menjunjung tinggi norma yang berlaku dalam masyarakat serta Kode Etik dan Kode Perilaku profesi;
+- Memegang teguh sumpah jabatan Pegawai Negeri Sipil;
+- Menghindari konflik kepentingan pribadi, kelompok, maupun golongan;
+- Bersikap netral dalam Pemilihan Calon Presiden dan Wakil Presiden, Kepala Daerah dan Wakil Kepala Daerah, serta Anggota Legislatif Pusat dan Daerah;
+- Menggunakan media sosial dengan bijak;
+- Berbicara dan bertindak secara jujur dan pantas sesuai dengan fakta dan kebenaran sesuai ketentuan yang berlaku;
+- Menjadi teladan serta menegakkan Kode Etik dan Kode Perilaku;
+- Mengajukan permohonan izin setiap akan melakukan perjalanan ke luar negeri untuk kepentingan pribadi;
+- Tidak menemui pihak yang berpotensi menimbulkan konflik kepentingan, kecuali karena penugasan;
+- Tidak bertindak sewenang-wenang, melakukan perundungan (bullying) dan/atau pelecehan terhadap pegawai atau pihak lain baik di dalam maupun di luar lingkungan kerja;
+- Tidak melakukan perbuatan yang melanggar norma kesopanan dan norma kesusilaan yang dapat menurunkan citra pegawai dan/atau organisasi;
+- Tidak memasuki tempat yang dipandang tidak pantas secara etika dan moral yang berlaku di masyarakat, seperti tempat prostitusi dan perjudian, kecuali karena penugasan;
+- Tidak menunjukkan gaya hidup hedonisme sebagai bentuk empati kepada masyarakat terutama kepada sesama pegawai;
+- Tidak dengan sengaja bersikap, berucap, dan berperilaku yang tidak sesuai dengan identitas seksual dan gender yang bersangkutan;
+- Tidak dengan sengaja mengarah pada tindakan melanggar kesusilaan dengan lawan jenis atau sesama jenis kelamin.
+
+**2. Kode Etik dan Kode Perilaku Nilai Profesionalisme meliputi:**
+- Mengutamakan kepentingan bangsa dan organisasi di atas kepentingan pribadi;
+- Bekerja sesuai standar operasional prosedur dan kewenangan jabatan;
+- Menyelesaikan tugas atau pekerjaan secara bertanggung jawab hingga tuntas;
+- Menyusun rencana atau sasaran kinerja yang hendak dicapai;
+- Mengoptimalkan kompetensi yang dimiliki untuk menyelesaikan tugas atau pekerjaan;
+- Menjaga informasi dan data Kementerian Keuangan yang bersifat rahasia;
+- Disiplin dalam pemanfaatan waktu kerja;
+- Berani mengakui kesalahan dan bertanggung jawab atas pelaksanaan tugasnya;
+- Bersikap dan bertutur kata secara sopan;
+- Mengindahkan etika berkomunikasi dalam bercakap-cakap, bertelepon, menerima tamu, dan surat-menyurat termasuk surat elektronik (e-mail serta media komunikasi lainnya);
+- Menjaga kebersihan, keamanan, dan kenyamanan ruang kerja, termasuk tidak merokok di luar area merokok yang telah disediakan;
+- Berpenampilan, berpakaian, dan memakai sepatu kerja sesuai dengan ketentuan dan standar etika yang berlaku;
+- Tidak menyalahgunakan tanda pengenal (name tag) pegawai saat jam kerja atau keperluan dinas;
+- Tidak merespon kritik dan saran dengan negatif secara berlebihan;
+- Tidak memakai tindik (piercing), kecuali penggunaan di daun telinga khusus untuk pegawai perempuan atau karena alasan keagamaan;
+- Tidak bertato di bagian tubuh yang terbuka.
+
+**3. Kode Etik dan Kode Perilaku Nilai Sinergi meliputi:**
+- Mengakui persamaan derajat, hak, dan kewajiban setiap manusia serta mengembangkan sikap tenggang rasa antarsesama manusia;
+- Menghormati dan menghargai perbedaan latar belakang, ras, warna kulit, agama, asal-usul, jenis kelamin, status pernikahan, umur, atau kondisi kecacatan;
+- Tidak memecah belah persatuan dan kesatuan bangsa;
+- Bersikap kooperatif dengan unit kerja lain yang terkait dalam pelaksanaan tugas;
+- Menghargai masukan, pendapat, dan gagasan orang lain;
+- Menjaga komitmen terhadap keputusan bersama dan implementasinya;
+- Bersedia untuk berbagi solusi, informasi, dan/atau data sesuai kewenangan untuk menyelesaikan masalah yang terkait dengan pekerjaan;
+- Memberikan kesempatan untuk menunaikan ibadah ketika rapat kerja atau tugas kedinasan sedang berlangsung;
+- Melaksanakan kegiatan terkait tugas atau jabatannya dengan izin atau sepengetahuan atasan;
+- Tidak menyebarkan informasi yang tidak dapat dibuktikan kebenarannya, menimbulkan rasa kebencian dan/atau permusuhan.
+
+**4. Kode Etik dan Kode Perilaku Nilai Pelayanan meliputi:**
+- Menunjukkan kepedulian, ramah, dan santun dalam memberikan pelayanan;
+- Berorientasi pada peningkatan kesejahteraan masyarakat dalam melaksanakan tugas;
+- Berupaya memberikan layanan yang tepat waktu, cepat, dan transparan;
+- Memberikan pelayanan sesuai kompetensi dan dalam hal terdapat permasalahan, bekerja sama dengan pihak-pihak terkait dalam penyelesaian permasalahan;
+- Menerima pihak lain yang tidak terkait dengan pekerjaan di luar jam kerja atau pada jam kerja dengan seizin atasan dan/atau sepanjang tidak mengganggu pekerjaan atau layanan;
+- Tidak membeda-bedakan dan bersikap adil dalam memberikan pelayanan.
+
+**5. Kode Etik dan Kode Perilaku Nilai Kesempurnaan meliputi:**
+- Terbuka terhadap usulan perbaikan;
+- Terbuka terhadap informasi atau pengetahuan baru;
+- Senantiasa berupaya untuk memberikan kinerja dan/atau layanan yang terbaik;
+- Berupaya menjaga dan melakukan implementasi atas keimanan dan ketakwaan terhadap Tuhan Yang Maha Esa;
+- Tidak menghalangi kreativitas/gagasan/pendapat yang bernilai tambah bagi kemajuan organisasi;
+- Tidak menghalangi upaya inovasi yang tidak bertentangan dengan peraturan perundang-undangan.', 11),
+('b0000000-0000-4000-8000-020400000000', 'Sikap Dasar dan Perilaku Efektif per Nilai', 'Di tahun 2022, Kementerian Keuangan kembali menekankan pentingnya implementasi Budaya Kementerian Keuangan dengan terbitnya Keputusan Menteri Keuangan Nomor 429/KMK.01/2022 tentang Penguatan Budaya di lingkungan Kementerian Keuangan. Penguatan budaya di Kementerian Keuangan didasarkan pada core values ASN BerAKHLAK dan Nilai-Nilai Kementerian Keuangan, serta ditujukan untuk:
+
+- memberikan pedoman dan mendorong terciptanya pola pikir (mindset), sikap, perilaku, dan kebiasaan dari pegawai yang terwujud dalam budaya Kementerian Keuangan Satu (Kemenkeu Satu) dan sejalan dengan Core Values ASN BerAKHLAK dan Nilai-Nilai Kementerian Keuangan;
+- mendorong terciptanya ekosistem dan lingkungan kerja yang kolaboratif, produktif, dan inovatif dengan tetap menjunjung tinggi etika dan integritas.
+
+Penguatan Budaya Kemenkeu dilakukan dengan pembudayaan Sikap Dasar dan Perilaku Efektif yang diturunkan dari Core Values ASN BerAKHLAK dan Nilai-Nilai Kementerian Keuangan. Sikap Dasar pegawai Kementerian Keuangan yang dimaksud dalam peraturan ini adalah sekumpulan pikiran, perasaan, dan/atau kecenderungan seseorang untuk menyukai atau tidak menyukai sesuatu yang berasal dari Core Values ASN BerAKHLAK dan Nilai-Nilai Kementerian Keuangan, yang secara tidak langsung terlihat namun harus dimiliki oleh pegawai Kementerian Keuangan. Sementara itu, Perilaku Efektif pegawai Kementerian Keuangan yang dimaksud adalah sekumpulan perilaku atau gaya kerja yang berasal dari Sikap Dasar, dan bersifat secara langsung terlihat, serta perlu ditunjukkan oleh setiap pegawai guna mendukung efektivitas dan produktivitas dalam sistem kerja baru, serta perlu terus-menerus dibudayakan atau didorong untuk muncul dalam kebiasaan sehari-hari setiap pegawai Kementerian Keuangan.
+
+Pelaksanaan pembudayaan Sikap Dasar dan Perilaku Efektif sebagai turunan dari Core Values ASN BerAKHLAK dan Nilai-Nilai Kementerian Keuangan, dilakukan dengan strategi:
+
+- **Internalisasi**, merupakan kegiatan atau upaya yang bertujuan membentuk keyakinan/mindset diri agar terwujud dalam sikap/perilaku yang positif dalam organisasi, melalui sosialisasi baik secara fisik maupun elektronik, proses pembelajaran, focus group discussion, serta upaya lainnya;
+- **Institusionalisasi**, merupakan kegiatan atau upaya yang bertujuan menjadikan sekumpulan nilai, sikap, dan perilaku tertentu sebagai bagian yang melekat dan melembaga dalam organisasi, melalui penguatan regulasi/kebijakan, pengintegrasian dengan sistem reward/punishment, serta upaya lainnya; dan
+- **Eksternalisasi**, merupakan kegiatan atau upaya yang bertujuan mendorong dan memastikan pemahaman Budaya Kemenkeu oleh pihak di luar Kementerian Keuangan, melalui keteladanan perilaku pegawai dalam memberikan pelayanan kepada pemangku kepentingan (role models) terkait dengan nilai, sikap dan perilaku yang mencerminkan Budaya Kemenkeu, serta upaya lainnya.
+
+Setiap pimpinan Unit Jabatan Pimpinan Tinggi Madya/Unit Organisasi Non Eselon di bawah Menteri Keuangan melakukan internalisasi dan penumbuhan Sikap Dasar dan Perilaku Efektif secara terencana, sistematis, dan berkelanjutan dalam rangka penguatan Budaya Kemenkeu; pemantauan dan evaluasi penguatan Budaya Kemenkeu; dan penyampaian laporan pelaksanaannya kepada Biro SDM Sekretariat Jenderal Kementerian Keuangan. Selanjutnya, Biro SDM Sekretariat Jenderal Kementerian Keuangan melakukan koordinasi pelaksanaan internalisasi Sikap Dasar dan Perilaku Efektif pegawai, pemantauan, evaluasi, dan pengukuran tingkat kematangan Budaya Kemenkeu, serta penyampaian laporan pelaksanaannya kepada Menteri Keuangan.
+
+Sikap Dasar dan Perilaku Efektif untuk setiap nilai adalah sebagai berikut:
+
+**a. Akuntabel dan Loyal (Core Values ASN) selaras dengan Integritas (nilai-nilai Kemenkeu)**
+
+Sikap Dasar: senantiasa amanah, jujur, disiplin, konsisten, dapat dipercaya, militan dalam bekerja.
+
+Perilaku Efektif:
+- Menerapkan budaya kerja transparan, sesuai perkataan dan perbuatan serta menjaga nama baik individu dan institusi termasuk menjunjung Pancasila dan Undang-Undang Dasar Negara Republik Indonesia Tahun 1945;
+- Menerapkan perilaku jujur dalam pelaksanaan tugas, memegang teguh kebenaran, dan berani mengemukakan fakta dengan pantas pada kondisi yang tepat;
+- Menunjukkan perilaku disiplin diri, memegang teguh tanggungjawab, dan taat aturan meski tanpa pengawasan dengan penuh kesadaran, serta rela berkorban; berupaya menghindari konflik kepentingan dan menjunjung tinggi kode etik serta tidak menyalahgunakan kewenangan;
+- Memiliki kesadaran tentang menjaga kerahasiaan, keamanan data, dan informasi organisasi serta bertanggung jawab dalam penggunaan Barang Milik Negara;
+- Melaksanakan tugas dan tanggungjawab pekerjaan dengan berdedikasi dan penuh semangat dilandasi pemahaman dalam rangka membangun bangsa dan negara.
+
+**b. Kompeten (Core Values ASN) selaras dengan Profesionalisme (nilai-nilai Kemenkeu)**
+
+Sikap Dasar: senantiasa antusias belajar, berbagi ilmu, bertanggung jawab, berinisiatif, cepat dan akurat dalam bekerja serta dapat diandalkan.
+
+Perilaku Efektif:
+- Menunjukkan kemauan, kemampuan, dan kegigihan untuk belajar dan mengembangkan pola pikir termasuk memanfaatkan sistem manajemen pengetahuan serta membantu orang lain untuk belajar;
+- Menjaga disiplin waktu kerja, bertanggungjawab serta berupaya maksimal melaksanakan tugas dengan efektif dan efisien, sesuai tingkat kepentingan;
+- Menunjukkan prakarsa dalam merencanakan dan mencapai rencana serta sasaran kerja dengan memperhitungkan risiko berdasarkan data dan fakta;
+- Memperhatikan kecepatan dan akurasi untuk memperoleh hasil kinerja dengan kualitas terbaik;
+- Mengembangkan cara berkomunikasi efektif, baik verbal maupun nonverbal serta kompetensi diri lainnya.
+
+**c. Harmonis dan Kolaboratif (Core Values ASN) selaras dengan Sinergi (nilai-nilai Kemenkeu)**
+
+Sikap Dasar: senantiasa solid, proaktif, berkolaborasi, dan humanis.
+
+Perilaku Efektif:
+- Bersikap empati, suka menolong, dan kooperatif, termasuk memanfaatkan berbagai sumber daya untuk tujuan bersama;
+- Bersikap proaktif dalam membangun koordinasi efektif termasuk berbagi data/informasi yang telah dipastikan keakuratannya untuk memberikan solusi terbaik;
+- Melakukan kolaborasi yang harmonis untuk hasil terbaik dan lingkungan kerja yang kondusif, diawali sikap transparan dan terbuka;
+- Bersikap adil dan toleran termasuk menghargai kontribusi berbagai orang dari berbagai latar belakang;
+- Mampu mengelola perbedaan sebagai peluang untuk memberikan solusi dan hasil terbaik.
+
+**d. Berorientasi Pelayanan (Core Values ASN) selaras dengan Pelayanan (nilai-nilai Kemenkeu)**
+
+Sikap Dasar: senantiasa komunikatif, respektif, responsif, cekatan, dan solutif untuk memberikan layanan terbaik.
+
+Perilaku Efektif:
+- Memberikan layanan yang adil, memudahkan, dan tanggap dalam menindaklanjuti kebutuhan pemangku kepentingan;
+- Memberikan pelayanan prima secara akurat, tepat waktu, dan berdasarkan kompetensi yang dimiliki dan terus ditingkatkan;
+- Responsif, cekatan, dan fokus pada solusi/bersikap solutif;
+- Menerima masukan, melakukan evaluasi, dan melaksanakan perbaikan secara berkelanjutan untuk memberikan layanan yang semakin berkualitas.
+
+**e. Adaptif (Core Values ASN) selaras dengan Kesempurnaan (nilai-nilai Kemenkeu)**
+
+Sikap Dasar: senantiasa efektif memanfaatkan perubahan, inovatif, transparan, dan korektif, menuju kesempurnaan.
+
+Perilaku Efektif:
+- Memanfaatkan situasi tantangan dan mengapresiasi kreativitas untuk mengembangkan proses kerja menuju kesempurnaan;
+- Memeriksa kembali dan memperbarui informasi secara rutin, termasuk mengikuti perkembangan teknologi, serta bersikap fleksibel, adaptif, dan terbuka terhadap usulan;
+- Mendorong partisipasi aktif untuk mencari peluang perbaikan, mengembangkan dan mengimplementasikan cara-cara baru/inovatif dalam rangka perbaikan sistem secara lebih komprehensif;
+- Membaca, menganalisis, dan memanfaatkan data dan informasi guna perbaikan pekerjaan secara terus menerus;
+- Memiliki visi yang maju agar mampu menyusun rencana yang relevan dan matang, serta memeriksa hasil pekerjaan yang dilakukan.', 12),
+('b0000000-0000-4000-8000-020400000000', 'Strategi Menumbuhkan dan Membudayakan Sikap Dasar dan Perilaku Efektif', 'Dalam melaksanakan penguatan budaya di Kementerian Keuangan, Menteri Keuangan menerbitkan Surat Edaran Nomor SE-15/MK.1/2022 tentang Panduan Pelaksanaan Penguatan Budaya di lingkungan Kementerian Keuangan. Surat Edaran dimaksud ditujukan sebagai panduan pimpinan unit dan unit pengelola kepegawaian untuk melakukan upaya menumbuhkan dan membudayakan Sikap Dasar dan Perilaku Efektif pegawai sebagai perwujudan Core Values ASN BerAKHLAK dan nilai-nilai Kementerian Keuangan guna memperkuat budaya di lingkungan Kementerian Keuangan; sekaligus untuk mendorong pegawai dalam penerapan Sikap Dasar dan Perilaku Efektif dalam bekerja dan melaksanakan tugas di lingkungan Kementerian Keuangan dan kehidupan sehari-hari.
+
+Pelaksanaan Sikap Dasar dan Perilaku Efektif di Kementerian Keuangan dibutuhkan sebagai implementasi Core Values ASN BerAKHLAK dan Nilai-Nilai Kementerian Keuangan, demi penguatan budaya organisasi guna mendorong peningkatan kinerja pegawai dalam mendukung pelaksanaan tugas dan fungsi Kementerian Keuangan.
+
+Adapun strategi menumbuhkan dan membudayakan Sikap Dasar dan Perilaku Efektif di Kementerian Keuangan, sebagaimana disebutkan dalam Surat Edaran di atas, ditunjukkan dalam tabel berikut (Tabel 3), yang disusun per jenjang jabatan (Sasaran), Target Tingkat Kematangan Minimal, serta strategi Internalisasi, Institusionalisasi, dan Eksternalisasi:
+
+**Tabel 3: Strategi Menumbuhkan dan Membudayakan Sikap Dasar dan Perilaku Efektif di Kementerian Keuangan**
+
+| Sasaran (Jenjang Jabatan) | Target Tingkat Kematangan Minimal | Internalisasi | Institusionalisasi | Eksternalisasi |
+| --- | --- | --- | --- | --- |
+| 1. Mahasiswa PKN STAN; 2. CPNS/Pelaksana kurang dari 1 tahun | Sadar pentingnya Sikap Dasar dan Perilaku Efektif (aware the values) | 1. Penguatan budaya dalam kurikulum PKN STAN; 2. Program Habituasi Budaya; 3. Penguatan budaya melalui pelatihan dasar CPNS/pegawai baru Kemenkeu | 1. Memasukkan dalam kurikulum PKN STAN; 2. Memasukkan dalam materi pelatihan dasar CPNS/pegawai baru Kemenkeu | 1. Kompetisi/tugas desain grafis atau video terkait budaya sebagai bahan sosialisasi kepada pihak-pihak eksternal |
+| Pelaksana masa kerja 1 tahun atau lebih | Paham pentingnya dan penerapan sebagian Sikap Dasar dan Perilaku Efektif (understand the values) | 1. Internalisasi terencana, sistematis, dan berkelanjutan; 2. Internalisasi oleh Duta Transformasi; 3. Program Habituasi Budaya; 4. FGD sikap dasar/perilaku efektif; 5. E-learning nilai-nilai/kode etik | 1. Kebijakan/Regulasi Budaya Kemenkeu; 2. Pembelajaran Budaya Kemenkeu; 3. Penerapan sistem reward dan punishment; 4. Penguatan peran Inspektorat Jenderal, Unit Kepatuhan Internal (UKI), dan Kehumasan; 5. Membuat Pakta Integritas; 6. Memasukkan dalam materi Coaching/Counselling/Mentoring, dan On-the-job Training | 1. Mendukung pelaksanaan penerapan budaya Kemenkeu yang memberi manfaat bagi masyarakat/instansi lain; 2. Kompetisi/tugas desain grafis atau video terkait budaya sebagai bahan sosialisasi kepada pihak-pihak eksternal |
+| Pejabat Pengawas/Administrator/Pejabat fungsional setara | Penerapan seluruh Sikap Dasar dan Perilaku Efektif (implementing the values) | 1. Internalisasi terencana, sistematis, dan berkelanjutan; 2. Internalisasi oleh Duta Transformasi; 3. Program Habituasi Budaya; 4. FGD sikap dasar/perilaku efektif; 5. E-learning nilai-nilai/kode etik; 6. Training of Trainers Duta Transformasi | 1. Kebijakan/Regulasi Budaya Kemenkeu; 2. Pembelajaran Budaya Kemenkeu; 3. Penerapan sistem reward dan punishment; 4. Penguatan peran Inspektorat Jenderal, Unit Kepatuhan Internal (UKI), dan Kehumasan; 5. Membuat Pakta Integritas; 6. Memasukkan dalam materi Coaching/Counselling/Mentoring, dan On-the-job Training; 7. Memasukkan dalam materi diklat kepemimpinan atau soft skill pegawai | 1. Implementasi budaya dan menjadi role model bagi unit terkecilnya; 2. Melakukan aksi nyata sebagai penerapan budaya Kemenkeu; 3. Mengarahkan pembuatan bahan sosialisasi terkait budaya; 4. Memasukkan budaya dalam materi sosialisasi baik ke dalam maupun ke luar |
+| Pejabat Pimpinan Tinggi/Pejabat fungsional setara | Memiliki, mengajak orang lain untuk menerapkan, serta mengembangkan Sikap Dasar dan Perilaku Efektif (owning the values) | 1. Internalisasi terencana, sistematis, dan berkelanjutan; 2. Internalisasi oleh Duta Transformasi; 3. Program Habituasi Budaya | 1. Kebijakan/Regulasi Budaya Kemenkeu; 2. Pembelajaran Budaya Kemenkeu; 3. Penerapan sistem reward dan punishment; 4. Penguatan peran Inspektorat Jenderal, Unit Kepatuhan Internal (UKI), dan Kehumasan; 5. Membuat Pakta Integritas; 6. Memasukkan dalam materi Executive Coaching, Counselling, Mentoring, diklat Kepemimpinan/Executive Training, dan lainnya; 7. Training of Trainers terkait Sikap Dasar/Perilaku Efektif bagi Duta Transformasi | 1. Menjadi role model bagi unitnya dan instansi lain; 2. Menginisiasi program/aksi nyata sebagai penerapan budaya Kemenkeu; 3. Membuat keputusan/kebijakan yang merupakan perwujudan dari budaya Kemenkeu di unitnya; 4. Menjadi narasumber yang memasukkan budaya dalam materi sosialisasi baik ke dalam maupun ke luar; 5. Memasukkan ketentuan yang dilandasi core values ASN dan nilai-nilai Kementerian Keuangan ke dalam klausul kerja sama dengan pihak eksternal |', 13);
+
+-- =========================================================================
+-- BAB V: PENUTUP
+-- =========================================================================
+
+insert into contents (chapter_id, heading, body, order_index) values
+('b0000000-0000-4000-8000-020500000000', null, 'Nilai adalah sebuah keyakinan tentang apa yang dianggap baik atau buruk yang memengaruhi perilaku orang dalam melakukan tindakan. Sedangkan Nilai-Nilai Organisasi merupakan keyakinan dan kepercayaan yang diyakini oleh individu, kelompok dan seluruh pemangku kepentingan dalam organisasi untuk berpikir, bertindak, dan berperilaku untuk menuju sebuah tujuan organisasi, karena sebuah kohesi antar individu, kesatuan kelompok dan kesatuan organisasi merupakan prasyarat sebuah organisasi untuk meningkatkan kinerjanya, melalui budaya organisasi.
+
+Penetapan Nilai-nilai Dasar ASN BerAKHLAK merupakan tonggak baru bagi seluruh ASN agar memiliki langkah yang sama dalam membangun budaya ASN yang sesuai dengan harapan seluruh masyarakat. Pada dasarnya, Nilai Dasar ASN dan Nilai-nilai Kementerian Keuangan merupakan dua nilai yang dapat saling mendukung karena memiliki konsep dasar yang sama yaitu agar ASN atau pegawai dapat mengelola pribadi yang selaras dengan tujuan dari pelaksanaan tugasnya.
+
+Nilai-Nilai Kementerian Keuangan yang telah ditetapkan dan secara masif diinternalisasikan dalam berbagai bentuk melalui edaran dan penerapan perilaku untuk para pegawainya dapat diringkas dalam 5 materi utama sebagai berikut:
+
+1. **Integritas**, yang berarti seluruh pegawai harus berpikir, berkata, berperilaku, dan bertindak dengan baik dan benar serta selalu memegang teguh Kode Etik dan prinsip-prinsip moral;
+2. **Profesionalisme**, yang berarti seluruh pegawai harus bekerja dengan tuntas dan akurat berdasarkan kompetensi terbaik dan penuh tanggung jawab serta komitmen yang tinggi;
+3. **Sinergi**, yang berarti seluruh pegawai harus berkomitmen untuk membangun dan memastikan hubungan kerja sama internal yang produktif serta kemitraan yang harmonis dengan para pemangku kepentingan, untuk menghasilkan karya yang bermanfaat dan berkualitas;
+4. **Pelayanan**, yang berarti seluruh pegawai harus memberikan pelayanan untuk memenuhi kepuasan para pemangku kepentingan dan dilaksanakan dengan sepenuh hati, transparan, cepat, akurat, dan aman;
+5. **Kesempurnaan**, yang berarti seluruh pegawai harus senantiasa melakukan upaya perbaikan di segala bidang untuk menjadi dan memberikan yang terbaik.', 1),
+('b0000000-0000-4000-8000-020500000000', 'Daftar Pustaka', '- Undang-Undang No. 20 Tahun 2023 tentang Aparatur Sipil Negara.
+- Peraturan Menteri Keuangan Republik Indonesia No 190/PMK.01/2018 tentang Kode Etik Perilaku Pegawai Negeri Sipil di lingkungan Kementerian Keuangan.
+- Keputusan Menteri Keuangan Nomor 127/KMK.01/2013 tentang Program Budaya di lingkungan Kementerian Keuangan tahun 2013.
+- Keputusan Menteri Keuangan Nomor 429/KMK.01/2022 tentang Penguatan Budaya di lingkungan Kementerian Keuangan.
+- Surat Edaran Nomor SE-12/MK.1/2018 dari Sekretaris Jenderal Kementerian Keuangan tentang Penerapan Nilai-Nilai Kementerian Keuangan dan Kode Etik sebagai Early Warning System di lingkungan Kementerian Keuangan.
+- Surat Edaran Nomor SE-15/MK.1/2022 dari Sekretaris Jenderal Kementerian Keuangan tentang Panduan Pelaksanaan Penguatan Budaya di lingkungan Kementerian Keuangan.
+- Surat Edaran Menteri Pendayagunaan Aparatur Negara dan Reformasi Birokrasi Nomor 20 Tahun 2021 tentang Implementasi Core Values dan Employer Branding Aparatur Sipil Negara.
+- Instruksi Menteri Keuangan No 346/IMK.01/2017 tentang Gerakan Efisiensi sebagai bagian implementasi penguatan budaya Kementerian Keuangan.
+- Robbins, Stephen P. 2017. *Organizational Behavior*. New Jersey: Prentice Hall.
+- Pengertian Nilai Menurut Para Ahli dan Secara Umum. (2020). Diambil dari https://haiilo.com/blog/the-importance-of-company-values/
+- Get Your Employee to Care About Your Company Values. (2024). Diambil dari https://haiilo.com/blog/the-importance-of-company-values/
+- Organisational values guide everything you do at work. https://www.worklogic.com.au/services/organisational
+- How to Make Values Intrinsic to Your Organization''s Success. 2021. https://www.thebalancecareers.com/how-to-make-values-live-in-your-organization-1918821', 2);
