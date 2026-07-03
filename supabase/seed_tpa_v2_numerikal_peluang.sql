@@ -6,20 +6,22 @@ delete from contents where chapter_id = 'b0000000-0000-4000-8000-061100000000';
 
 insert into contents (chapter_id, heading, body, order_index) values
 ('b0000000-0000-4000-8000-061100000000', null, 'Peluang (probabilitas) mengukur seberapa besar kemungkinan suatu kejadian terjadi, dengan nilai antara 0 (mustahil) dan 1 (pasti). Subtes ini juga sering menggabungkan peluang dengan kaidah pencacahan dasar (permutasi dan kombinasi) untuk menghitung n(A) atau n(S).', 1),
-('b0000000-0000-4000-8000-061100000000', 'Peluang Dasar dan Komplemen', '**Definisi:** Peluang kejadian A dirumuskan sebagai:
+('b0000000-0000-4000-8000-061100000000', 'Peluang Dasar dan Komplemen', '**Definisi:** Peluang kejadian A mengukur seberapa besar kemungkinan A terjadi, dirumuskan $P(A) = \frac{n(A)}{n(S)}$, dengan nilai selalu antara 0 (mustahil) dan 1 (pasti).
 
-$$P(A) = \frac{n(A)}{n(S)}$$
+**Cara Kerja / Langkah Pengerjaan:**
+1. Tentukan n(S), yaitu banyak seluruh kemungkinan kejadian (ruang sampel).
+2. Tentukan n(A), yaitu banyak kejadian yang diharapkan/sesuai syarat soal.
+3. Hitung peluang langsung dengan $P(A) = \frac{n(A)}{n(S)}$.
+4. Jika soal menanyakan "peluang tidak terjadi" atau lebih mudah dihitung lewat kebalikannya, gunakan rumus komplemen $P(A'') = 1 - P(A)$ agar perhitungan lebih singkat.
 
-dengan n(A) = banyak kejadian yang diharapkan, n(S) = banyak seluruh kemungkinan (ruang sampel).
-
-**Pengenalan:** Selain menghitung peluang suatu kejadian secara langsung, sering kali lebih mudah menghitung peluang kejadian sebaliknya (komplemen), yaitu peluang kejadian A TIDAK terjadi:
-
-$$P(A'') = 1 - P(A)$$
-
-**Poin yang Harus Diketahui:**
+**Rumus & Poin Kunci:**
+- $$P(A) = \frac{n(A)}{n(S)}$$ dengan n(A) = banyak kejadian yang diharapkan, n(S) = banyak seluruh kemungkinan (ruang sampel).
 - Nilai peluang selalu berada antara 0 (mustahil) dan 1 (pasti).
-- n(A) = banyak kejadian yang diharapkan; n(S) = banyak seluruh kemungkinan (ruang sampel).
-- Rumus komplemen $P(A'') = 1 - P(A)$ sangat berguna ketika menghitung "peluang bukan A" lebih mudah lewat kebalikannya daripada langsung.
+- Rumus komplemen: $$P(A'') = 1 - P(A)$$ sangat berguna ketika menghitung "peluang bukan A" lebih mudah lewat kebalikannya daripada langsung.
+
+**Kesalahan Umum / Jebakan:**
+- Lupa memasukkan SELURUH kemungkinan ke dalam n(S) (misalnya lupa menghitung total elemen gabungan semua kategori), sehingga P(A) yang dihasilkan salah.
+- Salah menerapkan komplemen, misalnya menghitung $1 - n(A)$ tanpa membaginya dengan n(S) terlebih dahulu, padahal rumusnya adalah $1 - P(A)$, bukan $n(S) - n(A)$ langsung tanpa dibagi ulang.
 
 **Kesimpulan:** Tentukan dulu n(A) dan n(S) untuk peluang langsung; jika soal menanyakan "peluang tidak terjadi", gunakan rumus komplemen agar perhitungan lebih singkat.
 
@@ -38,27 +40,35 @@ $$P(A'') = 1 - P(A)$$
 **Ditanya:** Peluang tidak ada kelereng kuning yang terambil.
 
 **Jawab:** n(S) = C(15,2) = (15 \times 14)/2 = 105. Kelereng non-kuning ada 6 + 4 = 10, sehingga n(A) = C(10,2) = (10 \times 9)/2 = 45. Maka P(A) = n(A)/n(S) = 45/105 = 3/7. Jadi jawabannya adalah C.', 2),
-('b0000000-0000-4000-8000-061100000000', 'Peluang Gabungan Dua Kejadian', '**Definisi:** Peluang gabungan P(A atau B) memiliki dua rumus tergantung hubungan antara A dan B:
+('b0000000-0000-4000-8000-061100000000', 'Peluang Gabungan Dua Kejadian', '**Definisi:** Peluang gabungan P(A atau B) menggabungkan dua kejadian, dengan rumus berbeda tergantung apakah A dan B bisa terjadi bersamaan (tidak saling lepas) atau tidak (saling lepas).
+
+**Cara Kerja / Langkah Pengerjaan:**
+1. Identifikasi apakah kejadian A dan B saling lepas (tidak mungkin terjadi bersamaan) atau tidak saling lepas (bisa terjadi bersamaan).
+2. Jika saling lepas, jumlahkan langsung $P(A) + P(B)$; jika tidak saling lepas, kurangi dengan irisannya: $P(A) + P(B) - P(A \text{ dan } B)$.
+3. Untuk dua kejadian berurutan, cek apakah keduanya saling bebas (independent, biasanya "dengan pengembalian" atau dua kejadian terpisah) atau bersyarat (conditional, biasanya "tanpa pengembalian" atau "setelah diketahui...").
+4. Jika saling bebas, kalikan langsung $P(A) \times P(B)$; jika bersyarat, hitung $P(B|A)$ dengan ruang sampel B yang sudah berubah akibat pengaruh A.
+
+**Rumus & Poin Kunci:**
+- Peluang gabungan:
 
 | Kondisi | Rumus |
 |---|---|
 | Saling lepas (tidak mungkin terjadi bersamaan) | $P(A) + P(B)$ |
 | Tidak saling lepas (bisa terjadi bersamaan) | $P(A) + P(B) - P(A \text{ dan } B)$ |
 
-**Pengenalan:** Selain peluang gabungan, ada dua konsep pelengkap yang sering diuji dalam soal berlapis, yaitu kejadian saling bebas dan peluang bersyarat.
-
-**Poin yang Harus Diketahui:**
 - Contoh saling lepas: muncul mata dadu 2 ATAU 5 (tidak mungkin dua-duanya sekaligus dalam satu lemparan).
 - Contoh tidak saling lepas: kartu As ATAU kartu Hati (ada As Hati yang termasuk keduanya).
-- **Kejadian saling bebas (independent events):** dua kejadian A dan B disebut saling bebas jika terjadinya A tidak memengaruhi peluang terjadinya B (misalnya dua lemparan dadu yang terpisah, atau pengambilan dengan pengembalian). Rumusnya:
+- **Kejadian saling bebas (independent events):** dua kejadian A dan B disebut saling bebas jika terjadinya A tidak memengaruhi peluang terjadinya B (misalnya dua lemparan dadu yang terpisah, atau pengambilan dengan pengembalian):
 
   $$P(A \text{ dan } B) = P(A) \times P(B)$$
 
-- **Peluang bersyarat (conditional probability):** peluang terjadinya B DENGAN SYARAT A sudah terjadi lebih dulu (ruang sampel B berubah karena pengaruh A), dirumuskan:
+- **Peluang bersyarat (conditional probability):** peluang terjadinya B DENGAN SYARAT A sudah terjadi lebih dulu (ruang sampel B berubah karena pengaruh A):
 
   $$P(B|A) = \frac{P(A \text{ dan } B)}{P(A)}$$
 
-- Ciri soal bersyarat: biasanya memakai kata "tanpa pengembalian" atau "setelah diketahui...".
+**Kesalahan Umum / Jebakan:**
+- Menjumlahkan langsung $P(A) + P(B)$ padahal kejadian TIDAK saling lepas, sehingga irisan $P(A \text{ dan } B)$ terhitung dua kali (lupa dikurangi).
+- Mengalikan $P(A) \times P(B)$ untuk kejadian bersyarat/tanpa pengembalian, padahal ruang sampel kejadian kedua sudah berubah sehingga seharusnya memakai $P(B|A)$, bukan menganggap saling bebas.
 
 **Kesimpulan:** Kenali dulu apakah kejadian saling lepas, saling bebas, atau bersyarat sebelum memilih rumus gabungan yang tepat.
 
@@ -77,18 +87,27 @@ $$P(A'') = 1 - P(A)$$
 **Ditanya:** Peluang kelereng pertama merah DAN kelereng kedua putih.
 
 **Jawab:** Karena tanpa pengembalian, pengambilan kedua bersyarat pada hasil pengambilan pertama (bukan saling bebas). P(merah pertama) = 5/8. Setelah satu kelereng merah diambil, sisa kelereng tinggal 7 (4 merah, 3 putih), sehingga P(putih kedua | merah pertama) = 3/7. Dengan aturan perkalian bersyarat: P(merah dan putih) = P(merah) \times P(putih|merah) = 5/8 \times 3/7 = 15/56. Jadi jawabannya adalah D.', 3),
-('b0000000-0000-4000-8000-061100000000', 'Kaidah Pencacahan Dasar', '**Definisi:** Kaidah pencacahan adalah kumpulan aturan untuk menghitung banyaknya kemungkinan susunan atau pilihan, yaitu aturan perkalian, permutasi, dan kombinasi.
+('b0000000-0000-4000-8000-061100000000', 'Kaidah Pencacahan Dasar', '**Definisi:** Kaidah pencacahan adalah kumpulan aturan untuk menghitung banyaknya kemungkinan susunan atau pilihan, mencakup aturan perkalian, permutasi, dan kombinasi.
 
-**Pengenalan:** Sebelum menghitung n(A) atau n(S) pada soal peluang, sering diperlukan kaidah pencacahan berikut ini.
+**Cara Kerja / Langkah Pengerjaan:**
+1. Tentukan apakah urutan diperhatikan (gunakan permutasi) atau tidak (gunakan kombinasi).
+2. Untuk kejadian bertahap/berurutan, gunakan aturan perkalian: kalikan banyak cara di tiap tahap.
+3. Untuk susunan melingkar (mis. duduk mengelilingi meja bundar), gunakan permutasi siklis $(n-1)!$ karena satu posisi dijadikan acuan tetap.
+4. Untuk susunan dengan unsur berulang (mis. huruf sama pada satu kata), bagi $n!$ dengan faktorial banyaknya masing-masing unsur yang berulang.
+5. Substitusikan nilai n dan r ke rumus yang sesuai, lalu hitung hasil akhirnya.
 
-**Poin yang Harus Diketahui:**
+**Rumus & Poin Kunci:**
 - **Aturan perkalian**: jika kejadian pertama punya m cara dan kejadian kedua punya n cara, total cara $= m \times n$.
 - **Permutasi** (urutan diperhatikan): $$P(n,r) = \frac{n!}{(n-r)!}$$
 - **Kombinasi** (urutan tidak diperhatikan): $$C(n,r) = \frac{n!}{r!(n-r)!}$$
-- **Permutasi siklis** (susunan melingkar, mis. duduk mengelilingi meja bundar): $$P_{siklis} = (n-1)!$$ karena satu posisi dijadikan acuan tetap sehingga hanya sisanya yang perlu disusun.
-- **Permutasi dengan unsur sama** (ada elemen berulang, mis. menyusun huruf pada kata yang huruf-hurufnya ada yang sama): $$P = \frac{n!}{p_1! \times p_2! \times \dots}$$ dengan $p_1, p_2, \dots$ = banyak masing-masing unsur yang berulang.
+- **Permutasi siklis** (susunan melingkar): $$P_{siklis} = (n-1)!$$
+- **Permutasi dengan unsur sama** (ada elemen berulang): $$P = \frac{n!}{p_1! \times p_2! \times \dots}$$ dengan $p_1, p_2, \dots$ = banyak masing-masing unsur yang berulang.
 
-**Catatan Penting (cara cepat):** Gunakan kombinasi saat memilih anggota kelompok/tim (urutan tidak penting), dan gunakan permutasi saat menyusun posisi/jabatan/urutan (urutan penting). Untuk soal melingkar, langsung pakai $(n-1)!$; untuk soal huruf berulang, langsung bagi $n!$ dengan faktorial banyaknya tiap huruf yang sama.
+**Kesalahan Umum / Jebakan:**
+- Tertukar memakai permutasi padahal soal meminta kombinasi (atau sebaliknya) — misalnya soal "memilih tim/kelompok" (urutan tidak penting, seharusnya kombinasi) sering keliru dikerjakan dengan permutasi sehingga hasilnya kelipatan yang salah.
+- Lupa mengurangi 1 pada susunan melingkar (memakai $n!$ biasa, padahal seharusnya $(n-1)!$), atau lupa membagi dengan faktorial unsur berulang saat menyusun huruf yang mengandung pengulangan.
+
+**Tips cara cepat**: Gunakan kombinasi saat memilih anggota kelompok/tim (urutan tidak penting), dan gunakan permutasi saat menyusun posisi/jabatan/urutan (urutan penting). Untuk soal melingkar, langsung pakai $(n-1)!$; untuk soal huruf berulang, langsung bagi $n!$ dengan faktorial banyaknya tiap huruf yang sama.
 
 **Kesimpulan:** Pilih rumus pencacahan berdasarkan apakah urutan diperhatikan (permutasi) atau tidak (kombinasi), dan perhatikan kasus khusus melingkar serta unsur berulang.
 
@@ -131,9 +150,14 @@ update chapters set mindmap = '# Peluang
 - Pilih kelompok/tim -> kombinasi
 - Susun urutan/posisi -> permutasi' where id = 'b0000000-0000-4000-8000-061100000000';
 
-insert into questions (chapter_id, question, option_a, option_b, option_c, option_d, option_e, correct_option, explanation, difficulty) values
-('b0000000-0000-4000-8000-061100000000', 'Sebuah dadu setimbang dilempar satu kali. Peluang munculnya mata dadu bilangan genap adalah...', '1/6', '1/3', '1/2', '2/3', '5/6', 'C', 'Mata dadu genap: {2,4,6}, ada 3 dari 6 kemungkinan. P = 3/6 = 1/2.', 'easy'),
-('b0000000-0000-4000-8000-061100000000', 'Dari satu set kartu bridge (52 kartu) diambil satu kartu secara acak. Peluang terambilnya kartu As adalah...', '1/52', '1/26', '1/4', '1/13', '4/13', 'D', 'Jumlah kartu As ada 4 dari 52 kartu. P = 4/52 = 1/13.', 'easy'),
-('b0000000-0000-4000-8000-061100000000', 'Dalam sebuah kotak terdapat 5 bola merah dan 3 bola biru. Sebuah bola diambil secara acak. Peluang terambilnya bola BUKAN merah adalah...', '1/8', '3/8', '1/2', '5/8', '7/8', 'B', 'P(merah) = 5/8, maka P(bukan merah) = 1 - 5/8 = 3/8 (peluang komplemen), sesuai jumlah bola biru 3/8.', 'medium'),
-('b0000000-0000-4000-8000-061100000000', 'Sebuah dadu dilempar satu kali. Peluang munculnya mata dadu 2 ATAU 5 adalah...', '1/6', '1/4', '1/2', '2/3', '1/3', 'E', 'Kejadian muncul 2 dan muncul 5 saling lepas (tak mungkin bersamaan): P = P(2)+P(5) = 1/6+1/6 = 2/6 = 1/3.', 'medium'),
-('b0000000-0000-4000-8000-061100000000', 'Sebuah panitia beranggotakan 5 orang akan memilih 2 orang sebagai perwakilan tanpa membedakan jabatan (posisi tidak diperhatikan). Banyaknya cara memilih 2 perwakilan tersebut adalah...', '5 cara', '8 cara', '10 cara', '15 cara', '20 cara', 'C', 'Karena urutan/posisi tidak diperhatikan, gunakan kombinasi: C(5,2) = 5!/(2!x3!) = (5x4)/(2x1) = 10 cara.', 'hard');
+insert into questions (chapter_id, question, option_a, option_b, option_c, option_d, option_e, correct_option, explanation, difficulty, order_index) values
+('b0000000-0000-4000-8000-061100000000', 'Sebuah dadu setimbang dilempar satu kali. Peluang munculnya mata dadu bilangan genap adalah...', '1/6', '1/3', '1/2', '2/3', '5/6', 'C', 'Mata dadu genap: {2,4,6}, ada 3 dari 6 kemungkinan. P = 3/6 = 1/2.', 'easy', 1),
+('b0000000-0000-4000-8000-061100000000', 'Dalam sebuah kotak terdapat 50 kartu bernomor 1 sampai 50. Diambil satu kartu secara acak. Peluang terambilnya kartu dengan angka yang BUKAN kelipatan 5 adalah...', '1/5', '2/5', '1/2', '3/5', '4/5', 'E', 'Kelipatan 5 dari 1 sampai 50 ada 10 (yaitu 5, 10, 15, ..., 50), sehingga P(kelipatan 5) = 10/50 = 1/5. Dengan rumus komplemen, P(bukan kelipatan 5) = 1 - 1/5 = 4/5.', 'medium', 2),
+('b0000000-0000-4000-8000-061100000000', 'Sebuah kotak berisi 6 bola merah, 4 bola biru, dan 5 bola hijau. Diambil satu bola secara acak, dicatat warnanya, lalu dikembalikan ke kotak. Kemudian diambil sekali lagi secara acak. Peluang bahwa KEDUA bola yang terambil bukan bola hijau adalah...', '2/3', '4/9', '1/3', '5/9', '8/9', 'B', 'Total bola = 6+4+5 = 15. P(bukan hijau) pada satu kali pengambilan = 10/15 = 2/3. Karena bola dikembalikan (kejadian saling bebas/independen), P(kedua bola bukan hijau) = (2/3) x (2/3) = 4/9.', 'medium', 3),
+('b0000000-0000-4000-8000-061100000000', 'Dari satu set kartu bridge (52 kartu) diambil satu kartu secara acak. Peluang terambilnya kartu As ATAU kartu Hati adalah...', '4/13', '17/52', '1/4', '13/52', '3/13', 'A', 'P(As) = 4/52 dan P(Hati) = 13/52. Kejadian As dan Hati TIDAK saling lepas karena ada As Hati (1 kartu) yang termasuk keduanya, sehingga P(As dan Hati) = 1/52. Maka P(As atau Hati) = 4/52 + 13/52 - 1/52 = 16/52 = 4/13.', 'hard', 4),
+('b0000000-0000-4000-8000-061100000000', 'Sebuah panitia terdiri dari 5 pria dan 4 wanita. Akan dipilih 3 orang secara acak sebagai delegasi (tanpa membedakan jabatan). Peluang bahwa delegasi tersebut terdiri dari SEKURANG-KURANGNYA 1 wanita adalah...', '37/42', '5/42', '10/21', '11/21', '5/14', 'A', 'Total cara memilih 3 dari 9 orang: C(9,3) = 9!/(3! x 6!) = 84. Cara memilih delegasi TANPA wanita (hanya dari 5 pria): C(5,3) = 5!/(3! x 2!) = 10. P(tanpa wanita) = 10/84 = 5/42. Dengan rumus komplemen, P(sekurang-kurangnya 1 wanita) = 1 - 5/42 = 37/42.', 'hard', 5);
+
+insert into questions (chapter_id, question, option_a, option_b, option_c, option_d, option_e, correct_option, explanation, difficulty, order_index) values
+('b0000000-0000-4000-8000-061100000000', 'Dalam pemilihan siswa teladan terdapat 9 calon, yaitu 5 orang putra dan 4 orang putri. Jika akan dipilih sepasang siswa teladan yang terdiri dari seorang putra dan seorang putri, berapa banyak pasangan yang mungkin?', '9', '12', '18', '20', '36', 'D', 'Dengan aturan perkalian, banyaknya pasangan yang mungkin = 5 (pilihan putra) x 4 (pilihan putri) = 20 pasangan.', 'easy', 6),
+('b0000000-0000-4000-8000-061100000000', 'Dalam sebuah kelas, 25 mahasiswa memiliki nama yang dimulai dengan huruf A hingga M, dan 35 mahasiswa memiliki nama yang dimulai dengan huruf N hingga Z. Berapakah peluang bahwa sebuah nama yang diambil secara acak dimulai dengan huruf A hingga M?', '1/3', '5/12', '1/2', '5/7', null, 'B', 'Peluangnya = 25/(25+35) = 25/60 = 5/12.', 'easy', 7),
+('b0000000-0000-4000-8000-061100000000', 'Jika x adalah peluang munculnya jumlah mata dadu 9 atau 10 pada pelemparan dua buah dadu secara bersama-sama, dan y adalah 1/9 dari 1 1/4, maka...', 'x < y', 'x > y', 'x = y', 'x = y + 1/6', 'Hubungan x dan y tidak dapat ditentukan', 'B', 'Jumlah 9 dapat terjadi dengan pasangan (3,6), (4,5), (5,4), (6,3), yaitu 4 cara. Jumlah 10 dapat terjadi dengan pasangan (4,6), (5,5), (6,4), yaitu 3 cara. Total kejadian yang diharapkan = 4 + 3 = 7 dari 36 kemungkinan, sehingga x = 7/36. Sementara itu y = (1/9) x (5/4) = 5/36. Karena 7/36 > 5/36, maka x > y.', 'medium', 8);

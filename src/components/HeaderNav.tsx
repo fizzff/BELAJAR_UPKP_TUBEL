@@ -17,8 +17,10 @@ function subscribe() {
   return () => {};
 }
 
+const EMPTY_HISTORY: QuizHistoryEntry[] = [];
+
 function getServerSnapshot(): QuizHistoryEntry[] {
-  return [];
+  return EMPTY_HISTORY;
 }
 
 export function HeaderNav() {

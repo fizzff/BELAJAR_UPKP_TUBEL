@@ -39,6 +39,7 @@ export interface Question {
   correct_option: "A" | "B" | "C" | "D" | "E";
   explanation: string | null;
   difficulty: Difficulty;
+  order_index: number | null;
   created_at: string;
 }
 

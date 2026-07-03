@@ -59,7 +59,8 @@ export async function getQuestionsByChapter(chapterId: string): Promise<Question
   const { data, error } = await supabase
     .from("questions")
     .select("*")
-    .eq("chapter_id", chapterId);
+    .eq("chapter_id", chapterId)
+    .order("order_index", { ascending: true, nullsFirst: false });
   if (error) throw error;
   return data ?? [];
 }
