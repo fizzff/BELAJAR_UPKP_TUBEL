@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
+  --background: #f7f5f0;
   --foreground: #0f2942;
 }
 
@@ -10,6 +10,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-montserrat);
+  --font-display: var(--font-lora);
 
   /* Navy brand palette */
   --color-navy-950: #061a2e;
@@ -23,12 +24,25 @@
   --color-navy-200: #c1d3e6;
   --color-navy-100: #e2ebf3;
   --color-navy-50: #f4f7fb;
+
+  /* Aksen emas klasik — dipakai hemat: badge, level/XP, garis aksen */
+  --color-gold-700: #8f6a1c;
+  --color-gold-600: #a97e22;
+  --color-gold-500: #c09a3e;
+  --color-gold-300: #d9be7c;
+  --color-gold-200: #e9dcb8;
+  --color-gold-50: #faf6ea;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+}
+
+/* Judul utama memakai serif klasik supaya tampilan terasa timeless */
+h1 {
+  font-family: var(--font-lora), Georgia, "Times New Roman", serif;
 }
 
 @keyframes page-fade-in {

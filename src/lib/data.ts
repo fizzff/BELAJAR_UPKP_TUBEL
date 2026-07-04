@@ -178,3 +178,15 @@ export async function getMiniQuizQuestions(kind: MiniQuizKind): Promise<Question
   const pool = kind === "tskwk" ? await getTryoutPool() : await getQuestionsByModule(TPA_MODULE_ID);
   return shuffle(pool).slice(0, MINI_QUIZ_SIZE);
 }
+
+// Quest Harian: paket soal deterministik per tanggal (seed = YYYYMMDD), diambil
+// dari SELURUH bank soal (TSKWK + TPA) supaya semua pengguna mendapat soal yang
+// sama pada hari yang sama dan paketnya tidak berubah saat halaman di-refresh.
+export async function getDailyQuestQuestions(seed: number, size: number): Promise<Question[]> {
+  const { data, error } = await supabase
+    .from("questions")
+    .select("*")
+    .order("id", { ascending: true });
+  if (error) throw error;
+  return seededShuffle(data ?? [], seed).slice(0, size);
+}
