@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import {
-  DAILY_QUEST_SIZE,
-  XP_PER_CORRECT,
+  DAILY_XP_MAX,
+  QUEST_MISSIONS,
   dailyQuestDateKey,
-  dailyQuestStorageKey,
   levelProgress,
+  missionDoneFlags,
   readXp,
 } from "@/lib/gamification";
 
@@ -15,12 +15,12 @@ function subscribe() {
   return () => {};
 }
 
-function getQuestDoneSnapshot(): boolean {
-  return localStorage.getItem(dailyQuestStorageKey(dailyQuestDateKey())) !== null;
+function getFlagsSnapshot(): string {
+  return missionDoneFlags(dailyQuestDateKey());
 }
 
-function getServerQuestDoneSnapshot(): boolean {
-  return false;
+function getServerFlagsSnapshot(): string {
+  return "0".repeat(QUEST_MISSIONS.length);
 }
 
 function getXpSnapshot(): number {
@@ -45,8 +45,10 @@ function SwordIcon() {
 }
 
 export function QuestBanner() {
-  const done = useSyncExternalStore(subscribe, getQuestDoneSnapshot, getServerQuestDoneSnapshot);
+  const flags = useSyncExternalStore(subscribe, getFlagsSnapshot, getServerFlagsSnapshot);
   const xp = useSyncExternalStore(subscribe, getXpSnapshot, getServerXpSnapshot);
+  const doneCount = [...flags].filter((f) => f === "1").length;
+  const allDone = doneCount === QUEST_MISSIONS.length;
   const progress = levelProgress(xp);
   const pct = progress.isMaxLevel
     ? 100
@@ -63,19 +65,19 @@ export function QuestBanner() {
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="text-lg font-semibold text-navy-900">Quest Harian</h2>
-          {done ? (
+          {allDone ? (
             <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200">
-              Selesai hari ini ✓
+              Semua misi selesai ✓
             </span>
           ) : (
             <span className="rounded-full bg-gold-50 px-2.5 py-0.5 text-xs font-semibold text-gold-700 ring-1 ring-gold-200">
-              Belum dikerjakan
+              {doneCount}/{QUEST_MISSIONS.length} misi selesai
             </span>
           )}
         </div>
         <p className="mt-1 text-sm text-navy-500">
-          {DAILY_QUEST_SIZE} soal baru setiap hari &middot; kumpulkan hingga{" "}
-          {DAILY_QUEST_SIZE * XP_PER_CORRECT} XP untuk menaikkan level belajarmu.
+          {QUEST_MISSIONS.length} misi baru setiap hari &middot; kumpulkan hingga{" "}
+          {DAILY_XP_MAX} XP untuk menaikkan level belajarmu.
         </p>
       </div>
       <div className="w-full shrink-0 sm:w-44">

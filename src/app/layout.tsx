@@ -3,6 +3,7 @@ import { Lora, Montserrat } from "next/font/google";
 import Link from "next/link";
 import NextTopLoader from "nextjs-toploader";
 import { HeaderNav } from "@/components/HeaderNav";
+import { MissionSidebar } from "@/components/MissionSidebar";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -42,6 +43,7 @@ export default function RootLayout({
           </div>
         </header>
         <main className="flex-1">{children}</main>
+        <MissionSidebar />
         <footer className="border-t border-navy-100 py-5 text-center text-xs text-navy-400">
           <span className="mx-auto mb-3 block h-px w-10 bg-gold-300" />
           Belajar UPKP dan Tubel PKN STAN — materi &amp; latihan soal, tanpa login

@@ -5,7 +5,6 @@ import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 import {
   DailyQuestResult,
   LevelProgress,
-  XP_PER_CORRECT,
   addXp,
   dailyQuestStorageKey,
   levelProgress,
@@ -13,7 +12,8 @@ import {
   readXp,
   saveDailyQuestResult,
 } from "@/lib/gamification";
-import { QuizOptionKey, QuizReviewItem, questionOptions } from "@/lib/quiz";
+import { QuizOptionKey, QuizReviewItem, questionOptions, splitPassage } from "@/lib/quiz";
+import { PassageLayout } from "@/components/PassageLayout";
 import { Question } from "@/lib/types";
 
 function subscribe() {
@@ -123,9 +123,13 @@ interface FinishSummary {
 
 export function DailyQuestRunner({
   dateKey,
+  missionId,
+  xpPerCorrect,
   questions,
 }: {
   dateKey: string;
+  missionId: string;
+  xpPerCorrect: number;
   questions: Question[];
 }) {
   const [index, setIndex] = useState(0);
@@ -137,13 +141,13 @@ export function DailyQuestRunner({
   const cachedRawRef = useRef<string | null>(null);
   const cachedResultRef = useRef<DailyQuestResult | null>(null);
   const getStoredSnapshot = useCallback(() => {
-    const raw = localStorage.getItem(dailyQuestStorageKey(dateKey));
+    const raw = localStorage.getItem(dailyQuestStorageKey(dateKey, missionId));
     if (raw !== cachedRawRef.current) {
       cachedRawRef.current = raw;
-      cachedResultRef.current = readDailyQuestResult(dateKey);
+      cachedResultRef.current = readDailyQuestResult(dateKey, missionId);
     }
     return cachedResultRef.current;
-  }, [dateKey]);
+  }, [dateKey, missionId]);
   const stored = useSyncExternalStore(subscribe, getStoredSnapshot, getServerResultSnapshot);
   const currentXp = useSyncExternalStore(subscribe, getXpSnapshot, getServerXpSnapshot);
 
@@ -157,9 +161,10 @@ export function DailyQuestRunner({
         explanation: q.explanation,
       }));
       const correct = items.filter((item) => item.selected === item.correctOption).length;
-      const xpEarned = correct * XP_PER_CORRECT;
+      const xpEarned = correct * xpPerCorrect;
       const result: DailyQuestResult = {
         dateKey,
+        missionId,
         total: questions.length,
         correct,
         xpEarned,
@@ -170,7 +175,7 @@ export function DailyQuestRunner({
       saveDailyQuestResult(result);
       setSummary({ result, before: levelProgress(xpBefore), after: levelProgress(xpAfter) });
     },
-    [dateKey, questions]
+    [dateKey, missionId, xpPerCorrect, questions]
   );
 
   // Sudah dikerjakan hari ini (baik baru saja selesai maupun dari kunjungan sebelumnya).
@@ -185,9 +190,7 @@ export function DailyQuestRunner({
           <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-gold-50 text-2xl ring-1 ring-gold-200">
             {doneResult.correct === doneResult.total ? "🏆" : "✅"}
           </span>
-          <h2 className="mt-3 text-xl font-semibold text-navy-900">
-            Quest hari ini selesai!
-          </h2>
+          <h2 className="mt-3 text-xl font-semibold text-navy-900">Misi selesai!</h2>
           <p className="mt-1 text-sm text-navy-500">
             Benar {doneResult.correct} dari {doneResult.total} soal
             {" "}&middot;{" "}
@@ -209,15 +212,15 @@ export function DailyQuestRunner({
         <QuestReview items={doneResult.items} />
 
         <p className="mt-6 text-center text-xs text-navy-400">
-          Quest baru tersedia besok. Sambil menunggu, lanjutkan belajar lewat materi atau
-          latihan soal.
+          Misi ini bisa dikerjakan lagi besok dengan soal baru. Masih ada misi lain yang
+          menunggu hari ini!
         </p>
         <div className="mt-3 flex justify-center gap-3">
           <Link
-            href="/materi"
+            href="/quest"
             className="rounded-lg bg-navy-900 px-4 py-2 text-sm font-medium text-white hover:bg-navy-700"
           >
-            Buka Materi
+            Misi Lainnya
           </Link>
           <Link
             href="/statistik"
@@ -240,6 +243,7 @@ export function DailyQuestRunner({
   }
 
   const options = questionOptions(question);
+  const { passage, stem } = splitPassage(question.question);
   const picked = picks[index];
   const revealed = picked !== null;
   const isLast = index === questions.length - 1;
@@ -260,7 +264,7 @@ export function DailyQuestRunner({
           Soal {index + 1} dari {questions.length}
         </p>
         <p className="rounded-full bg-gold-50 px-2.5 py-1 text-xs font-semibold text-gold-700 ring-1 ring-gold-200">
-          +{XP_PER_CORRECT} XP / benar
+          +{xpPerCorrect} XP / benar
         </p>
       </div>
 
@@ -279,84 +283,86 @@ export function DailyQuestRunner({
         ))}
       </div>
 
-      <p className="mt-5 whitespace-pre-line text-lg font-medium text-navy-900">
-        {question.question}
-      </p>
+      <div className="mt-5">
+        <PassageLayout passage={passage}>
+          <p className="whitespace-pre-line text-lg font-medium text-navy-900">{stem}</p>
 
-      <div className="mt-4 space-y-2">
-        {(Object.keys(options) as QuizOptionKey[]).map((key) => {
-          const isCorrectOption = key === question.correct_option;
-          const isPicked = key === picked;
-          let cls = "border-navy-100 bg-white hover:border-navy-300";
-          if (revealed) {
-            if (isCorrectOption) cls = "border-emerald-400 bg-emerald-50 text-emerald-900";
-            else if (isPicked) cls = "border-rose-400 bg-rose-50 text-rose-900";
-            else cls = "border-navy-100 bg-white opacity-50";
-          }
-          return (
-            <button
-              key={key}
-              type="button"
-              disabled={revealed}
-              onClick={() => pickOption(key)}
-              className={`flex w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm transition ${cls} ${revealed ? "cursor-default" : "cursor-pointer"}`}
-            >
-              <span className="font-semibold">{key}.</span>
-              <span className="flex-1">{options[key]}</span>
-              {revealed && isCorrectOption && (
-                <span className="text-emerald-600">
-                  <CheckIcon />
-                </span>
-              )}
-              {revealed && isPicked && !isCorrectOption && (
-                <span className="text-rose-600">
-                  <XIcon />
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </div>
-
-      {revealed && (
-        <div className="page-transition mt-4">
-          <div
-            className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold ${
-              picked === question.correct_option
-                ? "bg-emerald-50 text-emerald-900"
-                : "bg-rose-50 text-rose-900"
-            }`}
-          >
-            {picked === question.correct_option ? (
-              <>
-                <span className="text-emerald-600">
-                  <CheckIcon />
-                </span>
-                Benar! +{XP_PER_CORRECT} XP
-              </>
-            ) : (
-              <>
-                <span className="text-rose-600">
-                  <XIcon />
-                </span>
-                Kurang tepat — jawaban benar: {question.correct_option}
-              </>
-            )}
+          <div className="mt-4 space-y-2">
+            {(Object.keys(options) as QuizOptionKey[]).map((key) => {
+              const isCorrectOption = key === question.correct_option;
+              const isPicked = key === picked;
+              let cls = "border-navy-100 bg-white hover:border-navy-300";
+              if (revealed) {
+                if (isCorrectOption) cls = "border-emerald-400 bg-emerald-50 text-emerald-900";
+                else if (isPicked) cls = "border-rose-400 bg-rose-50 text-rose-900";
+                else cls = "border-navy-100 bg-white opacity-50";
+              }
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  disabled={revealed}
+                  onClick={() => pickOption(key)}
+                  className={`flex w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm transition ${cls} ${revealed ? "cursor-default" : "cursor-pointer"}`}
+                >
+                  <span className="font-semibold">{key}.</span>
+                  <span className="flex-1">{options[key]}</span>
+                  {revealed && isCorrectOption && (
+                    <span className="text-emerald-600">
+                      <CheckIcon />
+                    </span>
+                  )}
+                  {revealed && isPicked && !isCorrectOption && (
+                    <span className="text-rose-600">
+                      <XIcon />
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
-          {question.explanation && (
-            <p className="mt-2 rounded-lg bg-navy-50 px-3 py-2 text-sm leading-relaxed text-navy-700">
-              {question.explanation}
-            </p>
+
+          {revealed && (
+            <div className="page-transition mt-4">
+              <div
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold ${
+                  picked === question.correct_option
+                    ? "bg-emerald-50 text-emerald-900"
+                    : "bg-rose-50 text-rose-900"
+                }`}
+              >
+                {picked === question.correct_option ? (
+                  <>
+                    <span className="text-emerald-600">
+                      <CheckIcon />
+                    </span>
+                    Benar! +{xpPerCorrect} XP
+                  </>
+                ) : (
+                  <>
+                    <span className="text-rose-600">
+                      <XIcon />
+                    </span>
+                    Kurang tepat — jawaban benar: {question.correct_option}
+                  </>
+                )}
+              </div>
+              {question.explanation && (
+                <p className="mt-2 rounded-lg bg-navy-50 px-3 py-2 text-sm leading-relaxed text-navy-700">
+                  {question.explanation}
+                </p>
+              )}
+              <button
+                type="button"
+                onClick={() => (isLast ? finishQuest(picks) : setIndex(index + 1))}
+                className="mt-4 w-full rounded-lg bg-navy-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-700"
+              >
+                {isLast ? "Selesaikan Quest" : "Soal Berikutnya"}
+              </button>
+            </div>
           )}
-          <button
-            type="button"
-            onClick={() => (isLast ? finishQuest(picks) : setIndex(index + 1))}
-            className="mt-4 w-full rounded-lg bg-navy-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-navy-700"
-          >
-            {isLast ? "Selesaikan Quest" : "Soal Berikutnya"}
-          </button>
-        </div>
-      )}
+        </PassageLayout>
+      </div>
     </div>
   );
 }

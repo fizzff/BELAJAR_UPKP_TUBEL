@@ -13,7 +13,10 @@ import {
   saveAttemptResult,
   saveQuizHistoryEntry,
   shuffle,
+  splitPassage,
 } from "@/lib/quiz";
+import { QUIZ_XP_PER_CORRECT, TRYOUT_XP_PER_CORRECT, addXp } from "@/lib/gamification";
+import { PassageLayout } from "@/components/PassageLayout";
 
 const LOW_TIME_THRESHOLD_SECONDS = 5 * 60;
 
@@ -93,6 +96,7 @@ export function QuizRunner({
 
   const current = shuffled[index];
   const options = questionOptions(current);
+  const { passage, stem } = splitPassage(current.question);
   const selected = answers[index];
   const isLast = index === shuffled.length - 1;
   const answeredCount = answers.filter((a) => a !== null).length;
@@ -107,7 +111,15 @@ export function QuizRunner({
         explanation: q.explanation,
       }));
       const correct = items.filter((item) => item.selected === item.correctOption).length;
-      const result: QuizResult = { title, total: shuffled.length, correct, items };
+
+      // Try Out & Mini Quiz ikut menyumbang XP level (rate lebih kecil dari Quest
+      // Harian karena bisa diulang tanpa batas). Kuis bab tidak memberi XP.
+      const xpEarned = historyKind
+        ? correct *
+          (historyKind.startsWith("tryout") ? TRYOUT_XP_PER_CORRECT : QUIZ_XP_PER_CORRECT)
+        : undefined;
+
+      const result: QuizResult = { title, total: shuffled.length, correct, items, xpEarned };
       sessionStorage.setItem(QUIZ_RESULT_STORAGE_KEY, JSON.stringify(result));
 
       const percentage = Math.round((correct / shuffled.length) * 100);
@@ -125,6 +137,7 @@ export function QuizRunner({
           percentage,
           timestamp: Date.now(),
         });
+        if (xpEarned !== undefined) addXp(xpEarned);
       }
 
       if (attemptKey) {
@@ -250,41 +263,43 @@ export function QuizRunner({
           {answeredCount} dari {shuffled.length} soal terjawab
         </p>
 
-        <div className="mt-6 flex items-start justify-between gap-3">
-          <p className="whitespace-pre-line text-lg font-medium text-navy-900">
-            {current.question}
-          </p>
-          <button
-            type="button"
-            onClick={toggleFlag}
-            title={flagged[index] ? "Batalkan tanda ragu-ragu" : "Tandai soal ini (ragu-ragu)"}
-            className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
-              flagged[index]
-                ? "border-amber-400 bg-amber-50 text-amber-700"
-                : "border-navy-100 text-navy-400 hover:border-navy-300 hover:text-navy-700"
-            }`}
-          >
-            <FlagIcon filled={flagged[index]} />
-            Tandai
-          </button>
-        </div>
+        <div className="mt-6">
+          <PassageLayout passage={passage}>
+            <div className="flex items-start justify-between gap-3">
+              <p className="whitespace-pre-line text-lg font-medium text-navy-900">{stem}</p>
+              <button
+                type="button"
+                onClick={toggleFlag}
+                title={flagged[index] ? "Batalkan tanda ragu-ragu" : "Tandai soal ini (ragu-ragu)"}
+                className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition ${
+                  flagged[index]
+                    ? "border-amber-400 bg-amber-50 text-amber-700"
+                    : "border-navy-100 text-navy-400 hover:border-navy-300 hover:text-navy-700"
+                }`}
+              >
+                <FlagIcon filled={flagged[index]} />
+                Tandai
+              </button>
+            </div>
 
-        <div className="mt-4 space-y-2">
-          {(Object.keys(options) as QuizOptionKey[]).map((key) => (
-            <button
-              key={key}
-              type="button"
-              onClick={() => selectOption(key)}
-              className={`flex w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm transition ${
-                selected === key
-                  ? "border-navy-900 bg-navy-900 text-white"
-                  : "border-navy-100 bg-white hover:border-navy-300"
-              }`}
-            >
-              <span className="font-semibold">{key}.</span>
-              <span>{options[key]}</span>
-            </button>
-          ))}
+            <div className="mt-4 space-y-2">
+              {(Object.keys(options) as QuizOptionKey[]).map((key) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => selectOption(key)}
+                  className={`flex w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm transition ${
+                    selected === key
+                      ? "border-navy-900 bg-navy-900 text-white"
+                      : "border-navy-100 bg-white hover:border-navy-300"
+                  }`}
+                >
+                  <span className="font-semibold">{key}.</span>
+                  <span>{options[key]}</span>
+                </button>
+              ))}
+            </div>
+          </PassageLayout>
         </div>
 
         <div className="mt-8 flex items-center justify-between gap-3">

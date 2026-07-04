@@ -15,6 +15,8 @@ export interface QuizResult {
   total: number;
   correct: number;
   items: QuizReviewItem[];
+  // XP yang didapat dari pengerjaan ini (hanya Try Out/Quiz, tidak untuk kuis bab).
+  xpEarned?: number;
 }
 
 export const QUIZ_RESULT_STORAGE_KEY = "quizResult";
@@ -86,6 +88,28 @@ export function readAttemptResult(attemptKey: string): QuizResult | null {
   } catch {
     return null;
   }
+}
+
+export interface PassageSplit {
+  // Teks bacaan (bisa beberapa paragraf); null kalau soal bukan tipe wacana.
+  passage: string | null;
+  // Pertanyaan yang benar-benar ditanyakan (tanpa teks bacaan).
+  stem: string;
+}
+
+// Memisahkan teks bacaan dari pertanyaan pada soal wacana. Formatnya konsisten:
+//   "Bacalah paragraf berikut.\n\n\"...bacaan...\"\n\n<pertanyaan sebenarnya>"
+// sehingga blok pertama = pengantar, blok terakhir = pertanyaan, dan blok di
+// tengah = bacaannya.
+export function splitPassage(question: string): PassageSplit {
+  const trimmed = question.trim();
+  if (!/^bacalah\b/i.test(trimmed)) return { passage: null, stem: question };
+  const blocks = trimmed.split(/\n\s*\n/);
+  if (blocks.length < 3) return { passage: null, stem: question };
+  const stem = blocks[blocks.length - 1].trim();
+  const passage = blocks.slice(1, -1).join("\n\n").trim();
+  if (!passage) return { passage: null, stem: question };
+  return { passage, stem };
 }
 
 export function questionOptions(question: Question): Partial<Record<QuizOptionKey, string>> {

@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 import { QUIZ_HISTORY_STORAGE_KEY, QuizHistoryEntry, readQuizHistory } from "@/lib/quiz";
 import {
+  QUEST_MISSIONS,
+  countCompletedMissions,
   dailyQuestDateKey,
-  dailyQuestStorageKey,
   levelProgress,
   readXp,
 } from "@/lib/gamification";
@@ -37,12 +38,12 @@ function getServerXpSnapshot(): number {
   return 0;
 }
 
-function getQuestDoneSnapshot(): boolean {
-  return localStorage.getItem(dailyQuestStorageKey(dailyQuestDateKey())) !== null;
+function getQuestDoneCountSnapshot(): number {
+  return countCompletedMissions(dailyQuestDateKey());
 }
 
-function getServerQuestDoneSnapshot(): boolean {
-  return false;
+function getServerQuestDoneCountSnapshot(): number {
+  return 0;
 }
 
 export function HeaderNav() {
@@ -61,10 +62,10 @@ export function HeaderNav() {
 
   const history = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const xp = useSyncExternalStore(subscribe, getXpSnapshot, getServerXpSnapshot);
-  const questDone = useSyncExternalStore(
+  const questDoneCount = useSyncExternalStore(
     subscribe,
-    getQuestDoneSnapshot,
-    getServerQuestDoneSnapshot
+    getQuestDoneCountSnapshot,
+    getServerQuestDoneCountSnapshot
   );
 
   const progress = levelProgress(xp);
@@ -116,12 +117,14 @@ export function HeaderNav() {
               className="mt-3 flex items-center justify-between rounded-lg border border-navy-100 px-3 py-2 text-sm font-medium text-navy-800 transition hover:border-gold-300 hover:bg-gold-50"
             >
               <span>Quest Harian</span>
-              {questDone ? (
-                <span className="text-xs font-semibold text-emerald-600">Selesai ✓</span>
+              {questDoneCount === QUEST_MISSIONS.length ? (
+                <span className="text-xs font-semibold text-emerald-600">
+                  Semua misi selesai ✓
+                </span>
               ) : (
                 <span className="flex items-center gap-1.5 text-xs font-semibold text-gold-700">
                   <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
-                  Belum dikerjakan
+                  {questDoneCount}/{QUEST_MISSIONS.length} misi
                 </span>
               )}
             </Link>

@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { seededShuffle, shuffle } from "@/lib/quiz";
+import { QuestMission, dailyQuestSeed } from "@/lib/gamification";
 import { Chapter, Content, Module, Question, TPA_MODULE_ID } from "@/lib/types";
 
 export function isTpaModule(module: Pick<Module, "id">) {
@@ -179,14 +180,68 @@ export async function getMiniQuizQuestions(kind: MiniQuizKind): Promise<Question
   return shuffle(pool).slice(0, MINI_QUIZ_SIZE);
 }
 
-// Quest Harian: paket soal deterministik per tanggal (seed = YYYYMMDD), diambil
-// dari SELURUH bank soal (TSKWK + TPA) supaya semua pengguna mendapat soal yang
-// sama pada hari yang sama dan paketnya tidak berubah saat halaman di-refresh.
-export async function getDailyQuestQuestions(seed: number, size: number): Promise<Question[]> {
+// Quest Harian: tiap misi memakai paket soal deterministik per tanggal
+// (seed = YYYYMMDD + offset misi) supaya semua pengguna mendapat soal yang sama
+// pada hari yang sama dan paketnya tidak berubah saat halaman di-refresh.
+async function getAllQuestions(): Promise<Question[]> {
   const { data, error } = await supabase
     .from("questions")
     .select("*")
     .order("id", { ascending: true });
   if (error) throw error;
-  return seededShuffle(data ?? [], seed).slice(0, size);
+  return data ?? [];
+}
+
+function questDayNumber(dateKey: string): number {
+  return Math.floor(Date.parse(`${dateKey}T00:00:00Z`) / 86400000);
+}
+
+// Bab TPA yang disorot "Misi Fokus" hari ini — dirotasi satu bab per hari
+// mengikuti urutan belajar (order_index), melewati bab Figural yang belum
+// punya soal.
+export async function getQuestFocusChapter(dateKey: string): Promise<Chapter | null> {
+  const chapters = (await getChaptersByModule(TPA_MODULE_ID)).filter(
+    (c) => c.code !== "F"
+  );
+  if (chapters.length === 0) return null;
+  return chapters[questDayNumber(dateKey) % chapters.length];
+}
+
+export interface QuestMissionBundle {
+  questions: Question[];
+  // Terisi hanya untuk misi fokus: judul bab yang sedang disorot hari ini.
+  focusChapterTitle?: string;
+}
+
+export async function getQuestMissionQuestions(
+  mission: QuestMission,
+  dateKey: string
+): Promise<QuestMissionBundle> {
+  const seed = dailyQuestSeed(dateKey) + mission.seedOffset;
+
+  if (mission.pool === "tpa-fokus") {
+    const chapter = await getQuestFocusChapter(dateKey);
+    if (!chapter) return { questions: [] };
+    const pool = await getQuestionsByChapter(chapter.id);
+    return {
+      questions: seededShuffle(pool, seed).slice(0, mission.size),
+      focusChapterTitle: chapter.title,
+    };
+  }
+
+  let pool: Question[];
+  switch (mission.pool) {
+    case "tpa-verbal":
+      pool = await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.verbal.codePrefixes);
+      break;
+    case "tpa-numerikal":
+      pool = await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.numerikal.codePrefixes);
+      break;
+    case "tskwk":
+      pool = await getTryoutPool();
+      break;
+    default:
+      pool = await getAllQuestions();
+  }
+  return { questions: seededShuffle(pool, seed).slice(0, mission.size) };
 }

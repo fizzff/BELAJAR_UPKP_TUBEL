@@ -13,6 +13,11 @@ export function QuizResultView({ result }: { result: QuizResult }) {
           {result.correct}/{result.total}
         </p>
         <p className="mt-1 text-sm text-navy-400">{percentage}% jawaban benar</p>
+        {result.xpEarned !== undefined && result.xpEarned > 0 && (
+          <p className="mx-auto mt-3 inline-block rounded-full bg-gold-50 px-3 py-1 text-sm font-semibold text-gold-700 ring-1 ring-gold-200">
+            +{result.xpEarned} XP
+          </p>
+        )}
       </div>
 
       <h2 className="mt-8 text-lg font-semibold text-navy-900">Pembahasan</h2>
