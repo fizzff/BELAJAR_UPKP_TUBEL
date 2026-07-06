@@ -1,7 +1,21 @@
 import Link from "next/link";
 import { QuestBanner } from "@/components/QuestBanner";
+import { AnnouncementsBoard, AnnouncementItem } from "@/components/AnnouncementsBoard";
+import { createServerSupabase } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+
+async function getAnnouncements(): Promise<AnnouncementItem[]> {
+  const supabase = await createServerSupabase();
+  const { data } = await supabase
+    .from("announcements")
+    .select("id, title, body, pinned, created_at")
+    .eq("published", true)
+    .order("pinned", { ascending: false })
+    .order("created_at", { ascending: false })
+    .limit(10);
+  return (data ?? []) as AnnouncementItem[];
+}
 
 function BookIcon() {
   return (
@@ -50,26 +64,28 @@ const MENU_ITEMS = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const announcements = await getAnnouncements();
+
   return (
     <div>
       <div className="border-b border-navy-800 bg-navy-950">
         <div className="mx-auto max-w-4xl px-4 py-16">
           <span className="inline-block rounded-full border border-gold-500/40 bg-gold-500/10 px-3 py-1 text-xs font-medium tracking-wide text-gold-200">
-            E-Learning Persiapan UPKP
+            E-Learning Persiapan UPKP Kemenkeu dan Tubel PKN-STAN
           </span>
           <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Belajar UPKP dan Tubel PKN STAN
           </h1>
           <span className="mt-5 block h-px w-14 bg-gold-500" />
           <p className="mt-5 max-w-xl text-navy-200">
-            Belajar materi dan latihan soal persiapan Tes Substansi Kemenkeu &amp; Wawasan
-            Kebangsaan UPKP, tanpa perlu login.
+            Kumpulan Latihan Soal, Try Out, dan Bahan Materi untuk persiapan UPKP Kemenkeu dan Tubel PKN-STAN.
           </p>
         </div>
       </div>
 
-      <div className="mx-auto max-w-4xl px-4 py-10">
+      <div className="mx-auto max-w-4xl space-y-6 px-4 py-10">
+        <AnnouncementsBoard items={announcements} />
         <QuestBanner />
 
         <div className="mt-6 grid gap-4 sm:grid-cols-3">

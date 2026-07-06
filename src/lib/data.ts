@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { createServerSupabase } from "@/lib/supabase/server";
 import { seededShuffle, shuffle } from "@/lib/quiz";
 import { QuestMission, dailyQuestSeed } from "@/lib/gamification";
 import { Chapter, Content, Module, Question, TPA_MODULE_ID } from "@/lib/types";
@@ -8,6 +8,7 @@ export function isTpaModule(module: Pick<Module, "id">) {
 }
 
 export async function getModules(): Promise<Module[]> {
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from("modules")
     .select("*")
@@ -17,6 +18,7 @@ export async function getModules(): Promise<Module[]> {
 }
 
 export async function getModuleById(moduleId: string): Promise<Module | null> {
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from("modules")
     .select("*")
@@ -27,6 +29,7 @@ export async function getModuleById(moduleId: string): Promise<Module | null> {
 }
 
 export async function getChaptersByModule(moduleId: string): Promise<Chapter[]> {
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from("chapters")
     .select("*")
@@ -37,6 +40,7 @@ export async function getChaptersByModule(moduleId: string): Promise<Chapter[]> 
 }
 
 export async function getChapterById(chapterId: string): Promise<Chapter | null> {
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from("chapters")
     .select("*")
@@ -47,6 +51,7 @@ export async function getChapterById(chapterId: string): Promise<Chapter | null>
 }
 
 export async function getContentsByChapter(chapterId: string): Promise<Content[]> {
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from("contents")
     .select("*")
@@ -57,6 +62,7 @@ export async function getContentsByChapter(chapterId: string): Promise<Content[]
 }
 
 export async function getQuestionsByChapter(chapterId: string): Promise<Question[]> {
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from("questions")
     .select("*")
@@ -67,6 +73,7 @@ export async function getQuestionsByChapter(chapterId: string): Promise<Question
 }
 
 export async function getQuestionsByModule(moduleId: string): Promise<Question[]> {
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from("questions")
     .select("*, chapters!inner(module_id)")
@@ -76,6 +83,7 @@ export async function getQuestionsByModule(moduleId: string): Promise<Question[]
 }
 
 async function getTryoutPool(): Promise<Question[]> {
+  const supabase = await createServerSupabase();
   const modules = await getModules();
   const nonTpaModuleIds = modules.filter((m) => !isTpaModule(m)).map((m) => m.id);
   if (nonTpaModuleIds.length === 0) return [];
@@ -135,6 +143,7 @@ const TPA_SUBTEST_SEED_OFFSET: Record<TpaTryoutSubtest, number> = {
 };
 
 async function getTpaSubtestPool(codePrefixes: string[]): Promise<Question[]> {
+  const supabase = await createServerSupabase();
   const { data: chaptersData, error: chaptersError } = await supabase
     .from("chapters")
     .select("id, code")
@@ -184,6 +193,7 @@ export async function getMiniQuizQuestions(kind: MiniQuizKind): Promise<Question
 // (seed = YYYYMMDD + offset misi) supaya semua pengguna mendapat soal yang sama
 // pada hari yang sama dan paketnya tidak berubah saat halaman di-refresh.
 async function getAllQuestions(): Promise<Question[]> {
+  const supabase = await createServerSupabase();
   const { data, error } = await supabase
     .from("questions")
     .select("*")

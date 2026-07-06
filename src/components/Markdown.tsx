@@ -12,6 +12,7 @@ import {
 } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
@@ -330,7 +331,7 @@ export function Markdown({ children }: { children: string }) {
   return (
     <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-navy-900 prose-p:text-justify prose-p:text-navy-800 prose-li:text-navy-800 prose-a:text-navy-700 prose-strong:text-navy-900 prose-blockquote:border-navy-300 prose-blockquote:text-navy-500 prose-th:text-navy-900 prose-td:text-navy-800">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm, remarkMath, remarkContohSoalBlock]}
+        remarkPlugins={[remarkGfm, remarkBreaks, remarkMath, remarkContohSoalBlock]}
         rehypePlugins={[rehypeKatex]}
         components={{
           p({ children: pChildren }) {

@@ -10,6 +10,7 @@ import {
   levelProgress,
   readXp,
 } from "@/lib/gamification";
+import { logoutAction } from "@/lib/auth-actions";
 
 function ProfileIcon() {
   return (
@@ -46,7 +47,13 @@ function getServerQuestDoneCountSnapshot(): number {
   return 0;
 }
 
-export function HeaderNav() {
+export function HeaderNav({
+  role,
+  nama,
+}: {
+  role: "user" | "admin" | null;
+  nama: string | null;
+}) {
   const [open, setOpen] = useState(false);
   const cachedRawRef = useRef<string | null>(null);
   const cachedHistoryRef = useRef<QuizHistoryEntry[]>([]);
@@ -94,6 +101,16 @@ export function HeaderNav() {
       {open && (
         <div className="absolute right-0 top-full w-72 pt-2">
           <div className="rounded-xl border border-navy-100 bg-white/95 p-4 shadow-lg backdrop-blur-md">
+            {nama && (
+              <div className="mb-3 flex items-center justify-between border-b border-navy-100 pb-3">
+                <p className="truncate text-sm font-semibold text-navy-900">{nama}</p>
+                {role === "admin" && (
+                  <span className="rounded-full bg-navy-900 px-2 py-0.5 text-[11px] font-semibold text-white">
+                    Admin
+                  </span>
+                )}
+              </div>
+            )}
             <div className="flex items-baseline justify-between">
               <p className="text-sm font-semibold text-navy-900">Level {progress.level}</p>
               <span className="rounded-full bg-gold-50 px-2 py-0.5 text-xs font-semibold text-gold-700 ring-1 ring-gold-200">
@@ -149,6 +166,25 @@ export function HeaderNav() {
               >
                 Lihat Statistik Lengkap
               </Link>
+            </div>
+
+            <div className="mt-3 space-y-1.5 border-t border-navy-100 pt-3">
+              {role === "admin" && (
+                <Link
+                  href="/admin"
+                  className="block rounded-md border border-navy-200 px-3 py-2 text-center text-sm font-medium text-navy-800 transition hover:border-navy-400"
+                >
+                  Panel Admin
+                </Link>
+              )}
+              <form action={logoutAction}>
+                <button
+                  type="submit"
+                  className="w-full rounded-md px-3 py-2 text-center text-sm font-medium text-rose-600 transition hover:bg-rose-50"
+                >
+                  Keluar
+                </button>
+              </form>
             </div>
           </div>
         </div>
