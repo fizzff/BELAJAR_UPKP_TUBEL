@@ -4,6 +4,8 @@ import { Chapter, Module, Question } from "@/lib/types";
 import { groupChapters } from "@/lib/chapter-groups";
 import { ChapterPicker } from "@/components/admin/ChapterPicker";
 import { MathTextarea } from "@/components/admin/MathTextarea";
+import { AdminForm } from "@/components/admin/AdminForm";
+import { ConfirmSubmit } from "@/components/admin/ConfirmSubmit";
 
 export const dynamic = "force-dynamic";
 
@@ -104,16 +106,10 @@ export default async function AdminSoal({
         <>
           <section className="rounded-xl border border-navy-100 bg-white p-5 shadow-sm">
             <h3 className="font-semibold text-navy-900">Tambah Soal Baru</h3>
-            <form action={saveQuestion} className="mt-3 space-y-3">
+            <AdminForm action={saveQuestion} submitLabel="Simpan Soal" className="mt-3 space-y-3">
               <input type="hidden" name="chapter_id" value={chapterId} />
               <QuestionFields />
-              <button
-                type="submit"
-                className="rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700"
-              >
-                Simpan Soal
-              </button>
-            </form>
+            </AdminForm>
           </section>
 
           <section>
@@ -134,22 +130,19 @@ export default async function AdminSoal({
                       {q.difficulty} · kunci {q.correct_option}
                     </span>
                   </summary>
-                  <form action={saveQuestion} className="mt-4 space-y-3">
+                  <AdminForm action={saveQuestion} submitLabel="Perbarui" className="mt-4 space-y-3">
                     <input type="hidden" name="id" value={q.id} />
                     <input type="hidden" name="chapter_id" value={chapterId} />
                     <QuestionFields q={q} />
-                    <button
-                      type="submit"
-                      className="rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700"
-                    >
-                      Perbarui
-                    </button>
-                  </form>
+                  </AdminForm>
                   <form action={deleteQuestion} className="mt-2">
                     <input type="hidden" name="id" value={q.id} />
-                    <button type="submit" className="text-sm font-medium text-rose-600 hover:underline">
+                    <ConfirmSubmit
+                      message="Hapus soal ini? Tindakan ini tidak bisa dibatalkan."
+                      className="text-sm font-medium text-rose-600 hover:underline"
+                    >
                       Hapus soal
-                    </button>
+                    </ConfirmSubmit>
                   </form>
                 </details>
               ))}

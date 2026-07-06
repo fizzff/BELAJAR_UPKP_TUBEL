@@ -23,6 +23,14 @@ function intOrNull(v: FormDataEntryValue | null): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+// Status hasil aksi form untuk useActionState — dipakai menampilkan pesan
+// "berhasil disimpan" / pesan error tepat di dekat tombol simpan.
+export type ActionState = { ok: boolean; message: string } | null;
+
+function fail(e: unknown): ActionState {
+  return { ok: false, message: e instanceof Error ? e.message : "Terjadi kesalahan." };
+}
+
 // ---------------------------------------------------------------- Pengumuman
 export async function saveAnnouncement(formData: FormData) {
   const supabase = await requireAdmin();
@@ -86,31 +94,36 @@ export async function setUserAccess(formData: FormData) {
 }
 
 // ---------------------------------------------------------------------- Soal
-export async function saveQuestion(formData: FormData) {
-  const supabase = await requireAdmin();
-  const id = str(formData.get("id"));
-  const optionE = str(formData.get("option_e"));
-  const payload = {
-    chapter_id: str(formData.get("chapter_id")),
-    question: str(formData.get("question")),
-    option_a: str(formData.get("option_a")),
-    option_b: str(formData.get("option_b")),
-    option_c: str(formData.get("option_c")),
-    option_d: str(formData.get("option_d")),
-    option_e: optionE === "" ? null : optionE,
-    correct_option: str(formData.get("correct_option")),
-    explanation: str(formData.get("explanation")) || null,
-    difficulty: str(formData.get("difficulty")) || "medium",
-    order_index: intOrNull(formData.get("order_index")),
-  };
-  if (id) {
-    const { error } = await supabase.from("questions").update(payload).eq("id", id);
-    if (error) throw error;
-  } else {
-    const { error } = await supabase.from("questions").insert(payload);
-    if (error) throw error;
+export async function saveQuestion(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    const supabase = await requireAdmin();
+    const id = str(formData.get("id"));
+    const optionE = str(formData.get("option_e"));
+    const payload = {
+      chapter_id: str(formData.get("chapter_id")),
+      question: str(formData.get("question")),
+      option_a: str(formData.get("option_a")),
+      option_b: str(formData.get("option_b")),
+      option_c: str(formData.get("option_c")),
+      option_d: str(formData.get("option_d")),
+      option_e: optionE === "" ? null : optionE,
+      correct_option: str(formData.get("correct_option")),
+      explanation: str(formData.get("explanation")) || null,
+      difficulty: str(formData.get("difficulty")) || "medium",
+      order_index: intOrNull(formData.get("order_index")),
+    };
+    if (id) {
+      const { error } = await supabase.from("questions").update(payload).eq("id", id);
+      if (error) throw error;
+    } else {
+      const { error } = await supabase.from("questions").insert(payload);
+      if (error) throw error;
+    }
+    revalidatePath("/admin/soal");
+    return { ok: true, message: id ? "Soal diperbarui." : "Soal baru disimpan." };
+  } catch (e) {
+    return fail(e);
   }
-  revalidatePath("/admin/soal");
 }
 
 export async function deleteQuestion(formData: FormData) {
@@ -124,23 +137,28 @@ export async function deleteQuestion(formData: FormData) {
 }
 
 // -------------------------------------------------------------------- Materi
-export async function saveContent(formData: FormData) {
-  const supabase = await requireAdmin();
-  const id = str(formData.get("id"));
-  const payload = {
-    chapter_id: str(formData.get("chapter_id")),
-    heading: str(formData.get("heading")) || null,
-    body: str(formData.get("body")),
-    order_index: intOrNull(formData.get("order_index")),
-  };
-  if (id) {
-    const { error } = await supabase.from("contents").update(payload).eq("id", id);
-    if (error) throw error;
-  } else {
-    const { error } = await supabase.from("contents").insert(payload);
-    if (error) throw error;
+export async function saveContent(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  try {
+    const supabase = await requireAdmin();
+    const id = str(formData.get("id"));
+    const payload = {
+      chapter_id: str(formData.get("chapter_id")),
+      heading: str(formData.get("heading")) || null,
+      body: str(formData.get("body")),
+      order_index: intOrNull(formData.get("order_index")),
+    };
+    if (id) {
+      const { error } = await supabase.from("contents").update(payload).eq("id", id);
+      if (error) throw error;
+    } else {
+      const { error } = await supabase.from("contents").insert(payload);
+      if (error) throw error;
+    }
+    revalidatePath("/admin/materi");
+    return { ok: true, message: id ? "Sub-materi diperbarui." : "Sub-materi baru disimpan." };
+  } catch (e) {
+    return fail(e);
   }
-  revalidatePath("/admin/materi");
 }
 
 export async function deleteContent(formData: FormData) {
@@ -153,14 +171,22 @@ export async function deleteContent(formData: FormData) {
   revalidatePath("/admin/materi");
 }
 
-export async function saveChapterMindmap(formData: FormData) {
-  const supabase = await requireAdmin();
-  const { error } = await supabase
-    .from("chapters")
-    .update({ mindmap: str(formData.get("mindmap")) || null })
-    .eq("id", str(formData.get("chapter_id")));
-  if (error) throw error;
-  revalidatePath("/admin/materi");
+export async function saveChapterMindmap(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  try {
+    const supabase = await requireAdmin();
+    const { error } = await supabase
+      .from("chapters")
+      .update({ mindmap: str(formData.get("mindmap")) || null })
+      .eq("id", str(formData.get("chapter_id")));
+    if (error) throw error;
+    revalidatePath("/admin/materi");
+    return { ok: true, message: "Mind map disimpan." };
+  } catch (e) {
+    return fail(e);
+  }
 }
 
 // ----------------------------------------------------- Struktur: Modul & Bab

@@ -4,6 +4,8 @@ import { Chapter, Content, Module } from "@/lib/types";
 import { groupChapters } from "@/lib/chapter-groups";
 import { ChapterPicker } from "@/components/admin/ChapterPicker";
 import { MathTextarea } from "@/components/admin/MathTextarea";
+import { AdminForm } from "@/components/admin/AdminForm";
+import { ConfirmSubmit } from "@/components/admin/ConfirmSubmit";
 
 export const dynamic = "force-dynamic";
 
@@ -48,7 +50,7 @@ export default async function AdminMateri({
         <>
           <section className="rounded-xl border border-navy-100 bg-white p-5 shadow-sm">
             <h3 className="font-semibold text-navy-900">Mind Map Bab</h3>
-            <form action={saveChapterMindmap} className="mt-3 space-y-3">
+            <AdminForm action={saveChapterMindmap} submitLabel="Simpan Mind Map" className="mt-3 space-y-3">
               <input type="hidden" name="chapter_id" value={chapterId} />
               <textarea
                 name="mindmap"
@@ -57,18 +59,12 @@ export default async function AdminMateri({
                 placeholder="Outline mind map (Markdown berjenjang: # judul, ## cabang, - poin)"
                 className="w-full rounded-lg border border-navy-200 px-3 py-2 font-mono text-xs outline-none focus:border-navy-500"
               />
-              <button
-                type="submit"
-                className="rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700"
-              >
-                Simpan Mind Map
-              </button>
-            </form>
+            </AdminForm>
           </section>
 
           <section className="rounded-xl border border-navy-100 bg-white p-5 shadow-sm">
             <h3 className="font-semibold text-navy-900">Tambah Sub-Materi</h3>
-            <form action={saveContent} className="mt-3 space-y-3">
+            <AdminForm action={saveContent} submitLabel="Simpan Sub-Materi" className="mt-3 space-y-3">
               <input type="hidden" name="chapter_id" value={chapterId} />
               <div className="grid gap-2 sm:grid-cols-[1fr_120px]">
                 <input
@@ -84,13 +80,7 @@ export default async function AdminMateri({
                 />
               </div>
               <MathTextarea name="body" rows={5} required placeholder="Isi materi (Markdown)" />
-              <button
-                type="submit"
-                className="rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700"
-              >
-                Simpan Sub-Materi
-              </button>
-            </form>
+            </AdminForm>
           </section>
 
           <section>
@@ -105,7 +95,7 @@ export default async function AdminMateri({
                     <span className="text-xs font-semibold text-navy-400">#{c.order_index ?? "-"}</span>{" "}
                     <span className="font-medium text-navy-900">{c.heading ?? "(tanpa judul)"}</span>
                   </summary>
-                  <form action={saveContent} className="mt-4 space-y-3">
+                  <AdminForm action={saveContent} submitLabel="Perbarui" className="mt-4 space-y-3">
                     <input type="hidden" name="id" value={c.id} />
                     <input type="hidden" name="chapter_id" value={chapterId} />
                     <div className="grid gap-2 sm:grid-cols-[1fr_120px]">
@@ -124,18 +114,15 @@ export default async function AdminMateri({
                       />
                     </div>
                     <MathTextarea name="body" defaultValue={c.body} rows={6} required />
-                    <button
-                      type="submit"
-                      className="rounded-lg bg-navy-900 px-4 py-2 text-sm font-semibold text-white hover:bg-navy-700"
-                    >
-                      Perbarui
-                    </button>
-                  </form>
+                  </AdminForm>
                   <form action={deleteContent} className="mt-2">
                     <input type="hidden" name="id" value={c.id} />
-                    <button type="submit" className="text-sm font-medium text-rose-600 hover:underline">
+                    <ConfirmSubmit
+                      message="Hapus sub-materi ini? Tindakan ini tidak bisa dibatalkan."
+                      className="text-sm font-medium text-rose-600 hover:underline"
+                    >
                       Hapus sub-materi
-                    </button>
+                    </ConfirmSubmit>
                   </form>
                 </details>
               ))}
