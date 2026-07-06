@@ -45,6 +45,11 @@ h1 {
   font-family: var(--font-lora), Georgia, "Times New Roman", serif;
 }
 
+/* Teks soal — serif khusus (Newsreader) agar menonjol & mudah dibaca */
+.font-soal {
+  font-family: var(--font-soal), Georgia, "Times New Roman", serif;
+}
+
 @keyframes page-fade-in {
   from {
     opacity: 0;

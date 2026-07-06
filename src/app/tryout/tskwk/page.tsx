@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { TryoutPaketCard } from "@/components/TryoutPaketCard";
 import { TRYOUT_PAKET_COUNT, TRYOUT_PAKET_SIZE, TRYOUT_SUBSTANSI_DURATION_MINUTES } from "@/lib/data";
+import { getDoneRefKeys } from "@/lib/attempts";
 
 export const dynamic = "force-dynamic";
 
-export default function TryoutTskwkPage() {
+export default async function TryoutTskwkPage() {
   const paketNumbers = Array.from({ length: TRYOUT_PAKET_COUNT }, (_, i) => i + 1);
+  const done = await getDoneRefKeys(["tryout-tskwk"]);
 
   return (
     <div>
@@ -24,15 +26,20 @@ export default function TryoutTskwkPage() {
 
       <div className="mx-auto max-w-4xl px-4 py-10">
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {paketNumbers.map((n) => (
-            <TryoutPaketCard
-              key={n}
-              href={`/tryout/tskwk/${n}`}
-              attemptKey={`tryout-tskwk-${n}`}
-              label={`Paket ${n}`}
-              meta={`${TRYOUT_PAKET_SIZE} soal`}
-            />
-          ))}
+          {paketNumbers.map((n) => {
+            const refKey = `tryout-tskwk-${n}`;
+            const attemptId = done.get(refKey);
+            return (
+              <TryoutPaketCard
+                key={n}
+                href={`/tryout/tskwk/${n}`}
+                done={Boolean(attemptId)}
+                reviewHref={attemptId ? `/riwayat/${attemptId}` : undefined}
+                label={`Paket ${n}`}
+                meta={`${TRYOUT_PAKET_SIZE} soal`}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

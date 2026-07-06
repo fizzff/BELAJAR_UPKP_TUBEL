@@ -16,6 +16,7 @@ import {
   splitPassage,
 } from "@/lib/quiz";
 import { QUIZ_XP_PER_CORRECT, TRYOUT_XP_PER_CORRECT, addXp } from "@/lib/gamification";
+import { recordAttempt } from "@/lib/attempt-actions";
 import { PassageLayout } from "@/components/PassageLayout";
 import { MathInline } from "@/components/MathInline";
 
@@ -139,6 +140,21 @@ export function QuizRunner({
           timestamp: Date.now(),
         });
         if (xpEarned !== undefined) addXp(xpEarned);
+
+        // Simpan ke riwayat akun (Supabase) + catat soal yang sudah muncul agar
+        // tidak berulang di jenis tes yang sama. Fire-and-forget: hasil kuis
+        // tetap tampil tanpa menunggu.
+        void recordAttempt({
+          kind: historyKind,
+          testType: historyKind.startsWith("tryout") ? "tryout" : "quiz",
+          refKey: attemptKey ?? null,
+          title,
+          total: shuffled.length,
+          correct,
+          xpEarned: xpEarned ?? 0,
+          items,
+          questionIds: shuffled.map((q) => q.id),
+        }).catch(() => {});
       }
 
       if (attemptKey) {
@@ -267,7 +283,7 @@ export function QuizRunner({
         <div className="mt-6">
           <PassageLayout passage={passage}>
             <div className="flex items-start justify-between gap-3">
-              <div className="text-lg font-medium leading-relaxed text-navy-900">
+              <div className="font-soal text-base font-medium leading-relaxed text-navy-900 text-justify">
                 <MathInline>{stem}</MathInline>
               </div>
               <button

@@ -8,6 +8,8 @@ import {
   TPA_TRYOUT_SUBTESTS,
   TpaTryoutSubtest,
 } from "@/lib/data";
+import { getDoneRefKeys } from "@/lib/attempts";
+import { TryoutLocked } from "@/components/TryoutLocked";
 
 export const dynamic = "force-dynamic";
 
@@ -28,9 +30,17 @@ export default async function TpaTryoutPaketSubtestPage({
   }
   if (!isTpaTryoutSubtest(subtest)) notFound();
 
+  const backHref = `/tryout/tpa/${paketNumber}`;
+
+  // Subtes yang sudah dikerjakan dikunci — arahkan ke pembahasannya.
+  const done = await getDoneRefKeys(["tryout-tpa"]);
+  const attemptId = done.get(`tryout-tpa-${paketNumber}-${subtest}`);
+  if (attemptId) {
+    return <TryoutLocked reviewHref={`/riwayat/${attemptId}`} backHref={backHref} />;
+  }
+
   const { label } = TPA_TRYOUT_SUBTESTS[subtest];
   const questions = await getTpaTryoutQuestions(subtest, paketNumber);
-  const backHref = `/tryout/tpa/${paketNumber}`;
 
   if (questions.length === 0) {
     return (

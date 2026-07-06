@@ -1,5 +1,6 @@
 import { createServerSupabase } from "@/lib/supabase/server";
 import { seededShuffle, shuffle } from "@/lib/quiz";
+import { availableUnseen } from "@/lib/attempts";
 import { QuestMission, dailyQuestSeed } from "@/lib/gamification";
 import { Chapter, Content, Module, Question, TPA_MODULE_ID } from "@/lib/types";
 
@@ -111,14 +112,16 @@ export const TRYOUT_PAKET_COUNT = 10;
 export const TRYOUT_PAKET_SIZE = 60;
 export const TRYOUT_SUBSTANSI_DURATION_MINUTES = 60;
 
-// Setiap nomor paket selalu menghasilkan komposisi soal yang sama (deterministik),
-// supaya user bisa mengulang paket yang sama untuk latihan/tracking progres.
+// Susunan paket deterministik per nomor paket, TAPI hanya dari soal yang belum
+// pernah muncul di Try Out untuk user ini (anti-pengulangan per jenis tes).
 export async function getTryoutPaketQuestions(
   paketNumber: number,
   sampleSize: number = TRYOUT_PAKET_SIZE
 ): Promise<Question[]> {
+  const supabase = await createServerSupabase();
   const pool = await getTryoutPool();
-  return seededShuffle(pool, paketNumber).slice(0, sampleSize);
+  const avail = await availableUnseen(supabase, "tryout", pool, sampleSize);
+  return seededShuffle(avail, paketNumber).slice(0, sampleSize);
 }
 
 export type TpaTryoutSubtest = "verbal" | "numerikal";
@@ -171,10 +174,12 @@ export async function getTpaTryoutQuestions(
   subtest: TpaTryoutSubtest,
   paketNumber: number
 ): Promise<Question[]> {
+  const supabase = await createServerSupabase();
   const { codePrefixes } = TPA_TRYOUT_SUBTESTS[subtest];
   const pool = await getTpaSubtestPool(codePrefixes);
+  const avail = await availableUnseen(supabase, "tryout", pool, TPA_TRYOUT_SIZE);
   const seed = paketNumber + TPA_SUBTEST_SEED_OFFSET[subtest];
-  return seededShuffle(pool, seed).slice(0, TPA_TRYOUT_SIZE);
+  return seededShuffle(avail, seed).slice(0, TPA_TRYOUT_SIZE);
 }
 
 export type MiniQuizKind = "tskwk" | "tpa";
@@ -185,8 +190,10 @@ export const MINI_QUIZ_DURATION_MINUTES = 5;
 // Mini quiz sengaja acak ulang tiap kali dibuka (bukan deterministik seperti Try
 // Out) karena fungsinya latihan cepat, bukan paket yang perlu diulang identik.
 export async function getMiniQuizQuestions(kind: MiniQuizKind): Promise<Question[]> {
+  const supabase = await createServerSupabase();
   const pool = kind === "tskwk" ? await getTryoutPool() : await getQuestionsByModule(TPA_MODULE_ID);
-  return shuffle(pool).slice(0, MINI_QUIZ_SIZE);
+  const avail = await availableUnseen(supabase, "quiz", pool, MINI_QUIZ_SIZE);
+  return shuffle(avail).slice(0, MINI_QUIZ_SIZE);
 }
 
 // Quest Harian: tiap misi memakai paket soal deterministik per tanggal
@@ -228,13 +235,15 @@ export async function getQuestMissionQuestions(
   dateKey: string
 ): Promise<QuestMissionBundle> {
   const seed = dailyQuestSeed(dateKey) + mission.seedOffset;
+  const supabase = await createServerSupabase();
 
   if (mission.pool === "tpa-fokus") {
     const chapter = await getQuestFocusChapter(dateKey);
     if (!chapter) return { questions: [] };
     const pool = await getQuestionsByChapter(chapter.id);
+    const avail = await availableUnseen(supabase, "quest", pool, mission.size);
     return {
-      questions: seededShuffle(pool, seed).slice(0, mission.size),
+      questions: seededShuffle(avail, seed).slice(0, mission.size),
       focusChapterTitle: chapter.title,
     };
   }
@@ -253,5 +262,6 @@ export async function getQuestMissionQuestions(
     default:
       pool = await getAllQuestions();
   }
-  return { questions: seededShuffle(pool, seed).slice(0, mission.size) };
+  const avail = await availableUnseen(supabase, "quest", pool, mission.size);
+  return { questions: seededShuffle(avail, seed).slice(0, mission.size) };
 }

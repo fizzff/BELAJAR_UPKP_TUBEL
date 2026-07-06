@@ -161,10 +161,10 @@ export function HeaderNav({
                 </p>
               )}
               <Link
-                href="/statistik"
+                href="/profil"
                 className="mt-2.5 block rounded-md bg-navy-900 px-3 py-2 text-center text-sm font-medium text-white hover:bg-navy-700"
               >
-                Lihat Statistik Lengkap
+                Profil
               </Link>
             </div>
 

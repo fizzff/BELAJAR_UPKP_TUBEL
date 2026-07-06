@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lora, Montserrat } from "next/font/google";
+import { Lora, Montserrat, Newsreader } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { SiteHeader } from "@/components/SiteHeader";
 import { MissionSidebar } from "@/components/MissionSidebar";
@@ -16,6 +16,14 @@ const lora = Lora({
   subsets: ["latin"],
 });
 
+// Font khusus untuk teks soal — serif kontras dengan UI (Montserrat) agar soal
+// lebih menonjol dan terasa seperti "naskah ujian".
+const newsreader = Newsreader({
+  variable: "--font-soal",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = {
   title: "Belajar UPKP dan Tubel PKN STAN",
   description: "E-learning & bank soal persiapan Tes Substansi Kemenkeu & Wawasan Kebangsaan UPKP",
@@ -29,7 +37,10 @@ export default async function RootLayout({
   const session = await getSessionUser();
 
   return (
-    <html lang="id" className={`${montserrat.variable} ${lora.variable} h-full antialiased`}>
+    <html
+      lang="id"
+      className={`${montserrat.variable} ${lora.variable} ${newsreader.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col bg-background text-navy-900">
         <NextTopLoader color="#c09a3e" height={3} showSpinner={false} shadow={false} />
         <SiteHeader role={session.role} nama={session.user ? (session.nama ?? null) : null} />

@@ -8,10 +8,12 @@ import {
   addXp,
   dailyQuestStorageKey,
   levelProgress,
+  questMissionById,
   readDailyQuestResult,
   readXp,
   saveDailyQuestResult,
 } from "@/lib/gamification";
+import { recordAttempt } from "@/lib/attempt-actions";
 import { QuizOptionKey, QuizReviewItem, questionOptions, splitPassage } from "@/lib/quiz";
 import { PassageLayout } from "@/components/PassageLayout";
 import { MathInline } from "@/components/MathInline";
@@ -93,7 +95,7 @@ function QuestReview({ items }: { items: QuizReviewItem[] }) {
               correct ? "border-emerald-200 bg-emerald-50/50" : "border-rose-200 bg-rose-50/50"
             }`}
           >
-            <p className="text-sm font-medium text-navy-900">
+            <p className="font-soal text-sm font-medium text-navy-900 text-justify">
               {i + 1}. <MathInline>{item.question}</MathInline>
             </p>
             <p className="mt-2 text-xs text-navy-600">
@@ -177,6 +179,20 @@ export function DailyQuestRunner({
       const xpAfter = addXp(xpEarned);
       saveDailyQuestResult(result);
       setSummary({ result, before: levelProgress(xpBefore), after: levelProgress(xpAfter) });
+
+      // Simpan ke riwayat akun (Supabase) + catat soal agar tidak berulang di
+      // quest berikutnya. Fire-and-forget.
+      void recordAttempt({
+        kind: "quest",
+        testType: "quest",
+        refKey: `quest-${missionId}-${dateKey}`,
+        title: questMissionById(missionId)?.label ?? "Misi Harian",
+        total: questions.length,
+        correct,
+        xpEarned,
+        items,
+        questionIds: questions.map((q) => q.id),
+      }).catch(() => {});
     },
     [dateKey, missionId, xpPerCorrect, questions]
   );
@@ -226,10 +242,10 @@ export function DailyQuestRunner({
             Misi Lainnya
           </Link>
           <Link
-            href="/statistik"
+            href="/profil"
             className="rounded-lg border border-navy-200 px-4 py-2 text-sm font-medium text-navy-700 hover:border-navy-400"
           >
-            Lihat Statistik
+            Lihat Profil
           </Link>
         </div>
       </div>
@@ -288,7 +304,7 @@ export function DailyQuestRunner({
 
       <div className="mt-5">
         <PassageLayout passage={passage}>
-          <div className="text-lg font-medium leading-relaxed text-navy-900">
+          <div className="font-soal text-base font-medium leading-relaxed text-navy-900 text-justify">
             <MathInline>{stem}</MathInline>
           </div>
 

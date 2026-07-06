@@ -6,6 +6,8 @@ import {
   TRYOUT_PAKET_COUNT,
   TRYOUT_SUBSTANSI_DURATION_MINUTES,
 } from "@/lib/data";
+import { getDoneRefKeys } from "@/lib/attempts";
+import { TryoutLocked } from "@/components/TryoutLocked";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +21,13 @@ export default async function TryoutTskwkPaketPage({
 
   if (!Number.isInteger(paketNumber) || paketNumber < 1 || paketNumber > TRYOUT_PAKET_COUNT) {
     notFound();
+  }
+
+  // Paket yang sudah dikerjakan dikunci — arahkan ke pembahasannya.
+  const done = await getDoneRefKeys(["tryout-tskwk"]);
+  const attemptId = done.get(`tryout-tskwk-${paketNumber}`);
+  if (attemptId) {
+    return <TryoutLocked reviewHref={`/riwayat/${attemptId}`} backHref="/tryout/tskwk" />;
   }
 
   const questions = await getTryoutPaketQuestions(paketNumber);

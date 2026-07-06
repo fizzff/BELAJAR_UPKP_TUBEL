@@ -32,7 +32,7 @@ export function QuizResultView({ result }: { result: QuizResult }) {
                 isCorrect ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50"
               }`}
             >
-              <p className="font-medium text-navy-900">
+              <p className="font-soal font-medium text-navy-900 text-justify">
                 {i + 1}. <MathInline>{item.question}</MathInline>
               </p>
               <ul className="mt-2 space-y-1">

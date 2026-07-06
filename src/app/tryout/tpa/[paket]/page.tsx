@@ -7,6 +7,7 @@ import {
   TPA_TRYOUT_SIZE,
   TPA_TRYOUT_SUBTESTS,
 } from "@/lib/data";
+import { getDoneRefKeys } from "@/lib/attempts";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,7 @@ export default async function TryoutTpaPaketPage({
     keyof typeof TPA_TRYOUT_SUBTESTS,
     (typeof TPA_TRYOUT_SUBTESTS)[keyof typeof TPA_TRYOUT_SUBTESTS],
   ][];
+  const done = await getDoneRefKeys(["tryout-tpa"]);
 
   return (
     <div>
@@ -45,15 +47,20 @@ export default async function TryoutTpaPaketPage({
 
       <div className="mx-auto max-w-4xl px-4 py-10">
         <div className="grid gap-4 sm:grid-cols-2">
-          {tpaSubtests.map(([key, subtest]) => (
-            <TryoutPaketCard
-              key={key}
-              href={`/tryout/tpa/${paketNumber}/${key}`}
-              attemptKey={`tryout-tpa-${paketNumber}-${key}`}
-              label={subtest.label}
-              meta={`${TPA_TRYOUT_SIZE} soal · ${TPA_TRYOUT_DURATION_MINUTES} menit`}
-            />
-          ))}
+          {tpaSubtests.map(([key, subtest]) => {
+            const refKey = `tryout-tpa-${paketNumber}-${key}`;
+            const attemptId = done.get(refKey);
+            return (
+              <TryoutPaketCard
+                key={key}
+                href={`/tryout/tpa/${paketNumber}/${key}`}
+                done={Boolean(attemptId)}
+                reviewHref={attemptId ? `/riwayat/${attemptId}` : undefined}
+                label={subtest.label}
+                meta={`${TPA_TRYOUT_SIZE} soal · ${TPA_TRYOUT_DURATION_MINUTES} menit`}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
