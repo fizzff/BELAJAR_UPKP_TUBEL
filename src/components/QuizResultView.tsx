@@ -1,4 +1,5 @@
 import { QuizResult } from "@/lib/quiz";
+import { MathInline } from "@/components/MathInline";
 
 export function QuizResultView({ result }: { result: QuizResult }) {
   const percentage = Math.round((result.correct / result.total) * 100);
@@ -31,8 +32,8 @@ export function QuizResultView({ result }: { result: QuizResult }) {
                 isCorrect ? "border-emerald-200 bg-emerald-50" : "border-red-200 bg-red-50"
               }`}
             >
-              <p className="whitespace-pre-line font-medium text-navy-900">
-                {i + 1}. {item.question}
+              <p className="font-medium text-navy-900">
+                {i + 1}. <MathInline>{item.question}</MathInline>
               </p>
               <ul className="mt-2 space-y-1">
                 {(Object.keys(item.options) as Array<keyof typeof item.options>).map((key) => (
@@ -46,7 +47,7 @@ export function QuizResultView({ result }: { result: QuizResult }) {
                         : "text-navy-500"
                     }
                   >
-                    {key}. {item.options[key]}
+                    {key}. <MathInline>{item.options[key]}</MathInline>
                     {key === item.correctOption && " (jawaban benar)"}
                     {key === item.selected && key !== item.correctOption && " (jawabanmu)"}
                   </li>
@@ -56,7 +57,7 @@ export function QuizResultView({ result }: { result: QuizResult }) {
               {item.explanation && (
                 <p className="mt-2 text-navy-500">
                   <span className="font-medium">Pembahasan: </span>
-                  {item.explanation}
+                  <MathInline>{item.explanation}</MathInline>
                 </p>
               )}
             </div>

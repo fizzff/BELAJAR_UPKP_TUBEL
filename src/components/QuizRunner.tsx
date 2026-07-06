@@ -17,6 +17,7 @@ import {
 } from "@/lib/quiz";
 import { QUIZ_XP_PER_CORRECT, TRYOUT_XP_PER_CORRECT, addXp } from "@/lib/gamification";
 import { PassageLayout } from "@/components/PassageLayout";
+import { MathInline } from "@/components/MathInline";
 
 const LOW_TIME_THRESHOLD_SECONDS = 5 * 60;
 
@@ -266,7 +267,9 @@ export function QuizRunner({
         <div className="mt-6">
           <PassageLayout passage={passage}>
             <div className="flex items-start justify-between gap-3">
-              <p className="whitespace-pre-line text-lg font-medium text-navy-900">{stem}</p>
+              <div className="text-lg font-medium leading-relaxed text-navy-900">
+                <MathInline>{stem}</MathInline>
+              </div>
               <button
                 type="button"
                 onClick={toggleFlag}
@@ -295,7 +298,9 @@ export function QuizRunner({
                   }`}
                 >
                   <span className="font-semibold">{key}.</span>
-                  <span>{options[key]}</span>
+                  <span>
+                    <MathInline>{options[key]}</MathInline>
+                  </span>
                 </button>
               ))}
             </div>

@@ -14,6 +14,7 @@ import {
 } from "@/lib/gamification";
 import { QuizOptionKey, QuizReviewItem, questionOptions, splitPassage } from "@/lib/quiz";
 import { PassageLayout } from "@/components/PassageLayout";
+import { MathInline } from "@/components/MathInline";
 import { Question } from "@/lib/types";
 
 function subscribe() {
@@ -92,8 +93,8 @@ function QuestReview({ items }: { items: QuizReviewItem[] }) {
               correct ? "border-emerald-200 bg-emerald-50/50" : "border-rose-200 bg-rose-50/50"
             }`}
           >
-            <p className="whitespace-pre-line text-sm font-medium text-navy-900">
-              {i + 1}. {item.question}
+            <p className="text-sm font-medium text-navy-900">
+              {i + 1}. <MathInline>{item.question}</MathInline>
             </p>
             <p className="mt-2 text-xs text-navy-600">
               Jawabanmu: <span className="font-semibold">{item.selected ?? "-"}</span>
@@ -106,7 +107,9 @@ function QuestReview({ items }: { items: QuizReviewItem[] }) {
               )}
             </p>
             {item.explanation && (
-              <p className="mt-1 text-xs leading-relaxed text-navy-500">{item.explanation}</p>
+              <p className="mt-1 text-xs leading-relaxed text-navy-500">
+                <MathInline>{item.explanation}</MathInline>
+              </p>
             )}
           </div>
         );
@@ -285,7 +288,9 @@ export function DailyQuestRunner({
 
       <div className="mt-5">
         <PassageLayout passage={passage}>
-          <p className="whitespace-pre-line text-lg font-medium text-navy-900">{stem}</p>
+          <div className="text-lg font-medium leading-relaxed text-navy-900">
+            <MathInline>{stem}</MathInline>
+          </div>
 
           <div className="mt-4 space-y-2">
             {(Object.keys(options) as QuizOptionKey[]).map((key) => {
@@ -306,7 +311,9 @@ export function DailyQuestRunner({
                   className={`flex w-full items-start gap-3 rounded-lg border px-4 py-3 text-left text-sm transition ${cls} ${revealed ? "cursor-default" : "cursor-pointer"}`}
                 >
                   <span className="font-semibold">{key}.</span>
-                  <span className="flex-1">{options[key]}</span>
+                  <span className="flex-1">
+                    <MathInline>{options[key]}</MathInline>
+                  </span>
                   {revealed && isCorrectOption && (
                     <span className="text-emerald-600">
                       <CheckIcon />
@@ -349,7 +356,7 @@ export function DailyQuestRunner({
               </div>
               {question.explanation && (
                 <p className="mt-2 rounded-lg bg-navy-50 px-3 py-2 text-sm leading-relaxed text-navy-700">
-                  {question.explanation}
+                  <MathInline>{question.explanation}</MathInline>
                 </p>
               )}
               <button
