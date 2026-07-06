@@ -15,7 +15,13 @@ export const TRYOUT_XP_PER_CORRECT = 2;
 // Papan misi harian: beberapa misi per hari, masing-masing 1x pengerjaan.
 // Pool "tpa-fokus" menyorot SATU bab TPA yang berganti setiap hari (dirotasi
 // berdasarkan tanggal), sisanya kelompok topik tetap.
-export type QuestMissionPool = "campuran" | "tpa-verbal" | "tpa-numerikal" | "tskwk" | "tpa-fokus";
+export type QuestMissionPool =
+  | "campuran"
+  | "tpa-verbal"
+  | "tpa-numerikal"
+  | "tpa-figural"
+  | "tskwk"
+  | "tpa-fokus";
 
 export interface QuestMission {
   id: string;
@@ -70,6 +76,16 @@ export const QUEST_MISSIONS: QuestMission[] = [
     size: 5,
     xpPerCorrect: 12,
     seedOffset: 303,
+  },
+  {
+    id: "figural",
+    label: "Misi Figural TPA",
+    description: "Pola gambar: deret, analogi, dan matriks visual.",
+    emoji: "🧩",
+    pool: "tpa-figural",
+    size: 5,
+    xpPerCorrect: 12,
+    seedOffset: 505,
   },
   {
     id: "tskwk",

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TryoutPaketCard } from "@/components/TryoutPaketCard";
 import {
-  TPA_TRYOUT_DURATION_MINUTES,
   TPA_TRYOUT_PAKET_COUNT,
   TPA_TRYOUT_SIZE,
   TPA_TRYOUT_SUBTESTS,
@@ -40,7 +39,7 @@ export default async function TryoutTpaPaketPage({
             Try Out TPA — Paket {paketNumber}
           </h1>
           <p className="mt-2 max-w-xl text-navy-200">
-            Pilih subtes. {TPA_TRYOUT_SIZE} soal &middot; {TPA_TRYOUT_DURATION_MINUTES} menit.
+            Pilih subtes: Verbal, Numerikal, atau Figural. {TPA_TRYOUT_SIZE} soal per subtes.
           </p>
         </div>
       </div>
@@ -57,7 +56,7 @@ export default async function TryoutTpaPaketPage({
                 done={Boolean(attemptId)}
                 reviewHref={attemptId ? `/riwayat/${attemptId}` : undefined}
                 label={subtest.label}
-                meta={`${TPA_TRYOUT_SIZE} soal · ${TPA_TRYOUT_DURATION_MINUTES} menit`}
+                meta={`${TPA_TRYOUT_SIZE} soal · ${subtest.duration} menit`}
               />
             );
           })}

@@ -20,6 +20,19 @@ export function MathInline({ children }: { children: ReactNode }) {
       rehypePlugins={[rehypeKatex]}
       components={{
         p: ({ children: c }) => <>{c}</>,
+        // Gambar soal/opsi figural (mis. SVG di /figural/...). Ukuran mengikuti
+        // lebar SVG-nya sendiri, dibatasi agar tidak melebihi kontainer.
+        img: ({ node, ...props }) => {
+          void node;
+          return (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              {...props}
+              alt={props.alt ?? ""}
+              className="my-1 inline-block max-w-full rounded-md border border-navy-100 bg-white align-middle"
+            />
+          );
+        },
       }}
     >
       {text}

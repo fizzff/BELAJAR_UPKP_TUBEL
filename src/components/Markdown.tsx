@@ -356,6 +356,17 @@ export function Markdown({ children }: { children: string }) {
             return <ul>{ulChildren}</ul>;
           },
           li: MarkdownListItem,
+          img({ node, ...props }) {
+            void node;
+            return (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                {...props}
+                alt={props.alt ?? ""}
+                className="not-prose mx-auto my-3 block max-w-full rounded-lg border border-navy-100 bg-white"
+              />
+            );
+          },
           div({
             className,
             children: divChildren,

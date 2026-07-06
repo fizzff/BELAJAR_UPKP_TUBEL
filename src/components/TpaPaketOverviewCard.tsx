@@ -14,10 +14,14 @@ function getServerSnapshot() {
 
 export function TpaPaketOverviewCard({ paketNumber }: { paketNumber: number }) {
   const getSnapshot = useCallback(() => {
-    const verbalDone = localStorage.getItem(attemptResultStorageKey(`tryout-tpa-${paketNumber}-verbal`)) !== null;
-    const numerikalDone =
-      localStorage.getItem(attemptResultStorageKey(`tryout-tpa-${paketNumber}-numerikal`)) !== null;
-    return (verbalDone ? 1 : 0) + (numerikalDone ? 1 : 0);
+    return (["verbal", "numerikal", "figural"] as const).reduce(
+      (n, sub) =>
+        n +
+        (localStorage.getItem(attemptResultStorageKey(`tryout-tpa-${paketNumber}-${sub}`)) !== null
+          ? 1
+          : 0),
+      0
+    );
   }, [paketNumber]);
 
   const doneCount = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
@@ -30,14 +34,14 @@ export function TpaPaketOverviewCard({ paketNumber }: { paketNumber: number }) {
       {doneCount > 0 && (
         <span
           className={`absolute right-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-            doneCount === 2 ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
+            doneCount === 3 ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
           }`}
         >
-          {doneCount}/2 selesai
+          {doneCount}/3 selesai
         </span>
       )}
       <span className="text-2xl font-bold text-navy-900">Paket {paketNumber}</span>
-      <p className="mt-1 text-sm text-navy-500">Verbal &amp; Numerikal</p>
+      <p className="mt-1 text-sm text-navy-500">Verbal, Numerikal &amp; Figural</p>
     </Link>
   );
 }

@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { QuizRunner } from "@/components/QuizRunner";
 import {
   getTpaTryoutQuestions,
-  TPA_TRYOUT_DURATION_MINUTES,
   TPA_TRYOUT_PAKET_COUNT,
   TPA_TRYOUT_SUBTESTS,
   TpaTryoutSubtest,
@@ -39,7 +38,7 @@ export default async function TpaTryoutPaketSubtestPage({
     return <TryoutLocked reviewHref={`/riwayat/${attemptId}`} backHref={backHref} />;
   }
 
-  const { label } = TPA_TRYOUT_SUBTESTS[subtest];
+  const { label, duration } = TPA_TRYOUT_SUBTESTS[subtest];
   const questions = await getTpaTryoutQuestions(subtest, paketNumber);
 
   if (questions.length === 0) {
@@ -60,7 +59,7 @@ export default async function TpaTryoutPaketSubtestPage({
       questions={questions}
       title={`Try Out TPA Paket ${paketNumber} — ${label} (${questions.length} Soal)`}
       backHref={backHref}
-      durationMinutes={TPA_TRYOUT_DURATION_MINUTES}
+      durationMinutes={duration}
       historyKind="tryout-tpa"
       attemptKey={`tryout-tpa-${paketNumber}-${subtest}`}
     />

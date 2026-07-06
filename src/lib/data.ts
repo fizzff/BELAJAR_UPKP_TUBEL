@@ -124,17 +124,20 @@ export async function getTryoutPaketQuestions(
   return seededShuffle(avail, paketNumber).slice(0, sampleSize);
 }
 
-export type TpaTryoutSubtest = "verbal" | "numerikal";
+export type TpaTryoutSubtest = "verbal" | "numerikal" | "figural";
 
 export const TPA_TRYOUT_SUBTESTS: Record<
   TpaTryoutSubtest,
-  { label: string; codePrefixes: string[] }
+  { label: string; codePrefixes: string[]; duration: number }
 > = {
-  verbal: { label: "Verbal", codePrefixes: ["A", "B", "C", "D"] },
-  numerikal: { label: "Numerikal", codePrefixes: ["E"] },
+  verbal: { label: "Verbal", codePrefixes: ["A", "B", "C", "D"], duration: 45 },
+  numerikal: { label: "Numerikal", codePrefixes: ["E"], duration: 45 },
+  figural: { label: "Figural", codePrefixes: ["F"], duration: 30 },
 };
 
 export const TPA_TRYOUT_SIZE = 40;
+// Durasi umum (Verbal/Numerikal); Figural memakai durasinya sendiri (30 menit)
+// lewat TPA_TRYOUT_SUBTESTS.figural.duration.
 export const TPA_TRYOUT_DURATION_MINUTES = 45;
 export const TPA_TRYOUT_PAKET_COUNT = 10;
 
@@ -143,6 +146,7 @@ export const TPA_TRYOUT_PAKET_COUNT = 10;
 const TPA_SUBTEST_SEED_OFFSET: Record<TpaTryoutSubtest, number> = {
   verbal: 0,
   numerikal: 1000,
+  figural: 2000,
 };
 
 async function getTpaSubtestPool(codePrefixes: string[]): Promise<Question[]> {
@@ -255,6 +259,9 @@ export async function getQuestMissionQuestions(
       break;
     case "tpa-numerikal":
       pool = await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.numerikal.codePrefixes);
+      break;
+    case "tpa-figural":
+      pool = await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.figural.codePrefixes);
       break;
     case "tskwk":
       pool = await getTryoutPool();

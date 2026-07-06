@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { TpaPaketOverviewCard } from "@/components/TpaPaketOverviewCard";
-import {
-  TPA_TRYOUT_DURATION_MINUTES,
-  TPA_TRYOUT_PAKET_COUNT,
-  TPA_TRYOUT_SIZE,
-} from "@/lib/data";
+import { TPA_TRYOUT_PAKET_COUNT, TPA_TRYOUT_SIZE } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
@@ -20,8 +16,8 @@ export default function TryoutTpaPage() {
           </Link>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-white">Try Out TPA</h1>
           <p className="mt-2 max-w-xl text-navy-200">
-            Pilih paket, lalu pilih subtes Verbal atau Numerikal. {TPA_TRYOUT_SIZE} soal &middot;{" "}
-            {TPA_TRYOUT_DURATION_MINUTES} menit per subtes.
+            Pilih paket, lalu pilih subtes Verbal, Numerikal, atau Figural. {TPA_TRYOUT_SIZE} soal
+            per subtes.
           </p>
         </div>
       </div>
