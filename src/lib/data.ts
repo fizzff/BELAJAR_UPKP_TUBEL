@@ -149,18 +149,26 @@ const TPA_SUBTEST_SEED_OFFSET: Record<TpaTryoutSubtest, number> = {
   figural: 2000,
 };
 
-async function getTpaSubtestPool(codePrefixes: string[]): Promise<Question[]> {
+async function getTpaSubtestPool(
+  codePrefixes: string[]
+): Promise<{ pool: Question[]; order: Map<string, number> }> {
   const supabase = await createServerSupabase();
   const { data: chaptersData, error: chaptersError } = await supabase
     .from("chapters")
-    .select("id, code")
+    .select("id, code, order_index")
     .eq("module_id", TPA_MODULE_ID);
   if (chaptersError) throw chaptersError;
 
-  const chapterIds = (chaptersData ?? [])
-    .filter((c) => codePrefixes.some((prefix) => c.code?.startsWith(prefix)))
-    .map((c) => c.id as string);
-  if (chapterIds.length === 0) return [];
+  const matched = (chaptersData ?? []).filter((c) =>
+    codePrefixes.some((prefix) => c.code?.startsWith(prefix))
+  );
+  // Peta id bab -> order_index dipakai untuk menyusun soal per kategori mengikuti
+  // urutan KLC (mis. Sinonim -> ... -> Wacana; E1 -> ... -> E10).
+  const order = new Map<string, number>(
+    matched.map((c) => [c.id as string, (c.order_index as number | null) ?? 0])
+  );
+  const chapterIds = matched.map((c) => c.id as string);
+  if (chapterIds.length === 0) return { pool: [], order };
 
   const { data, error } = await supabase
     .from("questions")
@@ -168,7 +176,18 @@ async function getTpaSubtestPool(codePrefixes: string[]): Promise<Question[]> {
     .in("chapter_id", chapterIds)
     .order("id", { ascending: true });
   if (error) throw error;
-  return data ?? [];
+  return { pool: data ?? [], order };
+}
+
+// Urutan tampil tipe soal Figural (semua berada dalam satu bab), diambil dari
+// prefiks nama berkas gambar: q=Deret, a=Analogi, m=Matriks, r=Rotasi,
+// c=Pencerminan, o=Berbeda, s=Bayangan.
+const FIGURAL_TYPE_ORDER: Record<string, number> = {
+  q: 1, a: 2, m: 3, r: 4, c: 5, o: 6, s: 7,
+};
+function figuralTypeRank(q: Question): number {
+  const m = q.question.match(/\/figural\/([a-z])/);
+  return m ? FIGURAL_TYPE_ORDER[m[1]] ?? 99 : 99;
 }
 
 // Setiap nomor paket selalu menghasilkan komposisi soal yang sama (deterministik),
@@ -180,10 +199,19 @@ export async function getTpaTryoutQuestions(
 ): Promise<Question[]> {
   const supabase = await createServerSupabase();
   const { codePrefixes } = TPA_TRYOUT_SUBTESTS[subtest];
-  const pool = await getTpaSubtestPool(codePrefixes);
+  const { pool, order } = await getTpaSubtestPool(codePrefixes);
   const avail = await availableUnseen(supabase, "tryout", pool, TPA_TRYOUT_SIZE);
   const seed = paketNumber + TPA_SUBTEST_SEED_OFFSET[subtest];
-  return seededShuffle(avail, seed).slice(0, TPA_TRYOUT_SIZE);
+  const chosen = seededShuffle(avail, seed).slice(0, TPA_TRYOUT_SIZE);
+  // Susun mengikuti urutan kategori KLC: kelompokkan per bab (order_index) untuk
+  // Verbal & Numerikal, atau per tipe gambar untuk Figural. Acakan dipertahankan
+  // di dalam tiap kelompok (stabil).
+  const rankOf = (q: Question) =>
+    subtest === "figural" ? figuralTypeRank(q) : order.get(q.chapter_id ?? "") ?? 999;
+  return chosen
+    .map((q, i) => ({ q, i }))
+    .sort((x, y) => rankOf(x.q) - rankOf(y.q) || x.i - y.i)
+    .map((x) => x.q);
 }
 
 export type MiniQuizKind = "tskwk" | "tpa";
@@ -255,13 +283,13 @@ export async function getQuestMissionQuestions(
   let pool: Question[];
   switch (mission.pool) {
     case "tpa-verbal":
-      pool = await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.verbal.codePrefixes);
+      pool = (await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.verbal.codePrefixes)).pool;
       break;
     case "tpa-numerikal":
-      pool = await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.numerikal.codePrefixes);
+      pool = (await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.numerikal.codePrefixes)).pool;
       break;
     case "tpa-figural":
-      pool = await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.figural.codePrefixes);
+      pool = (await getTpaSubtestPool(TPA_TRYOUT_SUBTESTS.figural.codePrefixes)).pool;
       break;
     case "tskwk":
       pool = await getTryoutPool();
