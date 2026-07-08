@@ -1,13 +1,12 @@
 -- Bank soal TPA VERBAL berstruktur kategori KLC (ORISINAL, bukan salinan).
--- 6 bab @ 40 soal = 240 soal:
---   Sinonim, Antonim, Analogi, Penalaran Analitis (pasti benar/salah + memperkuat/
---   memperlemah/asumsi), Logika Posisi (8 teka-teki), Pemahaman Wacana (8 bacaan @ 5 soal).
--- Idempotent: hapus soal pada 6 bab verbal lalu isi ulang.
+-- 5 bab: Sinonim (40), Analogi (40 dua-kata + 18 tiga-kata), Penalaran Analitis
+--   (pasti benar/salah + memperkuat/memperlemah/asumsi), Logika Posisi (8 teka-teki),
+--   Pemahaman Wacana (8 bacaan @ 5 soal). Antonim SUDAH DIHAPUS dari struktur.
+-- Idempotent: hapus soal pada 5 bab verbal lalu isi ulang.
 -- Jalankan SETELAH migrate_verbal_klc_structure.sql.
 
 delete from questions where chapter_id in (
   'b0000000-0000-4000-8000-060100000000', -- Sinonim
-  'b0000000-0000-4000-8000-060200000000', -- Antonim
   'b0000000-0000-4000-8000-060500000000', -- Analogi
   'b0000000-0000-4000-8000-060400000000', -- Penarikan Kesimpulan
   'b0000000-0000-4000-8000-060600000000', -- Logika Posisi
@@ -59,49 +58,6 @@ insert into questions (chapter_id, question, option_a, option_b, option_c, optio
 ('b0000000-0000-4000-8000-060100000000','Sinonim dari kata GIGIH adalah...','Malas','Ulet','Lemah','Menyerah','Ragu','B','Gigih berarti ulet dan tabah mempertahankan pendirian.','medium'),
 ('b0000000-0000-4000-8000-060100000000','Sinonim dari kata KREDIBEL adalah...','Meragukan','Palsu','Tepercaya','Bohong','Diragukan','C','Kredibel berarti dapat dipercaya.','hard'),
 
--- ============================ ANTONIM ============================
-('b0000000-0000-4000-8000-060200000000','Antonim (lawan kata) dari GAGAL adalah...','Rugi','Berhasil','Jatuh','Kalah','Hancur','B','Lawan dari gagal adalah berhasil.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata CURAM adalah...','Terjal','Tinggi','Landai','Dalam','Miring','C','Lawan dari curam (terjal) adalah landai.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata FANA adalah...','Sementara','Rapuh','Sirna','Kekal','Lenyap','D','Fana berarti sementara; lawannya kekal atau abadi.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata STATIS adalah...','Diam','Tetap','Beku','Kaku','Dinamis','E','Lawan dari statis (tidak berubah) adalah dinamis.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata GERSANG adalah...','Subur','Tandus','Kering','Kerontang','Kosong','A','Lawan dari gersang adalah subur.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata CEROBOH adalah...','Lalai','Teliti','Sembrono','Gegabah','Lengah','B','Lawan dari ceroboh adalah teliti atau cermat.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata NISBI adalah...','Relatif','Semu','Mutlak','Bias','Samar','C','Nisbi berarti relatif; lawannya mutlak.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata PROGRESIF adalah...','Maju','Pesat','Dinamis','Regresif','Aktif','D','Progresif berarti ke arah maju; lawannya regresif (mundur).','hard'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata KOLEKTIF adalah...','Bersama','Kelompok','Massal','Gotong royong','Individual','E','Kolektif berarti bersama-sama; lawannya individual.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata ANTIPATI adalah...','Simpati','Benci','Acuh','Muak','Sinis','A','Antipati berarti perasaan tidak suka; lawannya simpati.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata MAYOR adalah...','Besar','Utama','Minor','Induk','Pokok','C','Lawan dari mayor adalah minor.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata SEKULER adalah...','Duniawi','Bebas','Netral','Religius','Awam','D','Sekuler berarti duniawi/tidak bersifat keagamaan; lawannya religius.','hard'),
-
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata AKTIF adalah...','Giat','Rajin','Sibuk','Pasif','Dinamis','D','Lawan dari aktif adalah pasif.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata BOROS adalah...','Royal','Hemat','Mubazir','Foya','Berlebihan','B','Lawan dari boros adalah hemat.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata CACAT adalah...','Rusak','Cela','Kurang','Sempurna','Buruk','D','Lawan dari cacat adalah sempurna.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata DANGKAL adalah...','Cetek','Tipis','Dalam','Sempit','Rendah','C','Lawan dari dangkal adalah dalam.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata EKSPOR adalah...','Kirim','Jual','Impor','Dagang','Antar','C','Lawan dari ekspor (mengirim ke luar negeri) adalah impor.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata FLEKSIBEL adalah...','Lentur','Luwes','Lunak','Kaku','Elastis','D','Lawan dari fleksibel adalah kaku.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata GANJIL adalah...','Aneh','Tunggal','Genap','Unik','Langka','C','Lawan dari ganjil (bilangan) adalah genap.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata KUAT adalah...','Kokoh','Tangguh','Lemah','Perkasa','Bugar','C','Lawan dari kuat adalah lemah.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata ILEGAL adalah...','Gelap','Terlarang','Legal','Haram','Liar','C','Lawan dari ilegal adalah legal (sah).','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata JUJUR adalah...','Tulus','Terbuka','Bohong','Ikhlas','Lugas','C','Lawan dari jujur adalah bohong atau dusta.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata KASAR adalah...','Keras','Halus','Kaku','Tajam','Bengis','B','Lawan dari kasar adalah halus.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata LUAS adalah...','Lebar','Sempit','Lapang','Besar','Panjang','B','Lawan dari luas adalah sempit.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata MAHIR adalah...','Terampil','Cakap','Canggung','Ahli','Piawai','C','Lawan dari mahir adalah canggung atau tidak terampil.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata NAIK adalah...','Melonjak','Meningkat','Turun','Mendaki','Melambung','C','Lawan dari naik adalah turun.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata PADAT adalah...','Rapat','Penuh','Longgar','Sesak','Padu','C','Lawan dari padat adalah longgar atau renggang.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata RAMAI adalah...','Riuh','Padat','Sepi','Bising','Gaduh','C','Lawan dari ramai adalah sepi.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata SEMENTARA adalah...','Sekejap','Sesaat','Permanen','Sebentar','Singkat','C','Lawan dari sementara adalah permanen atau tetap.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata TERANG adalah...','Benderang','Cerah','Gelap','Jelas','Cemerlang','C','Lawan dari terang adalah gelap.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata UNTUNG adalah...','Laba','Hasil','Rugi','Berkah','Beruntung','C','Lawan dari untung adalah rugi.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata VERTIKAL adalah...','Tegak','Lurus','Horizontal','Miring','Naik','C','Lawan dari vertikal (tegak) adalah horizontal (mendatar).','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata WAJIB adalah...','Harus','Kudu','Sukarela','Mesti','Perlu','C','Lawan dari wajib adalah sukarela (tidak diharuskan).','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata AWAL adalah...','Mula','Pangkal','Akhir','Permulaan','Perdana','C','Lawan dari awal adalah akhir.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata BERANI adalah...','Nekat','Gagah','Pengecut','Tegas','Nekad','C','Lawan dari berani adalah pengecut atau penakut.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata CEPAT adalah...','Kilat','Gesit','Lambat','Deras','Laju','C','Lawan dari cepat adalah lambat.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata DERMAWAN adalah...','Murah hati','Pemurah','Kikir','Baik','Ramah','C','Lawan dari dermawan adalah kikir atau pelit.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata ELASTIS adalah...','Lentur','Molor','Kaku','Fleksibel','Kenyal','C','Lawan dari elastis adalah kaku.','medium'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata GEMBIRA adalah...','Riang','Ceria','Sedih','Suka','Bahagia','C','Lawan dari gembira adalah sedih.','easy'),
-('b0000000-0000-4000-8000-060200000000','Antonim dari kata TERBIT adalah...','Muncul','Timbul','Terbenam','Naik','Keluar','C','Lawan dari terbit (matahari) adalah terbenam.','medium'),
-
 -- ============================ ANALOGI ============================
 ('b0000000-0000-4000-8000-060500000000','DOKTER : PASIEN = GURU : ...','Sekolah','Murid','Papan tulis','Buku','Kelas','B','Dokter menangani pasien, sebagaimana guru mengajar murid.','easy'),
 ('b0000000-0000-4000-8000-060500000000','PILOT : PESAWAT = MASINIS : ...','Rel','Stasiun','Kereta','Gerbong','Sinyal','C','Pilot mengemudikan pesawat, masinis mengemudikan kereta.','easy'),
@@ -144,6 +100,26 @@ insert into questions (chapter_id, question, option_a, option_b, option_c, optio
 ('b0000000-0000-4000-8000-060500000000','LILIN : CAHAYA = KIPAS : ...','Panas','Listrik','Angin','Dingin','Suara','C','Lilin menghasilkan cahaya, kipas menghasilkan angin.','medium'),
 ('b0000000-0000-4000-8000-060500000000','AKAR : POHON = FONDASI : ...','Atap','Dinding','Bangunan','Jendela','Pintu','C','Akar menopang pohon, fondasi menopang bangunan.','medium'),
 ('b0000000-0000-4000-8000-060500000000','DOKTER : RUMAH SAKIT = KOKI : ...','Menu','Kompor','Dapur','Restoran','Pisau','C','Dokter bekerja di rumah sakit, koki bekerja di dapur.','easy'),
+
+-- --- ANALOGI 3 KATA (A : B : C = D : E : ...) ---
+('b0000000-0000-4000-8000-060500000000','HANGAT : PANAS : MENDIDIH = SEJUK : DINGIN : ...','Es','Salju','Beku','Adem','Cair','C','Tingkatan suhu makin panas (hangat<panas<mendidih); analog makin dingin: sejuk<dingin<beku.','medium'),
+('b0000000-0000-4000-8000-060500000000','SENYUM : TAWA : TERBAHAK = KESAL : MARAH : ...','Murka','Senang','Diam','Sabar','Kecewa','A','Intensitas gembira menaik; analog intensitas kemarahan: kesal<marah<murka.','medium'),
+('b0000000-0000-4000-8000-060500000000','RINTIK : HUJAN : BADAI = SEPOI : ANGIN : ...','Sejuk','Bayu','Awan','Topan','Mendung','D','Intensitas curah menaik; analog intensitas embusan: sepoi<angin<topan.','medium'),
+('b0000000-0000-4000-8000-060500000000','HURUF : KATA : KALIMAT = DETIK : MENIT : ...','Hari','Jam','Minggu','Sekon','Waktu','B','Satuan makin besar; analog satuan waktu: detik<menit<jam.','medium'),
+('b0000000-0000-4000-8000-060500000000','ANAK : REMAJA : DEWASA = BENIH : TUNAS : ...','Biji','Daun','Akar','Bunga','Pohon','E','Tahap tumbuh manusia; analog tahap tumbuh tumbuhan: benih->tunas->pohon.','medium'),
+('b0000000-0000-4000-8000-060500000000','GELAP : REMANG : TERANG = SUNYI : PELAN : ...','Sepi','Bising','Senyap','Lirih','Diam','B','Tingkat cahaya menaik; analog tingkat bunyi: sunyi<pelan<bising.','hard'),
+('b0000000-0000-4000-8000-060500000000','LAYU : KERING : MATI = RETAK : PECAH : ...','Utuh','Kokoh','Hancur','Rekat','Belah','C','Tahap kerusakan makin parah; analog: retak->pecah->hancur.','medium'),
+('b0000000-0000-4000-8000-060500000000','MILIMETER : SENTIMETER : METER = GRAM : ONS : ...','Kilogram','Ton','Miligram','Liter','Meter','A','Satuan panjang membesar; analog satuan massa: gram<ons<kilogram.','medium'),
+('b0000000-0000-4000-8000-060500000000','PRAJURIT : PERWIRA : JENDERAL = KARYAWAN : MANAJER : ...','Pegawai','Buruh','Staf','Direktur','Bawahan','D','Jenjang pangkat menaik; analog jenjang jabatan: karyawan<manajer<direktur.','hard'),
+('b0000000-0000-4000-8000-060500000000','PAGI : SIANG : MALAM = SARAPAN : MAKAN SIANG : ...','Camilan','Bekal','Sarapan','Puasa','Makan malam','E','Urutan waktu makan sesuai waktu hari: sarapan(pagi), makan siang(siang), makan malam(malam).','medium'),
+('b0000000-0000-4000-8000-060500000000','MENIT : JAM : HARI = HALAMAN : BAB : ...','Kata','Buku','Kalimat','Judul','Kertas','B','Satuan makin besar; analog susunan buku: halaman<bab<buku.','medium'),
+('b0000000-0000-4000-8000-060500000000','CAIR : KENTAL : PADAT = RINGAN : SEDANG : ...','Enteng','Ringkih','Berat','Tipis','Kecil','C','Tiga tingkat kekentalan; analog tingkat bobot: ringan<sedang<berat.','hard'),
+('b0000000-0000-4000-8000-060500000000','KUNCUP : MEKAR : LAYU = MENTAH : MATANG : ...','Segar','Busuk','Masak','Muda','Ranum','B','Daur bunga (kuncup->mekar->layu); analog daur buah: mentah->matang->busuk.','hard'),
+('b0000000-0000-4000-8000-060500000000','SETETES : SEGELAS : SEEMBER = SEBUTIR : SEPIRING : ...','Sesendok','Segelas','Setetes','Sekarung','Sekilo','D','Kuantitas membesar; analog: sebutir<sepiring<sekarung.','hard'),
+('b0000000-0000-4000-8000-060500000000','DINGIN : BEKU : ES = PANAS : DIDIH : ...','Air','Uap','Api','Asap','Cair','B','Air didinginkan (dingin->beku->es); dipanaskan: panas->didih->uap.','hard'),
+('b0000000-0000-4000-8000-060500000000','SEL : JARINGAN : ORGAN = PRAJURIT : REGU : ...','Tentara','Senjata','Perang','Komandan','Pasukan','E','Susunan makin besar (biologi); analog militer: prajurit<regu<pasukan.','hard'),
+('b0000000-0000-4000-8000-060500000000','GERIMIS : HUJAN : BANJIR = PERCIKAN : NYALA : ...','Asap','Bara','Kebakaran','Abu','Panas','C','Air meningkat hingga bencana (gerimis->hujan->banjir); api: percikan->nyala->kebakaran.','hard'),
+('b0000000-0000-4000-8000-060500000000','RAGU : CEMAS : PANIK = SUKA : SAYANG : ...','Benci','Cinta','Rindu','Peduli','Kagum','B','Intensitas kekhawatiran menaik; analog intensitas kasih: suka<sayang<cinta.','hard'),
 
 -- ============================ PENARIKAN KESIMPULAN (paragraf informatif -> PASTI BENAR/SALAH) ============================
 ('b0000000-0000-4000-8000-060400000000','Koperasi Sejahtera hanya menerima anggota yang berusia minimal 17 tahun. Setiap anggota wajib menabung setiap bulan. Anggota yang menabung rutin selama satu tahun berhak mengajukan pinjaman. Tahun ini Rani baru saja diterima sebagai anggota koperasi tersebut.

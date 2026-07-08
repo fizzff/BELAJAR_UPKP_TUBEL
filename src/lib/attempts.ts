@@ -66,6 +66,18 @@ export async function availableUnseen(
   return pool;
 }
 
+// Himpunan id soal yang sudah pernah muncul di jenis tes ini untuk user aktif
+// (kosong bila belum login / saat build). Dipakai penyusun paket berkomposisi
+// tetap agar bisa memilih soal belum-terlihat per kelompok.
+export async function getSeenIds(
+  supabase: SupabaseClient,
+  testType: TestType
+): Promise<Set<string>> {
+  const userId = await currentUserId(supabase);
+  if (!userId) return new Set();
+  return seenQuestionIds(supabase, userId, testType);
+}
+
 // --------------------------------------------------------- Baca riwayat/kunci
 
 export async function getUserAttempts(): Promise<Attempt[]> {

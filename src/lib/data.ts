@@ -1,6 +1,6 @@
 import { createServerSupabase } from "@/lib/supabase/server";
 import { seededShuffle, shuffle } from "@/lib/quiz";
-import { availableUnseen } from "@/lib/attempts";
+import { availableUnseen, getSeenIds } from "@/lib/attempts";
 import { QuestMission, dailyQuestSeed } from "@/lib/gamification";
 import { Chapter, Content, Module, Question, TPA_MODULE_ID } from "@/lib/types";
 
@@ -130,7 +130,7 @@ export const TPA_TRYOUT_SUBTESTS: Record<
   TpaTryoutSubtest,
   { label: string; codePrefixes: string[]; duration: number }
 > = {
-  verbal: { label: "Verbal", codePrefixes: ["A", "B", "C", "D"], duration: 45 },
+  verbal: { label: "Verbal", codePrefixes: ["A", "C", "D"], duration: 45 },
   numerikal: { label: "Numerikal", codePrefixes: ["E"], duration: 45 },
   figural: { label: "Figural", codePrefixes: ["F"], duration: 30 },
 };
@@ -179,39 +179,104 @@ async function getTpaSubtestPool(
   return { pool: data ?? [], order };
 }
 
-// Urutan tampil tipe soal Figural (semua berada dalam satu bab), diambil dari
-// prefiks nama berkas gambar: q=Deret, a=Analogi, m=Matriks, r=Rotasi,
-// c=Pencerminan, o=Berbeda, s=Bayangan.
-const FIGURAL_TYPE_ORDER: Record<string, number> = {
-  q: 1, a: 2, m: 3, r: 4, c: 5, o: 6, s: 7,
-};
-function figuralTypeRank(q: Question): number {
-  const m = q.question.match(/\/figural\/([a-z])/);
-  return m ? FIGURAL_TYPE_ORDER[m[1]] ?? 99 : 99;
+// ---------- Penyusunan paket Try Out TPA berkomposisi tetap (pola KLC) ----------
+// Id bab TPA (tetap) untuk klasifikasi soal ke dalam kelompok komposisi.
+const TPA_CH = {
+  sinonim: "b0000000-0000-4000-8000-060100000000",
+  wacana: "b0000000-0000-4000-8000-060300000000",
+  penalaran: "b0000000-0000-4000-8000-060400000000",
+  analogi: "b0000000-0000-4000-8000-060500000000",
+  logika: "b0000000-0000-4000-8000-060600000000",
+  deret: "b0000000-0000-4000-8000-061400000000",
+} as const;
+
+// Prefiks berkas gambar Figural -> tipe soal (o=Berbeda, m=Matriks, sisanya "sesuai").
+function figuralLetter(q: Question): string {
+  return q.question.match(/\/figural\/([a-z])/)?.[1] ?? "";
+}
+// Banyak " : " pada soal analogi: 2 -> analogi 2-kata, >=4 -> analogi 3-kata.
+function analogiColons(q: Question): number {
+  return (q.question.match(/ : /g) ?? []).length;
+}
+// Ambang panjang teks (karakter) soal numerik: singkat vs kalimat panjang.
+const NUM_SHORT_MAX = 85;
+// Kunci pengelompokan set utuh (1 bacaan / 1 teka-teki): teks pengantar+bacaan
+// yang identik untuk semua soal dalam satu set (bagian sebelum "\n\n" terakhir).
+function passageKey(q: Question): string {
+  const i = q.question.lastIndexOf("\n\n");
+  return i > 0 ? q.question.slice(0, i) : q.question;
 }
 
-// Setiap nomor paket selalu menghasilkan komposisi soal yang sama (deterministik),
-// sama seperti Try Out Substansi. Karena bank soal per subtes masih terbatas,
-// antar-paket bisa banyak beririsan soalnya — urutan & kombinasinya tetap beda-beda.
+interface TpaGroup {
+  count: number;
+  match: (q: Question) => boolean;
+  sets?: number; // bila diisi: ambil N set utuh; tiap set menyumbang count/N soal
+}
+
+// Komposisi & urutan tampil tiap subtes (total 40 soal), meniru struktur KLC.
+const TPA_BLUEPRINT: Record<TpaTryoutSubtest, TpaGroup[]> = {
+  verbal: [
+    { count: 6, match: (q) => q.chapter_id === TPA_CH.analogi && analogiColons(q) < 4 },
+    { count: 4, match: (q) => q.chapter_id === TPA_CH.analogi && analogiColons(q) >= 4 },
+    { count: 10, match: (q) => q.chapter_id === TPA_CH.sinonim },
+    { count: 5, match: (q) => q.chapter_id === TPA_CH.penalaran },
+    { count: 5, sets: 1, match: (q) => q.chapter_id === TPA_CH.logika },
+    { count: 10, sets: 2, match: (q) => q.chapter_id === TPA_CH.wacana },
+  ],
+  numerikal: [
+    { count: 10, match: (q) => q.chapter_id !== TPA_CH.deret && q.question.length <= NUM_SHORT_MAX },
+    { count: 10, match: (q) => q.chapter_id === TPA_CH.deret },
+    { count: 20, match: (q) => q.chapter_id !== TPA_CH.deret && q.question.length > NUM_SHORT_MAX },
+  ],
+  figural: [
+    { count: 11, match: (q) => figuralLetter(q) === "o" },
+    { count: 18, match: (q) => ["q", "a", "r", "c", "s"].includes(figuralLetter(q)) },
+    { count: 11, match: (q) => figuralLetter(q) === "m" },
+  ],
+};
+
+// Ambil satu kelompok: utamakan soal belum-terlihat; bila stok kurang, boleh
+// mengulang. Untuk kelompok "sets" (wacana/logika), pilih set UTUH agar bacaan/
+// ketentuan tidak terpotong.
+function pickTpaGroup(g: TpaGroup, pool: Question[], seen: Set<string>, seed: number): Question[] {
+  const groupPool = pool.filter(g.match);
+  if (g.sets && g.sets > 0) {
+    const map = new Map<string, Question[]>();
+    for (const q of groupPool) {
+      const k = passageKey(q);
+      const arr = map.get(k);
+      if (arr) arr.push(q);
+      else map.set(k, [q]);
+    }
+    const allSets = [...map.values()].map((qs) =>
+      qs.slice().sort((a, b) => a.id.localeCompare(b.id))
+    );
+    const unseenSets = allSets.filter((qs) => qs.every((q) => !seen.has(q.id)));
+    const source = unseenSets.length >= g.sets ? unseenSets : allSets;
+    return seededShuffle(source, seed).slice(0, g.sets).flat();
+  }
+  const unseen = groupPool.filter((q) => !seen.has(q.id));
+  const source = unseen.length >= g.count ? unseen : groupPool;
+  return seededShuffle(source, seed).slice(0, g.count);
+}
+
+// Menyusun satu paket Try Out TPA: tiap kelompok diambil sesuai jumlahnya dan
+// ditampilkan berurutan mengikuti urutan kelompok (pola KLC). Soal yang sudah
+// pernah muncul dihindari selama stok kelompok masih cukup.
 export async function getTpaTryoutQuestions(
   subtest: TpaTryoutSubtest,
   paketNumber: number
 ): Promise<Question[]> {
   const supabase = await createServerSupabase();
   const { codePrefixes } = TPA_TRYOUT_SUBTESTS[subtest];
-  const { pool, order } = await getTpaSubtestPool(codePrefixes);
-  const avail = await availableUnseen(supabase, "tryout", pool, TPA_TRYOUT_SIZE);
-  const seed = paketNumber + TPA_SUBTEST_SEED_OFFSET[subtest];
-  const chosen = seededShuffle(avail, seed).slice(0, TPA_TRYOUT_SIZE);
-  // Susun mengikuti urutan kategori KLC: kelompokkan per bab (order_index) untuk
-  // Verbal & Numerikal, atau per tipe gambar untuk Figural. Acakan dipertahankan
-  // di dalam tiap kelompok (stabil).
-  const rankOf = (q: Question) =>
-    subtest === "figural" ? figuralTypeRank(q) : order.get(q.chapter_id ?? "") ?? 999;
-  return chosen
-    .map((q, i) => ({ q, i }))
-    .sort((x, y) => rankOf(x.q) - rankOf(y.q) || x.i - y.i)
-    .map((x) => x.q);
+  const { pool } = await getTpaSubtestPool(codePrefixes);
+  const seen = await getSeenIds(supabase, "tryout");
+  const baseSeed = paketNumber + TPA_SUBTEST_SEED_OFFSET[subtest];
+  const result: Question[] = [];
+  TPA_BLUEPRINT[subtest].forEach((g, i) => {
+    result.push(...pickTpaGroup(g, pool, seen, baseSeed + i * 101));
+  });
+  return result;
 }
 
 export type MiniQuizKind = "tskwk" | "tpa";
