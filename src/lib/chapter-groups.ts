@@ -21,7 +21,7 @@ export function groupChapters(modules: Module[], chapters: Chapter[]): ChapterGr
   // Modul TPA dipecah berdasarkan kode bab.
   const tpa = inModule(TPA_MODULE_ID);
   if (tpa.length) {
-    const verbal = tpa.filter((c) => ["A", "B", "C", "D", "AN"].includes(c.code ?? ""));
+    const verbal = tpa.filter((c) => ["A", "B", "C", "D", "AN", "DL"].includes(c.code ?? ""));
     const numerik = tpa.filter((c) => (c.code ?? "").startsWith("E"));
     const figural = tpa.filter((c) => c.code === "F");
     if (verbal.length) groups.push({ label: "TPA — Verbal", chapters: verbal });

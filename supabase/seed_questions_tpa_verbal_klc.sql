@@ -7,7 +7,8 @@ delete from questions where chapter_id in (
   'b0000000-0000-4000-8000-060100000000', -- Sinonim
   'b0000000-0000-4000-8000-060200000000', -- Antonim
   'b0000000-0000-4000-8000-060500000000', -- Analogi
-  'b0000000-0000-4000-8000-060400000000', -- Silogisme & Penalaran
+  'b0000000-0000-4000-8000-060400000000', -- Penarikan Kesimpulan
+  'b0000000-0000-4000-8000-060600000000', -- Logika Posisi
   'b0000000-0000-4000-8000-060300000000'  -- Wacana
 );
 
@@ -66,6 +67,9 @@ insert into questions (chapter_id, question, option_a, option_b, option_c, optio
 ('b0000000-0000-4000-8000-060400000000','Semua pohon mangga berbuah. Sebagian pohon di kebun itu adalah pohon mangga. Maka...','Semua pohon di kebun berbuah','Sebagian pohon di kebun itu berbuah','Tidak ada pohon yang berbuah','Semua pohon adalah mangga','Kebun itu tidak berbuah',null,'B','Sebagian pohon di kebun adalah mangga, dan semua mangga berbuah.','medium'),
 ('b0000000-0000-4000-8000-060400000000','Semua peserta wajib memakai seragam. Doni tidak memakai seragam. Maka...','Doni adalah peserta','Doni bukan peserta','Doni memakai seragam','Sebagian peserta tanpa seragam','Doni datang terlambat',null,'B','Jika semua peserta berseragam dan Doni tidak, maka Doni bukan peserta.','medium'),
 ('b0000000-0000-4000-8000-060400000000','Semua siswa kelas A lulus ujian. Bima adalah siswa kelas A. Maka...','Bima tidak lulus','Bima lulus ujian','Sebagian kelas A tidak lulus','Bima bukan siswa','Bima mengulang ujian',null,'B','Bima siswa kelas A, sedangkan semua siswa kelas A lulus; maka Bima lulus.','easy'),
+('b0000000-0000-4000-8000-060400000000','Semua pegawai yang disiplin mendapat penghargaan. Sebagian pegawai yang disiplin adalah lulusan terbaik. Simpulan yang tepat adalah...','Semua lulusan terbaik disiplin','Sebagian lulusan terbaik mendapat penghargaan','Tidak ada lulusan terbaik yang disiplin','Semua yang mendapat penghargaan adalah lulusan terbaik','Semua pegawai mendapat penghargaan',null,'B','Sebagian lulusan terbaik adalah pegawai disiplin, dan semua pegawai disiplin mendapat penghargaan; maka sebagian lulusan terbaik mendapat penghargaan.','hard'),
+('b0000000-0000-4000-8000-060400000000','Tidak ada tumbuhan yang dapat berpindah tempat dengan sendirinya. Semua mawar adalah tumbuhan. Maka...','Semua mawar dapat berpindah tempat','Mawar bukan tumbuhan','Tidak ada mawar yang dapat berpindah tempat dengan sendirinya','Sebagian tumbuhan dapat berpindah tempat','Mawar termasuk hewan',null,'C','Mawar adalah tumbuhan, sedangkan tidak ada tumbuhan yang dapat berpindah sendiri; maka tidak ada mawar yang dapat berpindah sendiri.','medium'),
+('b0000000-0000-4000-8000-060400000000','Jika seseorang begadang, ia mengantuk keesokan harinya. Rudi tidak mengantuk hari ini. Maka...','Rudi begadang tadi malam','Rudi tidak begadang tadi malam','Rudi selalu mengantuk','Rudi tidur siang','Tidak dapat disimpulkan apa pun',null,'B','Modus tollens: karena akibat (mengantuk) tidak terjadi, sebab (begadang) juga tidak terjadi.','hard'),
 
 -- ============================ WACANA (1 bacaan = 5 soal) ============================
 -- --- BACAAN 1 ---
@@ -147,5 +151,105 @@ Pernyataan yang TIDAK SESUAI dengan bacaan adalah...','Ketersediaan air bersih s
 
 Air bersih merupakan kebutuhan pokok yang tidak tergantikan. Meski permukaan bumi didominasi air, hanya sebagian kecil yang layak dikonsumsi manusia. Pertumbuhan penduduk dan pencemaran membuat ketersediaan air bersih semakin menipis di banyak wilayah. Kebiasaan membuang limbah ke sungai memperparah keadaan, sebab sungai yang tercemar sulit dipulihkan dalam waktu singkat. Menghemat air dan menjaga sumbernya karena itu menjadi tanggung jawab bersama. Langkah sederhana seperti menutup keran saat tidak digunakan, menampung air hujan, dan tidak membuang sampah ke saluran air dapat memberi dampak besar bila dilakukan banyak orang. Melestarikan air pada hakikatnya adalah menjaga keberlangsungan hidup itu sendiri.
 
-Simpulan yang tepat dari bacaan tersebut adalah...','Air bersih tidak perlu dihemat','Menjaga dan menghemat air bersih penting demi keberlangsungan hidup dan menjadi tanggung jawab bersama','Sampah boleh dibuang ke saluran air','Air bersih tersedia tanpa batas','Hanya pemerintah yang wajib menjaga air',null,'B','Simpulan bacaan: menjaga dan menghemat air adalah tanggung jawab bersama demi keberlangsungan hidup.','medium')
+Simpulan yang tepat dari bacaan tersebut adalah...','Air bersih tidak perlu dihemat','Menjaga dan menghemat air bersih penting demi keberlangsungan hidup dan menjadi tanggung jawab bersama','Sampah boleh dibuang ke saluran air','Air bersih tersedia tanpa batas','Hanya pemerintah yang wajib menjaga air',null,'B','Simpulan bacaan: menjaga dan menghemat air adalah tanggung jawab bersama demi keberlangsungan hidup.','medium'),
+
+-- ============================ LOGIKA POSISI (2 teka-teki = 10 soal) ============================
+-- --- TEKA-TEKI 1: tempat duduk (urutan benar: R, Q, U, S, T, P) ---
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Enam orang — P, Q, R, S, T, dan U — duduk berjajar menghadap ke depan pada posisi ke-1 (paling kiri) sampai ke-6 (paling kanan) dengan ketentuan:
+- R duduk di posisi paling kiri.
+- Q duduk tepat di sebelah kanan R.
+- T duduk di posisi ke-5.
+- U duduk tepat di sebelah kiri S.
+- S berada di antara Q dan T.
+
+Orang yang duduk di posisi ke-4 adalah...','P','S','U','Q','T',null,'B','Urutan yang memenuhi semua ketentuan: R, Q, U, S, T, P. Posisi ke-4 ditempati S.','hard'),
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Enam orang — P, Q, R, S, T, dan U — duduk berjajar menghadap ke depan pada posisi ke-1 (paling kiri) sampai ke-6 (paling kanan) dengan ketentuan:
+- R duduk di posisi paling kiri.
+- Q duduk tepat di sebelah kanan R.
+- T duduk di posisi ke-5.
+- U duduk tepat di sebelah kiri S.
+- S berada di antara Q dan T.
+
+Orang yang duduk di ujung paling kanan (posisi ke-6) adalah...','U','S','P','T','Q',null,'C','Urutan: R, Q, U, S, T, P. Posisi ke-6 (paling kanan) ditempati P.','hard'),
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Enam orang — P, Q, R, S, T, dan U — duduk berjajar menghadap ke depan pada posisi ke-1 (paling kiri) sampai ke-6 (paling kanan) dengan ketentuan:
+- R duduk di posisi paling kiri.
+- Q duduk tepat di sebelah kanan R.
+- T duduk di posisi ke-5.
+- U duduk tepat di sebelah kiri S.
+- S berada di antara Q dan T.
+
+Orang yang duduk tepat di antara U dan T adalah...','Q','P','R','S','U',null,'D','Urutan: R, Q, U, S, T, P. Di antara U (posisi 3) dan T (posisi 5) terdapat S (posisi 4).','hard'),
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Enam orang — P, Q, R, S, T, dan U — duduk berjajar menghadap ke depan pada posisi ke-1 (paling kiri) sampai ke-6 (paling kanan) dengan ketentuan:
+- R duduk di posisi paling kiri.
+- Q duduk tepat di sebelah kanan R.
+- T duduk di posisi ke-5.
+- U duduk tepat di sebelah kiri S.
+- S berada di antara Q dan T.
+
+Posisi yang ditempati U adalah...','Posisi ke-2','Posisi ke-3','Posisi ke-4','Posisi ke-5','Posisi ke-6',null,'B','Urutan: R, Q, U, S, T, P. U menempati posisi ke-3.','hard'),
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Enam orang — P, Q, R, S, T, dan U — duduk berjajar menghadap ke depan pada posisi ke-1 (paling kiri) sampai ke-6 (paling kanan) dengan ketentuan:
+- R duduk di posisi paling kiri.
+- Q duduk tepat di sebelah kanan R.
+- T duduk di posisi ke-5.
+- U duduk tepat di sebelah kiri S.
+- S berada di antara Q dan T.
+
+Pernyataan yang BENAR adalah...','Q duduk di posisi ke-3','S duduk di sebelah kiri U','P duduk di posisi paling kanan','T duduk di posisi ke-4','R duduk di posisi ke-2',null,'C','Urutan: R, Q, U, S, T, P. Maka P duduk di posisi paling kanan (ke-6).','hard'),
+
+-- --- TEKA-TEKI 2: tinggi badan (urutan tertinggi->terpendek: Doni, Andi, Budi, Cici, Eka) ---
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Lima siswa — Andi, Budi, Cici, Doni, dan Eka — dibandingkan tinggi badannya dengan ketentuan:
+- Andi lebih tinggi daripada Budi.
+- Cici lebih pendek daripada Budi.
+- Doni lebih tinggi daripada Andi.
+- Eka lebih pendek daripada Cici.
+
+Siswa yang paling tinggi adalah...','Andi','Budi','Cici','Doni','Eka',null,'D','Urutan tertinggi ke terpendek: Doni, Andi, Budi, Cici, Eka. Yang tertinggi adalah Doni.','medium'),
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Lima siswa — Andi, Budi, Cici, Doni, dan Eka — dibandingkan tinggi badannya dengan ketentuan:
+- Andi lebih tinggi daripada Budi.
+- Cici lebih pendek daripada Budi.
+- Doni lebih tinggi daripada Andi.
+- Eka lebih pendek daripada Cici.
+
+Siswa yang paling pendek adalah...','Andi','Budi','Cici','Doni','Eka',null,'E','Urutan: Doni, Andi, Budi, Cici, Eka. Yang paling pendek adalah Eka.','medium'),
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Lima siswa — Andi, Budi, Cici, Doni, dan Eka — dibandingkan tinggi badannya dengan ketentuan:
+- Andi lebih tinggi daripada Budi.
+- Cici lebih pendek daripada Budi.
+- Doni lebih tinggi daripada Andi.
+- Eka lebih pendek daripada Cici.
+
+Siswa yang lebih tinggi daripada Budi tetapi lebih pendek daripada Doni adalah...','Andi','Budi','Cici','Eka','Doni',null,'A','Urutan: Doni, Andi, Budi, Cici, Eka. Yang berada di antara Doni dan Budi adalah Andi.','hard'),
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Lima siswa — Andi, Budi, Cici, Doni, dan Eka — dibandingkan tinggi badannya dengan ketentuan:
+- Andi lebih tinggi daripada Budi.
+- Cici lebih pendek daripada Budi.
+- Doni lebih tinggi daripada Andi.
+- Eka lebih pendek daripada Cici.
+
+Urutan siswa dari yang tertinggi ke terpendek adalah...','Doni, Andi, Budi, Cici, Eka','Andi, Doni, Budi, Cici, Eka','Doni, Budi, Andi, Cici, Eka','Eka, Cici, Budi, Andi, Doni','Doni, Andi, Cici, Budi, Eka',null,'A','Dari ketentuan diperoleh Doni > Andi > Budi > Cici > Eka.','hard'),
+('b0000000-0000-4000-8000-060600000000','Bacalah ketentuan berikut untuk menjawab soal.
+
+Lima siswa — Andi, Budi, Cici, Doni, dan Eka — dibandingkan tinggi badannya dengan ketentuan:
+- Andi lebih tinggi daripada Budi.
+- Cici lebih pendek daripada Budi.
+- Doni lebih tinggi daripada Andi.
+- Eka lebih pendek daripada Cici.
+
+Pernyataan yang BENAR adalah...','Budi lebih tinggi daripada Andi','Cici lebih tinggi daripada Eka','Eka lebih tinggi daripada Cici','Budi adalah yang paling pendek','Andi lebih tinggi daripada Doni',null,'B','Urutan: Doni, Andi, Budi, Cici, Eka. Maka Cici lebih tinggi daripada Eka.','medium')
 ;
