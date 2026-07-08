@@ -191,8 +191,11 @@ const TPA_CH = {
 } as const;
 
 // Prefiks berkas gambar Figural -> tipe soal (o=Berbeda, m=Matriks, sisanya "sesuai").
+// Diambil dari pilihan A karena soal tipe "berbeda" (odd) tidak memuat gambar pada
+// teks soal (gambarnya hanya ada di pilihan), sedangkan pilihan A selalu ada.
 function figuralLetter(q: Question): string {
-  return q.question.match(/\/figural\/([a-z])/)?.[1] ?? "";
+  const src = `${q.option_a ?? ""} ${q.question}`;
+  return src.match(/\/figural\/([a-z])/)?.[1] ?? "";
 }
 // Banyak " : " pada soal analogi: 2 -> analogi 2-kata, >=4 -> analogi 3-kata.
 function analogiColons(q: Question): number {
