@@ -94,6 +94,39 @@ Berdasarkan informasi di atas, manakah pernyataan berikut yang PASTI BENAR?','Be
 
 Berdasarkan informasi di atas, manakah pernyataan berikut yang PASTI SALAH?','Kantin masih menjual gorengan','Kantin tidak menjual minuman bersoda','Pembayaran di kantin dilakukan secara nontunai','Kantin menjual makanan sehat','Minuman bersoda tidak tersedia di kantin',null,'A','Gorengan telah dihapus dari menu sejak tahun lalu, sehingga pernyataan kantin masih menjual gorengan pasti salah.','easy'),
 
+-- --- MEMPERKUAT argumen ---
+('b0000000-0000-4000-8000-060400000000','Sebuah sekolah menerapkan program membaca 15 menit setiap pagi. Setelah satu semester, nilai rata-rata ujian bahasa siswa meningkat. Kepala sekolah menyimpulkan bahwa program membaca pagi itulah yang meningkatkan nilai bahasa siswa.
+
+Manakah pernyataan berikut yang MEMPERKUAT kesimpulan kepala sekolah?','Sekolah lain yang tidak menerapkan program membaca pagi tidak mengalami kenaikan nilai bahasa pada periode yang sama','Nilai ujian matematika siswa juga meningkat pada semester itu','Sebagian siswa mengaku tidak menyukai program membaca pagi','Program membaca pagi hanya berlangsung selama 15 menit','Guru bahasa mengganti metode mengajarnya pada semester yang sama',null,'A','Fakta bahwa sekolah tanpa program itu tidak naik nilainya menyingkirkan penjelasan lain, sehingga memperkuat bahwa program membacalah penyebab kenaikan. Opsi tentang guru mengganti metode justru melemahkan.','hard'),
+('b0000000-0000-4000-8000-060400000000','Perusahaan meyakini bahwa memberi karyawan waktu istirahat yang lebih panjang akan meningkatkan produktivitas kerja. Karena itu, perusahaan berencana menambah jam istirahat siang.
+
+Manakah pernyataan berikut yang MEMPERKUAT keyakinan perusahaan?','Penelitian menunjukkan karyawan yang cukup beristirahat membuat lebih sedikit kesalahan dan bekerja lebih cepat','Menambah jam istirahat akan mengurangi jam kerja efektif','Sebagian karyawan lebih suka pulang lebih awal','Ruang istirahat perusahaan berukuran kecil','Produktivitas dipengaruhi oleh banyak faktor',null,'A','Bukti bahwa istirahat cukup menurunkan kesalahan dan mempercepat kerja mendukung langsung keyakinan bahwa istirahat lebih panjang meningkatkan produktivitas.','medium'),
+('b0000000-0000-4000-8000-060400000000','Pemerintah kota membangun jalur sepeda baru dengan tujuan mengurangi kemacetan. Mereka yakin semakin banyak warga bersepeda, semakin sedikit kendaraan bermotor di jalan.
+
+Manakah pernyataan berikut yang MEMPERKUAT keyakinan pemerintah kota?','Setelah jalur sepeda dibangun, jumlah warga yang beralih dari mobil ke sepeda untuk bekerja meningkat tajam','Pembangunan jalur sepeda menghabiskan anggaran yang cukup besar','Sebagian warga menganggap bersepeda cukup melelahkan','Kota tersebut memiliki banyak taman kota','Harga sepeda di pasaran semakin mahal',null,'A','Meningkatnya warga yang berpindah dari mobil ke sepeda menunjukkan berkurangnya kendaraan bermotor, sehingga memperkuat keyakinan pemerintah.','medium'),
+
+-- --- MEMPERLEMAH argumen ---
+('b0000000-0000-4000-8000-060400000000','Sebuah iklan menyatakan bahwa pasta gigi merek X paling ampuh mencegah gigi berlubang karena mengandung fluoride. Iklan itu menyimpulkan merek X lebih baik daripada merek lain.
+
+Manakah pernyataan berikut yang MEMPERLEMAH kesimpulan iklan tersebut?','Hampir semua pasta gigi merek lain juga mengandung fluoride dengan kadar yang sama','Merek X dijual dengan harga yang terjangkau','Banyak orang sudah menggunakan pasta gigi merek X','Fluoride memang terbukti membantu mencegah gigi berlubang','Merek X tersedia di hampir semua toko',null,'A','Jika merek lain juga mengandung fluoride berkadar sama, keunggulan yang diklaim merek X hilang; ini melemahkan kesimpulan bahwa X lebih baik.','hard'),
+('b0000000-0000-4000-8000-060400000000','Seorang pelatih berpendapat bahwa tim yang berlatih paling lama pasti memenangkan pertandingan. Ia menunjuk timnya yang berlatih enam jam sehari sebagai calon juara.
+
+Manakah pernyataan berikut yang MEMPERLEMAH pendapat pelatih?','Juara musim lalu adalah tim yang hanya berlatih tiga jam sehari namun dengan metode yang efektif','Tim pelatih memiliki lapangan latihan yang luas','Berlatih lebih lama membuat pemain semakin terbiasa','Tim pelatih memiliki banyak pendukung setia','Pertandingan akan diadakan bulan depan',null,'A','Contoh juara yang justru berlatih lebih singkat membantah klaim bahwa durasi latihan terlama pasti menang, sehingga melemahkan pendapat pelatih.','hard'),
+('b0000000-0000-4000-8000-060400000000','Seorang pakar menyatakan bahwa kenaikan harga beras dua kali lipat pasti menurunkan daya beli seluruh masyarakat terhadap beras.
+
+Manakah pernyataan berikut yang MEMPERLEMAH pendapat pakar tersebut?','Sebagian besar masyarakat di daerah itu menanam padi sendiri sehingga tidak bergantung pada harga beras di pasar','Harga beras memang naik cukup tajam pada tahun ini','Beras merupakan makanan pokok bagi masyarakat','Kenaikan harga beras membuat sebagian pedagang memperoleh keuntungan','Masyarakat mulai mengurangi jumlah konsumsi berasnya',null,'A','Jika sebagian besar masyarakat menanam padi sendiri, daya beli mereka terhadap beras di pasar tidak terpengaruh; ini membantah kata "seluruh masyarakat" dan melemahkan pendapat pakar.','hard'),
+
+-- --- ASUMSI yang mendasari ---
+('b0000000-0000-4000-8000-060400000000','Sebuah restoran memutuskan menambah jumlah kursi dengan harapan pendapatannya meningkat.
+
+Manakah pernyataan berikut yang merupakan ASUMSI yang mendasari keputusan restoran?','Selama ini ada calon pelanggan yang tidak jadi makan karena kehabisan tempat duduk','Restoran akan mengganti seluruh menu makanannya','Restoran memiliki banyak pesaing di sekitarnya','Harga makanan di restoran akan dinaikkan','Restoran perlu menambah jumlah karyawan',null,'A','Menambah kursi hanya menaikkan pendapatan bila memang ada permintaan yang selama ini tertolak karena kehabisan tempat; itulah asumsi yang mendasari keputusan.','hard'),
+('b0000000-0000-4000-8000-060400000000','Sebuah aplikasi belajar daring menambahkan fitur kuis harian dengan harapan pengguna semakin sering membuka aplikasi.
+
+Manakah pernyataan berikut yang merupakan ASUMSI yang mendasari langkah tersebut?','Pengguna tertarik untuk mengerjakan kuis harian','Aplikasi belajar tersebut merupakan aplikasi berbayar','Kuis harian dirancang dengan tingkat kesulitan tinggi','Pengguna selama ini tidak pernah membuka aplikasi','Fitur kuis harian menghabiskan banyak kuota data',null,'A','Langkah itu hanya berhasil jika pengguna memang tertarik mengerjakan kuis; ketertarikan itu adalah asumsi yang belum dinyatakan namun mendasari keputusan.','medium'),
+('b0000000-0000-4000-8000-060400000000','Sebuah toko memutuskan mulai berjualan melalui media sosial agar produknya dikenal oleh lebih banyak orang.
+
+Manakah pernyataan berikut yang merupakan ASUMSI yang mendasari keputusan toko?','Banyak calon pembeli yang aktif menggunakan media sosial','Toko tersebut akan tutup jika tidak berjualan secara daring','Produk yang dijual toko berkualitas tinggi','Media sosial dapat digunakan tanpa biaya','Toko pesaing juga sudah berjualan lewat media sosial',null,'A','Berjualan lewat media sosial hanya memperluas jangkauan bila calon pembeli memang aktif di media sosial; itulah asumsi yang mendasarinya.','medium'),
+
 -- ============================ WACANA (1 bacaan = 5 soal) ============================
 -- --- BACAAN 1 ---
 ('b0000000-0000-4000-8000-060300000000','Bacalah bacaan berikut untuk menjawab soal.

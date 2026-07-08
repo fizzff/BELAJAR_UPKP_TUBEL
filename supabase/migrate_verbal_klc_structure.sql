@@ -9,7 +9,7 @@ update chapters set code = 'A',  title = 'Sinonim (Padanan Kata)',        order_
   where id = 'b0000000-0000-4000-8000-060100000000';
 update chapters set code = 'B',  title = 'Antonim (Lawan Kata)',           order_index = 2
   where id = 'b0000000-0000-4000-8000-060200000000';
-update chapters set code = 'D',  title = 'Penarikan Kesimpulan',            order_index = 4
+update chapters set code = 'D',  title = 'Penalaran Analitis',               order_index = 4
   where id = 'b0000000-0000-4000-8000-060400000000';
 update chapters set code = 'C',  title = 'Pemahaman Wacana',               order_index = 6
   where id = 'b0000000-0000-4000-8000-060300000000';
