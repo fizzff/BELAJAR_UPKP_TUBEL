@@ -273,9 +273,29 @@ export async function getTpaTryoutQuestions(
   const seen = await getSeenIds(supabase, "tryout");
   const baseSeed = paketNumber + TPA_SUBTEST_SEED_OFFSET[subtest];
   const result: Question[] = [];
+  const used = new Set<string>();
+  const addUnique = (qs: Question[]) => {
+    for (const q of qs) {
+      if (!used.has(q.id)) {
+        used.add(q.id);
+        result.push(q);
+      }
+    }
+  };
   TPA_BLUEPRINT[subtest].forEach((g, i) => {
-    result.push(...pickTpaGroup(g, pool, seen, baseSeed + i * 101));
+    addUnique(pickTpaGroup(g, pool, seen, baseSeed + i * 101));
   });
+  // Pengaman: bila ada kelompok kekurangan stok (mis. bank kategori tertentu
+  // belum lengkap di database), tambal dari sisa pool agar paket tetap penuh.
+  if (result.length < TPA_TRYOUT_SIZE) {
+    const rest = pool.filter((q) => !used.has(q.id));
+    const restUnseen = rest.filter((q) => !seen.has(q.id));
+    const fillFrom = restUnseen.length >= TPA_TRYOUT_SIZE - result.length ? restUnseen : rest;
+    for (const q of seededShuffle(fillFrom, baseSeed + 9973)) {
+      if (result.length >= TPA_TRYOUT_SIZE) break;
+      addUnique([q]);
+    }
+  }
   return result;
 }
 
