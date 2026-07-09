@@ -62,6 +62,7 @@ export default async function TpaTryoutPaketSubtestPage({
       durationMinutes={duration}
       historyKind="tryout-tpa"
       attemptKey={`tryout-tpa-${paketNumber}-${subtest}`}
+      preserveOrder
     />
   );
 }

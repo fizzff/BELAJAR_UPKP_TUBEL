@@ -60,6 +60,7 @@ export function QuizRunner({
   durationMinutes,
   historyKind,
   attemptKey,
+  preserveOrder = false,
 }: {
   questions: Question[];
   title: string;
@@ -72,9 +73,15 @@ export function QuizRunner({
   historyKind?: QuizHistoryKind;
   /** Kalau diisi, hasil lengkap (pembahasan) disimpan permanen supaya bisa dicek lagi nanti. */
   attemptKey?: string;
+  /** Bila true, urutan soal dipertahankan apa adanya (mis. Try Out TPA yang
+   *  komposisi & urutannya sudah disusun mengikuti pola KLC). Default: diacak. */
+  preserveOrder?: boolean;
 }) {
   const router = useRouter();
-  const shuffled = useMemo(() => shuffle(questions), [questions]);
+  const shuffled = useMemo(
+    () => (preserveOrder ? questions : shuffle(questions)),
+    [questions, preserveOrder]
+  );
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Array<QuizOptionKey | null>>(() =>
     Array(shuffled.length).fill(null)
